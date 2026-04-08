@@ -1,4 +1,4 @@
-import { skills } from "@/data/resume";
+import { skills } from "@/data/skills";
 
 interface SkillsOutputProps {
   tree: boolean;

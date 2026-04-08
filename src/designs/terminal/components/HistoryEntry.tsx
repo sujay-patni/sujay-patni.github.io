@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { HistoryEntry as HistoryEntryType } from "@/types/terminal";
+import type { HistoryEntry as HistoryEntryType } from "../types/terminal";
 
 interface HistoryEntryProps {
   entry: HistoryEntryType;

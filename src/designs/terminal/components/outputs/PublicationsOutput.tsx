@@ -1,4 +1,4 @@
-import { publications } from "@/data/resume";
+import { publications } from "@/data/publications";
 
 export default function PublicationsOutput() {
   return (

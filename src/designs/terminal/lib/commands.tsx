@@ -32,16 +32,18 @@ export async function initCommands() {
     { default: SkillsOutput },
     { default: PublicationsOutput },
     { default: EducationOutput },
+    { default: ResumeOutput },
     { default: NotFoundOutput },
   ] = await Promise.all([
-    import("@/components/terminal/outputs/HelpOutput"),
-    import("@/components/terminal/outputs/WhoamiOutput"),
-    import("@/components/terminal/outputs/ExperienceOutput"),
-    import("@/components/terminal/outputs/ProjectsOutput"),
-    import("@/components/terminal/outputs/SkillsOutput"),
-    import("@/components/terminal/outputs/PublicationsOutput"),
-    import("@/components/terminal/outputs/EducationOutput"),
-    import("@/components/terminal/outputs/NotFoundOutput"),
+    import("../components/outputs/HelpOutput"),
+    import("../components/outputs/WhoamiOutput"),
+    import("../components/outputs/ExperienceOutput"),
+    import("../components/outputs/ProjectsOutput"),
+    import("../components/outputs/SkillsOutput"),
+    import("../components/outputs/PublicationsOutput"),
+    import("../components/outputs/EducationOutput"),
+    import("../components/outputs/ResumeOutput"),
+    import("../components/outputs/NotFoundOutput"),
   ]);
 
   register({
@@ -87,6 +89,12 @@ export async function initCommands() {
     aliases: ["edu"],
     description: "Academic background",
     run: () => <EducationOutput />,
+  });
+
+  register({
+    name: "resume",
+    description: "View or download resume PDF",
+    run: () => <ResumeOutput />,
   });
 
   // NotFoundOutput is not a command — stored separately for use in TerminalPage

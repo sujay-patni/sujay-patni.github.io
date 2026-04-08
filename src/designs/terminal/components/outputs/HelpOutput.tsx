@@ -6,6 +6,7 @@ const commands = [
   { name: "skills", desc: "Skill set  (--tree for ASCII tree view)" },
   { name: "publications", desc: "Research publications" },
   { name: "education", desc: "Academic background" },
+  { name: "resume", desc: "View or download resume PDF" },
   { name: "clear", desc: "Clear the terminal" },
 ];
 

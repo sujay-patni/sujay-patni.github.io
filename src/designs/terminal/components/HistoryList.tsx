@@ -1,4 +1,4 @@
-import type { HistoryEntry as HistoryEntryType } from "@/types/terminal";
+import type { HistoryEntry as HistoryEntryType } from "../types/terminal";
 import HistoryEntry from "./HistoryEntry";
 
 interface HistoryListProps {

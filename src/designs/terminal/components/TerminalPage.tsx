@@ -1,14 +1,18 @@
 "use client";
 
 import { useReducer, useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import type { TerminalState, TerminalAction } from "@/types/terminal";
-import { registry, initCommands, getCommandNames } from "@/lib/commands";
+import { motion, AnimatePresence } from "framer-motion";
+import type { TerminalState, TerminalAction } from "../types/terminal";
+import { registry, initCommands, getCommandNames } from "../lib/commands";
 import TerminalWindow from "./TerminalWindow";
 import TerminalBody from "./TerminalBody";
 import HistoryList from "./HistoryList";
 import PromptRow from "./PromptRow";
 import BootSequence from "./BootSequence";
+import WelcomeScreen from "./WelcomeScreen";
+import MotdHeader from "./MotdHeader";
+import TypewriterIntro from "./TypewriterIntro";
+import CommandChips from "./CommandChips";
 
 function terminalReducer(state: TerminalState, action: TerminalAction): TerminalState {
   switch (action.type) {
@@ -47,6 +51,7 @@ export default function TerminalPage() {
   const [state, dispatch] = useReducer(terminalReducer, initialState);
   const [inputValue, setInputValue] = useState("");
   const [commandsReady, setCommandsReady] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<{ focus: () => void } | null>(null);
 
@@ -91,34 +96,52 @@ export default function TerminalPage() {
     .map((e) => e.command);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-      className="flex-1 flex flex-col items-center justify-center p-4 min-h-0"
-    >
-      <TerminalWindow>
-        <TerminalBody bodyRef={bodyRef}>
-          {state.phase === "booting" && commandsReady && (
-            <BootSequence
-              onComplete={() => dispatch({ type: "BOOT_COMPLETE" })}
-            />
-          )}
-          {state.phase === "interactive" && (
-            <HistoryList entries={state.history} />
-          )}
-          {/* Spacer to push content up when history is short */}
-          <div className="flex-1" />
-        </TerminalBody>
-        <PromptRow
-          value={inputValue}
-          onChange={setInputValue}
-          onSubmit={handleCommand}
-          onTabComplete={tabComplete}
-          commandHistory={commandHistory}
-          disabled={state.phase === "booting"}
-        />
-      </TerminalWindow>
-    </motion.div>
+    <div className="flex-1 flex flex-col bg-zinc-950 text-zinc-100 font-mono overflow-hidden">
+      <AnimatePresence>
+        {showWelcome && (
+          <WelcomeScreen
+            key="welcome"
+            onComplete={() => setShowWelcome(false)}
+          />
+        )}
+      </AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: showWelcome ? 0 : 1, scale: showWelcome ? 0.98 : 1 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        className="flex-1 flex flex-col items-center justify-center p-2 min-h-0"
+      >
+        <TerminalWindow>
+          <MotdHeader />
+          <TerminalBody bodyRef={bodyRef}>
+            {state.phase === "booting" && commandsReady && (
+              <BootSequence
+                onComplete={() => dispatch({ type: "BOOT_COMPLETE" })}
+              />
+            )}
+            {state.phase === "interactive" && (
+              <>
+                <TypewriterIntro />
+                <HistoryList entries={state.history} />
+              </>
+            )}
+            {/* Spacer to push content up when history is short */}
+            <div className="flex-1" />
+          </TerminalBody>
+          <CommandChips
+            onCommand={handleCommand}
+            disabled={state.phase === "booting"}
+          />
+          <PromptRow
+            value={inputValue}
+            onChange={setInputValue}
+            onSubmit={handleCommand}
+            onTabComplete={tabComplete}
+            commandHistory={commandHistory}
+            disabled={state.phase === "booting"}
+          />
+        </TerminalWindow>
+      </motion.div>
+    </div>
   );
 }

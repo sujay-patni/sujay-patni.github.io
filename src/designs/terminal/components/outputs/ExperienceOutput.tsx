@@ -1,6 +1,6 @@
 "use client";
 
-import { experience } from "@/data/resume";
+import { experience } from "@/data/experience";
 import AsciiProgressBar from "../AsciiProgressBar";
 
 interface ExperienceOutputProps {

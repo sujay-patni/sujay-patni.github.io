@@ -1,13 +1,3 @@
-export const personal = {
-  name: "Sujay Patni",
-  title: "Software Engineer",
-  tagline: "Building scalable backend systems and AI-powered products",
-  email: "sujaypatni@gmail.com",
-  location: "Gurugram, Haryana",
-  linkedin: "https://linkedin.com/in/sujay-patni/",
-  github: "https://github.com/sujay-patni",
-};
-
 export const experience = [
   {
     role: "Software Engineer",
@@ -55,75 +45,5 @@ export const experience = [
       "Improved API and code quality by resolving 25+ critical issues in SonarQube for the Invoice API",
       "Generated automated tests for Invoice API using JUnit framework and migrated module from Angular v13 to v15",
     ],
-  },
-];
-
-export const projects = [
-  {
-    name: "Continuous Authentication via PPG Sensors",
-    period: "Aug 2022 – July 2023",
-    description:
-      "Devised a Continuous Authentication model using PPG data from wearable biosensors worn by 15 volunteers. Developed an LSTM ANN model to learn individual biometric characteristics and attained 82% accuracy at 0.75 confidence threshold.",
-    tech: ["Python", "LSTM", "Machine Learning", "Biosensors", "Deep Learning"],
-    publication: "Published in Elsevier: Internet of Things (Dec 2024)",
-  },
-  {
-    name: "Query System for High-Speed IP Flow Analysis",
-    period: "Jan 2023 – May 2023",
-    description:
-      "Engineered a 3-tier framework for query processing on high-speed network flow storage systems for CAIR Lab. Accelerated query performance by 5% by utilizing nProbe to export network flows and analyzing on ClickHouse.",
-    tech: ["ClickHouse", "nProbe", "Network Analysis", "C++", "SQL"],
-    publication: null,
-  },
-];
-
-export const publications = [
-  {
-    title:
-      "Enhancing security through continuous biometric authentication using wearable sensors",
-    venue: "Elsevier: Internet of Things",
-    date: "December 2024",
-  },
-  {
-    title:
-      "Energy-minimizing workload splitting and frequency selection for guaranteed performance over heterogeneous cores",
-    venue: "ACM International Conference on Future and Sustainable Energy Systems (e-Energy)",
-    date: "June 2024",
-  },
-];
-
-export const skills = [
-  {
-    category: "Languages",
-    items: ["Java", "Python", "C", "C++"],
-  },
-  {
-    category: "Databases",
-    items: ["SQL", "Redis", "MongoDB", "Elasticsearch"],
-  },
-  {
-    category: "Backend & Frameworks",
-    items: ["Spring Boot", "Hibernate", "REST APIs", "Microservices", "System Design", "Agile"],
-  },
-  {
-    category: "Tools & Platforms",
-    items: ["Claude Code", "AI Agentic Workflows", "AI Automation", "Antigravity", "Git", "Postman", "Linux"],
-  },
-];
-
-export const education = [
-  {
-    institution: "Birla Institute of Technology and Science, Pilani",
-    degree: "B.E. Computer Science & MSc Economics",
-    score: "CGPA: 8.12",
-    period: "August 2019 – July 2024",
-    location: "Pilani, Rajasthan",
-  },
-  {
-    institution: "Delhi Public School Indirapuram",
-    degree: "Central Board of Secondary Education (Class XII)",
-    score: "97.40%",
-    period: "April 2018 – May 2019",
-    location: "Ghaziabad, Uttar Pradesh",
   },
 ];

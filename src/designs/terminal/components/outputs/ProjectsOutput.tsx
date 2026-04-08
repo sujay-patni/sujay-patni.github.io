@@ -1,4 +1,4 @@
-import { projects } from "@/data/resume";
+import { projects } from "@/data/projects";
 
 export default function ProjectsOutput() {
   return (

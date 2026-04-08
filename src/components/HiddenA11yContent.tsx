@@ -1,4 +1,9 @@
-import { personal, experience, projects, skills, publications, education } from "@/data/resume";
+import { personal } from "@/data/personal";
+import { experience } from "@/data/experience";
+import { projects } from "@/data/projects";
+import { skills } from "@/data/skills";
+import { publications } from "@/data/publications";
+import { education } from "@/data/education";
 
 export default function HiddenA11yContent() {
   return (
