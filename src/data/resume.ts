@@ -18,7 +18,6 @@ export const experience = [
     bullets: [
       "Led adoption of AI-agentic development across the team using Claude Code and Antigravity; built supporting infrastructure and trained engineers on best practices, improving delivery efficiency by 40%",
       "Built Ved AI 2.0, an AI-powered customer support assistant; implemented intent detection to retrieve internal service data and automate Zoho ticket creation, increasing customer inquiries handled by 120%",
-      "Launched a Fraud and Risk Detection Service that monitors client transactions in real time and triggers system alerts, detecting over 2,000 potential risk and fraud cases monthly across procurement and credit systems",
       "Collaborated with cross-functional teams to design a Stock Transfer and Invoicing System with real-time status tracking and invoice generation, handling ₹50 Cr+ worth of monthly stock movement",
       "Spearheaded the architecture and implementation of a Supplier Portal microservice enabling self-onboarding, verification, and dashboard tracking, used by over 10,000 suppliers",
     ],
