@@ -1,0 +1,130 @@
+export const personal = {
+  name: "Sujay Patni",
+  title: "Software Engineer",
+  tagline: "Building scalable backend systems and AI-powered products",
+  email: "sujaypatni@gmail.com",
+  location: "Gurugram, Haryana",
+  linkedin: "https://linkedin.com/in/sujay-patni/",
+  github: "https://github.com/sujay-patni",
+};
+
+export const experience = [
+  {
+    role: "Software Engineer",
+    company: "OfBusiness (OFB Tech Pvt Ltd)",
+    team: "Order Admin System",
+    location: "Gurugram, Haryana",
+    period: "July 2024 – Present",
+    bullets: [
+      "Led adoption of AI-agentic development across the team using Claude Code and Antigravity; built supporting infrastructure and trained engineers on best practices, improving delivery efficiency by 40%",
+      "Built Ved AI 2.0, an AI-powered customer support assistant; implemented intent detection to retrieve internal service data and automate Zoho ticket creation, increasing customer inquiries handled by 120%",
+      "Launched a Fraud and Risk Detection Service that monitors client transactions in real time and triggers system alerts, detecting over 2,000 potential risk and fraud cases monthly across procurement and credit systems",
+      "Collaborated with cross-functional teams to design a Stock Transfer and Invoicing System with real-time status tracking and invoice generation, handling ₹50 Cr+ worth of monthly stock movement",
+      "Spearheaded the architecture and implementation of a Supplier Portal microservice enabling self-onboarding, verification, and dashboard tracking, used by over 10,000 suppliers",
+    ],
+  },
+  {
+    role: "Software Developer Intern",
+    company: "OfBusiness (OFB Tech Pvt Ltd)",
+    team: "Buyer App and Website",
+    location: "Gurugram, Haryana",
+    period: "January 2024 – June 2024",
+    bullets: [
+      "Scaled and maintained backend features for ofbusiness.com and the OFB App, enhancing functionality and performance for a platform serving 500K+ customers and more than 10K active monthly users",
+      "Boosted search success rate by 108% and click-through rate by 30% by refining website search with auto-complete, product keyword mapping, and fuzzy matching",
+      "Improved homepage performance by 55% by optimizing API response time and Java memory utilization",
+    ],
+  },
+  {
+    role: "Research Intern",
+    company: "Indian Institute of Science",
+    team: "Scheduling for Latency-Sensitive Workload for Sustainable Computing",
+    location: "Bengaluru, Karnataka",
+    period: "August 2023 – December 2023",
+    bullets: [
+      "Collaborated with IBM Research and the Centre for Networked Intelligence Lab to build a power-saving scheduler model using heterogeneous cores on an Intel Core i9 13900K processor",
+      "Achieved an 80% reduction in energy-delay product compared to Linux governors, demonstrating high efficiency gains",
+    ],
+  },
+  {
+    role: "Software Development Intern",
+    company: "Societe Generale Global Solutions",
+    team: "NITRO Project, CLI Tribe",
+    location: "Chennai, Tamil Nadu",
+    period: "June 2023 – July 2023",
+    bullets: [
+      "Improved API and code quality by resolving 25+ critical issues in SonarQube for the Invoice API",
+      "Generated automated tests for Invoice API using JUnit framework and migrated module from Angular v13 to v15",
+    ],
+  },
+];
+
+export const projects = [
+  {
+    name: "Continuous Authentication via PPG Sensors",
+    period: "Aug 2022 – July 2023",
+    description:
+      "Devised a Continuous Authentication model using PPG data from wearable biosensors worn by 15 volunteers. Developed an LSTM ANN model to learn individual biometric characteristics and attained 82% accuracy at 0.75 confidence threshold.",
+    tech: ["Python", "LSTM", "Machine Learning", "Biosensors", "Deep Learning"],
+    publication: "Published in Elsevier: Internet of Things (Dec 2024)",
+  },
+  {
+    name: "Query System for High-Speed IP Flow Analysis",
+    period: "Jan 2023 – May 2023",
+    description:
+      "Engineered a 3-tier framework for query processing on high-speed network flow storage systems for CAIR Lab. Accelerated query performance by 5% by utilizing nProbe to export network flows and analyzing on ClickHouse.",
+    tech: ["ClickHouse", "nProbe", "Network Analysis", "C++", "SQL"],
+    publication: null,
+  },
+];
+
+export const publications = [
+  {
+    title:
+      "Enhancing security through continuous biometric authentication using wearable sensors",
+    venue: "Elsevier: Internet of Things",
+    date: "December 2024",
+  },
+  {
+    title:
+      "Energy-minimizing workload splitting and frequency selection for guaranteed performance over heterogeneous cores",
+    venue: "ACM International Conference on Future and Sustainable Energy Systems (e-Energy)",
+    date: "June 2024",
+  },
+];
+
+export const skills = [
+  {
+    category: "Languages",
+    items: ["Java", "Python", "C", "C++"],
+  },
+  {
+    category: "Databases",
+    items: ["SQL", "Redis", "MongoDB", "Elasticsearch"],
+  },
+  {
+    category: "Backend & Frameworks",
+    items: ["Spring Boot", "Hibernate", "REST APIs", "Microservices", "System Design", "Agile"],
+  },
+  {
+    category: "Tools & Platforms",
+    items: ["Claude Code", "AI Agentic Workflows", "AI Automation", "Antigravity", "Git", "Postman", "Linux"],
+  },
+];
+
+export const education = [
+  {
+    institution: "Birla Institute of Technology and Science, Pilani",
+    degree: "B.E. Computer Science & MSc Economics",
+    score: "CGPA: 8.12",
+    period: "August 2019 – July 2024",
+    location: "Pilani, Rajasthan",
+  },
+  {
+    institution: "Delhi Public School Indirapuram",
+    degree: "Central Board of Secondary Education (Class XII)",
+    score: "97.40%",
+    period: "April 2018 – May 2019",
+    location: "Ghaziabad, Uttar Pradesh",
+  },
+];
