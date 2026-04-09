@@ -48,10 +48,10 @@ export default function TypewriterIntro() {
   }, []);
 
   return (
-    <p className="font-mono text-sm text-zinc-400 leading-relaxed mb-4">
+    <p className="font-mono text-sm text-[var(--t-muted-1)] leading-relaxed mb-4">
       {displayed}
       {!done && (
-        <span className="cursor-blink inline-block w-[7px] h-[13px] bg-emerald-400 ml-0.5 align-middle" />
+        <span className="cursor-blink inline-block w-[7px] h-[13px] bg-[var(--t-accent)] ml-0.5 align-middle" />
       )}
     </p>
   );

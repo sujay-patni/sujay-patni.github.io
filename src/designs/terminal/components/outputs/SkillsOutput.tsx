@@ -1,10 +1,14 @@
-import { skills } from "@/data/skills";
+"use client";
+
+import { usePortfolioData } from "@/lib/portfolio-data";
 
 interface SkillsOutputProps {
   tree: boolean;
 }
 
 export default function SkillsOutput({ tree }: SkillsOutputProps) {
+  const { skills } = usePortfolioData();
+
   if (tree) {
     const lines: string[] = ["skills/"];
     skills.forEach((cat, ci) => {
@@ -23,7 +27,7 @@ export default function SkillsOutput({ tree }: SkillsOutputProps) {
           const isCategoryLine = line.match(/^[├└]──.+\/$/) !== null;
           return (
             <div key={i}>
-              <span className={isCategoryLine ? "text-emerald-400" : "text-zinc-400"}>
+              <span className={isCategoryLine ? "text-[var(--t-accent)]" : "text-[var(--t-muted-1)]"}>
                 {line}
               </span>
             </div>
@@ -37,10 +41,10 @@ export default function SkillsOutput({ tree }: SkillsOutputProps) {
     <div className="font-mono text-sm space-y-3">
       {skills.map((cat) => (
         <div key={cat.category}>
-          <div className="text-emerald-400 mb-1">{cat.category}</div>
+          <div className="text-[var(--t-accent)] mb-1">{cat.category}</div>
           <div className="flex flex-wrap gap-2 ml-2">
             {cat.items.map((item) => (
-              <span key={item} className="text-zinc-400 border border-zinc-700 rounded px-2 py-0.5 text-xs">
+              <span key={item} className="text-[var(--t-muted-1)] border border-[var(--t-border)] rounded px-2 py-0.5 text-xs">
                 {item}
               </span>
             ))}

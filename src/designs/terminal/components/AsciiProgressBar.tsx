@@ -47,11 +47,11 @@ export default function AsciiProgressBar({
 
   return (
     <div className="font-mono text-sm whitespace-nowrap">
-      <span className="text-zinc-500 mr-2 inline-block min-w-[21ch]">{label}</span>
-      <span className="text-zinc-600">[</span>
-      <span className="text-emerald-400">{bar}</span>
-      <span className="text-zinc-600">]</span>
-      <span className="text-zinc-300 ml-1">{filled}%</span>
+      <span className="text-[var(--t-muted-2)] mr-2 inline-block min-w-[21ch]">{label}</span>
+      <span className="text-[var(--t-muted-3)]">[</span>
+      <span className="text-[var(--t-accent)]">{bar}</span>
+      <span className="text-[var(--t-muted-3)]">]</span>
+      <span className="text-[var(--t-text-2)] ml-1">{filled}%</span>
     </div>
   );
 }

@@ -8,11 +8,11 @@ interface BootSequenceProps {
 }
 
 const BOOT_LINES = [
-  { text: "Booting sujay-patni.github.io ...", color: "text-emerald-400", delay: 0 },
-  { text: "[OK] Loading identity ...", color: "text-emerald-300", delay: 350 },
-  { text: "[OK] Resolving 4 experience entries ...", color: "text-emerald-300", delay: 700 },
-  { text: "[OK] Mounting 2 publications ...", color: "text-emerald-300", delay: 1050 },
-  { text: "$ whoami", color: "text-zinc-400", delay: 1500 },
+  { text: "Booting sujay-patni.github.io ...", color: "text-[var(--t-accent)]", delay: 0 },
+  { text: "[OK] Loading identity ...", color: "text-[var(--t-accent-2)]", delay: 350 },
+  { text: "[OK] Resolving 4 experience entries ...", color: "text-[var(--t-accent-2)]", delay: 700 },
+  { text: "[OK] Mounting 2 publications ...", color: "text-[var(--t-accent-2)]", delay: 1050 },
+  { text: "$ whoami", color: "text-[var(--t-muted-1)]", delay: 1500 },
 ];
 
 const WHOAMI_DELAY = 1700;

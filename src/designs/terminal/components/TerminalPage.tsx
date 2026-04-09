@@ -1,8 +1,9 @@
 "use client";
 
-import { useReducer, useRef, useEffect, useState } from "react";
+import React, { useReducer, useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { TerminalState, TerminalAction } from "../types/terminal";
+import { applyTheme, getStoredTheme } from "../lib/theme";
 import { registry, initCommands, getCommandNames } from "../lib/commands";
 import TerminalWindow from "./TerminalWindow";
 import TerminalBody from "./TerminalBody";
@@ -55,6 +56,11 @@ export default function TerminalPage() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<{ focus: () => void } | null>(null);
 
+  // Apply stored theme on mount
+  useEffect(() => {
+    applyTheme(getStoredTheme());
+  }, []);
+
   // Load command registry
   useEffect(() => {
     initCommands().then(() => setCommandsReady(true));
@@ -64,6 +70,15 @@ export default function TerminalPage() {
   useEffect(() => {
     bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
   }, [state.history]);
+
+  // URL deep-link: ?run=<command>
+  useEffect(() => {
+    if (state.phase !== "interactive" || !commandsReady) return;
+    const params = new URLSearchParams(window.location.search);
+    const cmd = params.get("run");
+    if (cmd) handleCommand(cmd);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.phase, commandsReady]);
 
   function handleCommand(raw: string) {
     if (!commandsReady) return;
@@ -96,7 +111,7 @@ export default function TerminalPage() {
     .map((e) => e.command);
 
   return (
-    <div className="flex-1 flex flex-col bg-zinc-950 text-zinc-100 font-mono overflow-hidden">
+    <div className="flex-1 flex flex-col bg-[var(--t-bg)] text-[var(--t-text)] font-mono overflow-hidden">
       <AnimatePresence>
         {showWelcome && (
           <WelcomeScreen
