@@ -5,10 +5,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-:root {
-  color-scheme: dark;
-}
-
+/* ─── Shared animations ──────────────────────────────────────────────────── */
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
@@ -18,22 +15,43 @@
   animation: blink 1s step-end infinite;
 }
 
+/* ─── CRT effects ────────────────────────────────────────────────────────── */
 .scanlines {
   background: repeating-linear-gradient(
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 0, 0, 0.1) 2px,
-    rgba(0, 0, 0, 0.1) 4px
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
   );
   z-index: 1;
+}
+
+[data-theme="coffee"] .scanlines,
+[data-theme="latte"] .scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
 }
 
 .crt-vignette {
   background: radial-gradient(
     ellipse at center,
     transparent 55%,
-    rgba(0, 0, 0, 0.55) 100%
+    rgba(0, 0, 0, 0.5) 100%
   );
   z-index: 1;
+}
+
+[data-theme="coffee"] .crt-vignette,
+[data-theme="latte"] .crt-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
 }

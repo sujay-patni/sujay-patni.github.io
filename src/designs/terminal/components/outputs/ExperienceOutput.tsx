@@ -1,6 +1,6 @@
 "use client";
 
-import { experience } from "@/data/experience";
+import { usePortfolioData } from "@/lib/portfolio-data";
 import AsciiProgressBar from "../AsciiProgressBar";
 
 interface ExperienceOutputProps {
@@ -23,18 +23,20 @@ const metrics: Record<number, Array<{ label: string; percent: number }>> = {
 };
 
 export default function ExperienceOutput({ verbose }: ExperienceOutputProps) {
+  const { experience } = usePortfolioData();
+
   if (!verbose) {
     return (
       <div className="font-mono text-sm space-y-1">
         {experience.map((job, i) => (
           <div key={i} className="grid grid-cols-[16ch_20ch_1fr] gap-x-3">
-            <span className="text-zinc-500">[{job.period.split("–")[0].trim()}]</span>
-            <span className="text-zinc-300">{job.role}</span>
-            <span className="text-emerald-400">{job.company.split(" (")[0]}</span>
+            <span className="text-[var(--t-muted-2)]">[{job.period.split("–")[0].trim()}]</span>
+            <span className="text-[var(--t-text-2)]">{job.role}</span>
+            <span className="text-[var(--t-accent)]">{job.company.split(" (")[0]}</span>
           </div>
         ))}
-        <p className="text-zinc-600 mt-2">
-          Use <span className="text-zinc-400">experience --verbose</span> for full detail.
+        <p className="text-[var(--t-muted-3)] mt-2">
+          Use <span className="text-[var(--t-muted-1)]">experience --verbose</span> for full detail.
         </p>
       </div>
     );
@@ -45,15 +47,15 @@ export default function ExperienceOutput({ verbose }: ExperienceOutputProps) {
       {experience.map((job, i) => (
         <div key={i} className="space-y-2">
           <div>
-            <span className="text-emerald-400 font-semibold">{job.role}</span>
-            <span className="text-zinc-500"> @ </span>
-            <span className="text-zinc-300">{job.company.split(" (")[0]}</span>
+            <span className="text-[var(--t-accent)] font-semibold">{job.role}</span>
+            <span className="text-[var(--t-muted-2)]"> @ </span>
+            <span className="text-[var(--t-text-2)]">{job.company.split(" (")[0]}</span>
           </div>
-          <div className="text-zinc-600 text-xs">{job.team} · {job.period}</div>
+          <div className="text-[var(--t-muted-3)] text-xs">{job.team} · {job.period}</div>
           <ul className="space-y-1 ml-2">
             {job.bullets.map((b, j) => (
-              <li key={j} className="flex gap-2 text-zinc-400">
-                <span className="text-zinc-600 flex-shrink-0">▸</span>
+              <li key={j} className="flex gap-2 text-[var(--t-muted-1)]">
+                <span className="text-[var(--t-muted-3)] flex-shrink-0">▸</span>
                 <span>{b}</span>
               </li>
             ))}

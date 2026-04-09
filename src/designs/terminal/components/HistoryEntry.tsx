@@ -17,8 +17,8 @@ export default function HistoryEntry({ entry }: HistoryEntryProps) {
     >
       {!entry.isBootLine && entry.command && (
         <div className="flex items-center gap-2">
-          <span className="text-emerald-400 text-sm select-none">$</span>
-          <span className="text-zinc-300 text-sm">{entry.command}</span>
+          <span className="text-[var(--t-accent)] text-sm select-none">$</span>
+          <span className="text-[var(--t-text-2)] text-sm">{entry.command}</span>
         </div>
       )}
       {entry.output && (

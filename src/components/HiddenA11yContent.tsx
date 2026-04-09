@@ -1,11 +1,10 @@
-import { personal } from "@/data/personal";
-import { experience } from "@/data/experience";
-import { projects } from "@/data/projects";
-import { skills } from "@/data/skills";
-import { publications } from "@/data/publications";
-import { education } from "@/data/education";
+"use client";
+
+import { usePortfolioData } from "@/lib/portfolio-data";
 
 export default function HiddenA11yContent() {
+  const { personal, experience, projects, skills, publications, education } = usePortfolioData();
+
   return (
     <article className="sr-only" aria-label="Portfolio content for screen readers">
       <h1>{personal.name} — {personal.title}</h1>

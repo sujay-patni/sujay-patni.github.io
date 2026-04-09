@@ -87,7 +87,7 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, filter: "blur(6px)", scale: 1.015 }}
       transition={{ duration: 0.55, ease: "easeInOut" }}
-      className="fixed inset-0 z-50 bg-zinc-950 flex flex-col items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-50 bg-[var(--t-bg)] flex flex-col items-center justify-center overflow-hidden"
       aria-label="Loading portfolio"
       aria-live="polite"
     >
@@ -104,7 +104,7 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
           style={{
             height: "120px",
             background:
-              "linear-gradient(to bottom, transparent 0%, rgba(52,211,153,0.06) 40%, rgba(52,211,153,0.12) 50%, rgba(52,211,153,0.06) 60%, transparent 100%)",
+              "linear-gradient(to bottom, transparent 0%, rgba(var(--t-accent-rgb),0.06) 40%, rgba(var(--t-accent-rgb),0.12) 50%, rgba(var(--t-accent-rgb),0.06) 60%, transparent 100%)",
             top: 0,
           }}
           initial={{ y: "-120px" }}
@@ -123,17 +123,17 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
           className="flex flex-col items-center gap-3"
         >
           <h1
-            className="font-mono font-bold tracking-[0.18em] text-emerald-400 select-none"
+            className="font-mono font-bold tracking-[0.18em] text-[var(--t-accent)] select-none"
             style={{
               fontSize: "clamp(2rem, 8vw, 5.5rem)",
               textShadow:
-                "0 0 30px rgba(52,211,153,0.45), 0 0 70px rgba(52,211,153,0.2), 0 0 120px rgba(52,211,153,0.08)",
+                "0 0 30px rgba(var(--t-accent-rgb),0.45), 0 0 70px rgba(var(--t-accent-rgb),0.2), 0 0 120px rgba(var(--t-accent-rgb),0.08)",
             }}
           >
             SUJAY PATNI
           </h1>
           <p
-            className="font-mono text-zinc-500 tracking-[0.45em] uppercase"
+            className="font-mono text-[var(--t-muted-2)] tracking-[0.45em] uppercase"
             style={{ fontSize: "clamp(0.6rem, 1.8vw, 0.85rem)" }}
           >
             Software Engineer
@@ -145,7 +145,7 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: scanDone ? 1 : 0, opacity: scanDone ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="h-px w-80 bg-zinc-800 origin-center"
+          className="h-px w-80 bg-[var(--t-border)] origin-center"
         />
 
         {/* Boot status lines */}
@@ -156,7 +156,7 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
               initial={{ opacity: 0, x: -6 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.18 }}
-              className={line.highlight ? "text-emerald-400" : "text-zinc-600"}
+              className={line.highlight ? "text-[var(--t-accent)]" : "text-[var(--t-muted-3)]"}
             >
               {line.text}
             </motion.p>
@@ -167,7 +167,7 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.2 }}
-              className="text-zinc-700 pt-2"
+              className="text-[var(--t-muted-4)] pt-2"
             >
               press any key to continue
               <span className="cursor-blink ml-0.5">_</span>
