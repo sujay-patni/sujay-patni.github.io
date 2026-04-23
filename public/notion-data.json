@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "synced_at": "2026-04-22T08:01:57.005Z",
+    "synced_at": "2026-04-23T08:07:24.614Z",
     "source": "notion"
   },
   "config": {
@@ -78,7 +78,8 @@
         "C++",
         "SQL"
       ],
-      "publication": null
+      "publication": null,
+      "content": []
     },
     {
       "name": "Continuous Authentication via PPG Sensors",
@@ -91,7 +92,8 @@
         "Biosensors",
         "Deep Learning"
       ],
-      "publication": "Published in Elsevier: Internet of Things (Dec 2024)"
+      "publication": "Published in Elsevier: Internet of Things (Dec 2024)",
+      "content": []
     }
   ],
   "skills": [
@@ -143,26 +145,30 @@
       "degree": "B.E. Computer Science & MSc Economics",
       "score": "CGPA: 8.12",
       "period": "August 2019 – July 2024",
-      "location": "Pilani, Rajasthan"
+      "location": "Pilani, Rajasthan",
+      "content": []
     },
     {
       "institution": "Delhi Public School Indirapuram",
       "degree": "Central Board of Secondary Education (Class XII)",
       "score": "97.40%",
       "period": "April 2018 – May 2019",
-      "location": "Ghaziabad, Uttar Pradesh"
+      "location": "Ghaziabad, Uttar Pradesh",
+      "content": []
     }
   ],
   "publications": [
     {
       "title": "Enhancing security through continuous biometric authentication using wearable sensors",
       "venue": "Elsevier: Internet of Things",
-      "date": "December 2024"
+      "date": "December 2024",
+      "content": []
     },
     {
       "title": "Energy-minimizing workload splitting and frequency selection for guaranteed performance over heterogeneous cores",
       "venue": "ACM International Conference on Future and Sustainable Energy Systems (e-Energy)",
-      "date": "June 2024"
+      "date": "June 2024",
+      "content": []
     }
   ]
 }
