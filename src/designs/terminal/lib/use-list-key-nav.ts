@@ -30,6 +30,11 @@ export function useListKeyNav(
       // Let the prompt handle keys when the user is typing
       const active = document.activeElement;
       if (active instanceof HTMLInputElement && active.value.length > 0) return;
+      // Chips: Enter/Space activate natively; ArrowUp/Down drops back to list nav
+      if (active instanceof HTMLButtonElement) {
+        if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+        (active as HTMLElement).blur();
+      }
 
       if (e.key === "ArrowUp") {
         e.preventDefault();
