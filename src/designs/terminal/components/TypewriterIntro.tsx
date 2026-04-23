@@ -1,18 +1,27 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { usePortfolioData } from "@/lib/portfolio-data";
 
-const INTRO =
-  "Hi — I'm Sujay, a backend engineer at OfBusiness in Gurugram. I build scalable microservices, trading infrastructure, and AI-powered products. Currently shipping systems that handle crores in daily transactions.";
+const CHAR_DELAY = 10;
 
-const CHAR_DELAY = 16; // ms per character
+// Module-level flag — persists across re-renders, resets only on page reload
+let introHasAnimated = false;
 
 export default function TypewriterIntro() {
-  const [displayed, setDisplayed] = useState("");
-  const [done, setDone] = useState(false);
+  const { personal } = usePortfolioData();
+  const intro = personal.tagline;
+
+  // Capture at mount time so re-renders from parent don't change this value
+  const willAnimate = useRef(!introHasAnimated);
+  const [displayed, setDisplayed] = useState(() => (introHasAnimated ? intro : ""));
+  const [done, setDone] = useState(() => introHasAnimated);
   const cancelled = useRef(false);
 
   useEffect(() => {
+    if (!willAnimate.current) return;
+
+    introHasAnimated = true;
     cancelled.current = false;
 
     const prefersReduced =
@@ -20,7 +29,7 @@ export default function TypewriterIntro() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReduced) {
-      setDisplayed(INTRO);
+      setDisplayed(intro);
       setDone(true);
       return;
     }
@@ -31,25 +40,26 @@ export default function TypewriterIntro() {
     function tick() {
       if (cancelled.current) return;
       i++;
-      setDisplayed(INTRO.slice(0, i));
-      if (i < INTRO.length) {
+      setDisplayed(intro.slice(0, i));
+      if (i < intro.length) {
         timer = setTimeout(tick, CHAR_DELAY);
       } else {
         setDone(true);
       }
     }
 
-    timer = setTimeout(tick, 120); // brief pause before starting
+    timer = setTimeout(tick, 120);
 
     return () => {
       cancelled.current = true;
       clearTimeout(timer);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <p className="font-mono text-sm text-[var(--t-muted-1)] leading-relaxed mb-4">
-      {displayed}
+      {done ? intro : displayed}
       {!done && (
         <span className="cursor-blink inline-block w-[7px] h-[13px] bg-[var(--t-accent)] ml-0.5 align-middle" />
       )}

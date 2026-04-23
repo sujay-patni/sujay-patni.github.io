@@ -27,10 +27,7 @@ export async function initCommands() {
   const [
     { default: HelpOutput },
     { default: WhoamiOutput },
-    { default: ExperienceOutput },
-    { default: ProjectsOutput },
-    { default: SkillsOutput },
-    { default: PublicationsOutput },
+    { default: ContactOutput },
     { default: EducationOutput },
     { default: ResumeOutput },
     { default: ThemesOutput },
@@ -49,10 +46,7 @@ export async function initCommands() {
   ] = await Promise.all([
     import("../components/outputs/HelpOutput"),
     import("../components/outputs/WhoamiOutput"),
-    import("../components/outputs/ExperienceOutput"),
-    import("../components/outputs/ProjectsOutput"),
-    import("../components/outputs/SkillsOutput"),
-    import("../components/outputs/PublicationsOutput"),
+    import("../components/outputs/ContactOutput"),
     import("../components/outputs/EducationOutput"),
     import("../components/outputs/ResumeOutput"),
     import("../components/outputs/ThemesOutput"),
@@ -68,35 +62,47 @@ export async function initCommands() {
   });
 
   register({
+    name: "home",
+    description: "Go to home page",
+    run: () => null,
+  });
+
+  register({
+    name: "experience",
+    aliases: ["exp"],
+    description: "Work history list; add number for detail",
+    run: () => null,
+  });
+
+  register({
+    name: "projects",
+    description: "Projects list; add number for detail",
+    run: () => null,
+  });
+
+  register({
+    name: "publications",
+    aliases: ["pubs"],
+    description: "Publications list; add number for detail",
+    run: () => null,
+  });
+
+  register({
     name: "whoami",
     description: "Personal info and contact details",
     run: () => <WhoamiOutput />,
   });
 
   register({
-    name: "experience",
-    aliases: ["exp"],
-    description: "Work history  (--verbose for full detail)",
-    run: (args) => <ExperienceOutput verbose={args.includes("--verbose")} />,
-  });
-
-  register({
-    name: "projects",
-    description: "Side projects and research",
-    run: () => <ProjectsOutput />,
+    name: "contact",
+    description: "Contact links",
+    run: () => <ContactOutput />,
   });
 
   register({
     name: "skills",
-    description: "Skill set  (--tree for ASCII tree view)",
-    run: (args) => <SkillsOutput tree={args.includes("--tree")} />,
-  });
-
-  register({
-    name: "publications",
-    aliases: ["pubs"],
-    description: "Research publications",
-    run: () => <PublicationsOutput />,
+    description: "Skill set",
+    run: () => null,
   });
 
   register({

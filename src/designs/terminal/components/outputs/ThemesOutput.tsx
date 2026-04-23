@@ -29,6 +29,7 @@ export default function ThemesOutput({ applyNow }: ThemesOutputProps) {
         return (
           <button
             key={t.id}
+            tabIndex={-1}
             onClick={() => switchTheme(t.id)}
             className={`block w-full text-left px-3 py-2 rounded border transition-all duration-150 cursor-pointer ${
               active

@@ -21,6 +21,7 @@ export default function AsciiProgressBar({
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReduced) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFilled(percent);
       return;
     }

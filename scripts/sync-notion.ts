@@ -9,7 +9,15 @@
 
 import "dotenv/config";
 import { Client, isFullPage, isFullBlock } from "@notionhq/client";
-import type { PageObjectResponse, BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import type {
+  PageObjectResponse,
+  BlockObjectResponse,
+  DataSourceObjectResponse,
+  BulletedListItemBlockObjectResponse,
+  NumberedListItemBlockObjectResponse,
+  ParagraphBlockObjectResponse,
+  ImageBlockObjectResponse,
+} from "@notionhq/client/build/src/api-endpoints";
 import { writeFileSync, mkdirSync } from "fs";
 import { join } from "path";
 
@@ -25,10 +33,11 @@ async function findDatabaseId(title: string): Promise<string> {
   });
 
   for (const result of response.results) {
-    const r = result as any;
-    const dbTitle: string = (r.title ?? []).map((t: any) => t.plain_text).join("").trim();
+    if (!("title" in result)) continue;
+    const r = result as DataSourceObjectResponse;
+    const dbTitle = r.title.map((t) => t.plain_text).join("").trim();
     if (dbTitle.toLowerCase() === title.toLowerCase()) {
-      return r.id as string;
+      return r.id;
     }
   }
 
@@ -46,6 +55,7 @@ function getText(page: PageObjectResponse, key: string): string {
   if (prop.type === "url") return prop.url ?? "";
   if (prop.type === "select") return prop.select?.name ?? "";
   if (prop.type === "number") return String(prop.number ?? "");
+  if (prop.type === "phone_number") return prop.phone_number ?? "";
   return "";
 }
 
@@ -130,14 +140,17 @@ function blockText(richText: Array<{ plain_text: string }>): string {
 }
 
 function extractBullets(blocks: BlockObjectResponse[]): string[] {
-  return blocks
-    .filter((b) => b.type === "bulleted_list_item" || b.type === "numbered_list_item")
-    .map((b) =>
-      b.type === "bulleted_list_item"
-        ? blockText((b as any).bulleted_list_item.rich_text)
-        : blockText((b as any).numbered_list_item.rich_text)
-    )
-    .filter(Boolean);
+  const results: string[] = [];
+  for (const b of blocks) {
+    if (b.type === "bulleted_list_item") {
+      const text = blockText((b as BulletedListItemBlockObjectResponse).bulleted_list_item.rich_text);
+      if (text) results.push(text);
+    } else if (b.type === "numbered_list_item") {
+      const text = blockText((b as NumberedListItemBlockObjectResponse).numbered_list_item.rich_text);
+      if (text) results.push(text);
+    }
+  }
+  return results;
 }
 
 async function downloadNotionImage(url: string, blockId: string): Promise<string> {
@@ -171,10 +184,10 @@ async function extractContent(blocks: BlockObjectResponse[]): Promise<ContentBlo
 
   for (const b of blocks) {
     if (b.type === "paragraph") {
-      const text = blockText((b as any).paragraph.rich_text);
+      const text = blockText((b as ParagraphBlockObjectResponse).paragraph.rich_text);
       if (text) result.push({ type: "paragraph", text });
     } else if (b.type === "image") {
-      const img = (b as any).image;
+      const img = (b as ImageBlockObjectResponse).image;
       const isHosted = img.type === "file";
       const url: string = isHosted ? img.file.url : img.external.url;
       const alt = img.caption?.length ? blockText(img.caption) : undefined;
@@ -246,6 +259,7 @@ async function main() {
         title: getText(personalPage, "title"),
         tagline: getText(personalPage, "tagline"),
         email: getText(personalPage, "email"),
+        phone: getText(personalPage, "phone"),
         location: getText(personalPage, "location"),
         linkedin: getText(personalPage, "linkedin"),
         github: getText(personalPage, "github"),

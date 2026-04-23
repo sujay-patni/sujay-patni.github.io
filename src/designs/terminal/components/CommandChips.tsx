@@ -1,17 +1,16 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
 
 const CHIPS = [
-  { label: "whoami" },
+  { label: "home" },
   { label: "experience" },
   { label: "projects" },
-  { label: "skills" },
   { label: "publications" },
-  { label: "education" },
+  { label: "skills" },
   { label: "resume" },
-  { label: "themes" },
-  { label: "help" },
+  { label: "contact" },
 ];
 
 interface CommandChipsProps {
@@ -20,8 +19,30 @@ interface CommandChipsProps {
 }
 
 export default function CommandChips({ onCommand, disabled }: CommandChipsProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key !== "Tab") return;
+    const buttons = Array.from(
+      containerRef.current?.querySelectorAll("button:not(:disabled)") ?? []
+    ) as HTMLElement[];
+    if (buttons.length === 0) return;
+    const first = buttons[0];
+    const last = buttons[buttons.length - 1];
+    if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    } else if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    }
+  }
+
   return (
     <motion.div
+      ref={containerRef}
+      onKeyDown={handleKeyDown}
+      data-chips
       initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}

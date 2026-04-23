@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 interface PromptRowProps {
   value: string;
@@ -21,6 +21,22 @@ export default function PromptRow({
 }: PromptRowProps) {
   const historyIndex = useRef<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    function handler(e: KeyboardEvent) {
+      if (e.key !== "Escape") return;
+      e.preventDefault();
+      if (document.activeElement === inputRef.current) {
+        // Already in input — move focus to first chip so Tab resumes
+        const firstChip = document.querySelector("[data-chips] button:not(:disabled)") as HTMLElement | null;
+        firstChip?.focus();
+      } else {
+        inputRef.current?.focus();
+      }
+    }
+    window.addEventListener("keydown", handler, { capture: true });
+    return () => window.removeEventListener("keydown", handler, { capture: true });
+  }, []);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Tab") {
@@ -80,6 +96,7 @@ export default function PromptRow({
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
         disabled={disabled}
+        tabIndex={-1}
         className="flex-1 bg-transparent text-[var(--t-text)] font-mono text-base sm:text-sm outline-none caret-[var(--t-accent)] placeholder-[var(--t-muted-3)] disabled:opacity-0"
         placeholder={disabled ? "" : "type a command or 'help'…"}
         autoComplete="off"

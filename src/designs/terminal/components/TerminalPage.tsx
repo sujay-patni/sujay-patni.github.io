@@ -2,9 +2,10 @@
 
 import React, { useReducer, useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { TerminalState, TerminalAction } from "../types/terminal";
+import type { TerminalState, TerminalAction, PageName } from "../types/terminal";
 import { applyTheme, getStoredTheme } from "../lib/theme";
 import { registry, initCommands, getCommandNames } from "../lib/commands";
+import { TerminalNavProvider } from "../lib/nav-context";
 import TerminalWindow from "./TerminalWindow";
 import TerminalBody from "./TerminalBody";
 import HistoryList from "./HistoryList";
@@ -12,8 +13,37 @@ import PromptRow from "./PromptRow";
 import BootSequence from "./BootSequence";
 import WelcomeScreen from "./WelcomeScreen";
 import MotdHeader from "./MotdHeader";
-import TypewriterIntro from "./TypewriterIntro";
 import CommandChips from "./CommandChips";
+import HomeOutput from "./outputs/HomeOutput";
+import ExperienceOutput from "./outputs/ExperienceOutput";
+import ExperienceDetailOutput from "./outputs/ExperienceDetailOutput";
+import ProjectsOutput from "./outputs/ProjectsOutput";
+import ProjectDetailOutput from "./outputs/ProjectDetailOutput";
+import PublicationsOutput from "./outputs/PublicationsOutput";
+import PublicationDetailOutput from "./outputs/PublicationDetailOutput";
+import SkillsOutput from "./outputs/SkillsOutput";
+
+function getPageOutput(page: PageName): React.ReactNode {
+  if (page === "home") return <HomeOutput />;
+  if (page === "experience") return <ExperienceOutput />;
+  if (page === "projects") return <ProjectsOutput />;
+  if (page === "publications") return <PublicationsOutput />;
+  if (page === "skills") return <SkillsOutput tree={false} />;
+  return null;
+}
+
+function getDetailOutput(
+  page: "experience" | "projects" | "publications",
+  n: number
+): React.ReactNode {
+  if (page === "experience") return <ExperienceDetailOutput index={n} />;
+  if (page === "projects") return <ProjectDetailOutput index={n} />;
+  if (page === "publications") return <PublicationDetailOutput index={n} />;
+  return null;
+}
+
+const PAGE_COMMANDS = new Set(["home", "experience", "projects", "publications", "skills"]);
+const ALIASES: Record<string, string> = { exp: "experience", pubs: "publications" };
 
 function terminalReducer(state: TerminalState, action: TerminalAction): TerminalState {
   switch (action.type) {
@@ -25,10 +55,12 @@ function terminalReducer(state: TerminalState, action: TerminalAction): Terminal
       return { ...state, history: [...state.history, action.entry] };
     case "CLEAR":
       return { ...state, history: [] };
+    case "NAVIGATE":
+      return { ...state, currentPage: action.page, history: [action.entry] };
   }
 }
 
-const initialState: TerminalState = { phase: "booting", history: [] };
+const initialState: TerminalState = { phase: "booting", history: [], currentPage: "home" };
 
 function tabComplete(current: string): string {
   const lower = current.toLowerCase().trim();
@@ -54,7 +86,7 @@ export default function TerminalPage() {
   const [commandsReady, setCommandsReady] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
   const bodyRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<{ focus: () => void } | null>(null);
+  const navigatedRef = useRef(false);
 
   // Apply stored theme on mount
   useEffect(() => {
@@ -66,19 +98,37 @@ export default function TerminalPage() {
     initCommands().then(() => setCommandsReady(true));
   }, []);
 
-  // Auto-scroll on history change
+  // Scroll to top on page navigation, bottom when appending commands
   useEffect(() => {
-    bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
+    if (navigatedRef.current) {
+      bodyRef.current?.scrollTo({ top: 0, behavior: "instant" });
+      navigatedRef.current = false;
+    } else {
+      bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
+    }
   }, [state.history]);
 
-  // URL deep-link: ?run=<command>
+  // URL deep-link or auto-navigate home on boot complete
   useEffect(() => {
     if (state.phase !== "interactive" || !commandsReady) return;
     const params = new URLSearchParams(window.location.search);
     const cmd = params.get("run");
-    if (cmd) handleCommand(cmd);
+    if (cmd) {
+      handleCommand(cmd);
+    } else {
+      navigate("home", getPageOutput("home"));
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.phase, commandsReady]);
+
+  function navigate(page: PageName, output: React.ReactNode) {
+    navigatedRef.current = true;
+    dispatch({
+      type: "NAVIGATE",
+      page,
+      entry: { id: String(Date.now() + Math.random()), command: page, output },
+    });
+  }
 
   function handleCommand(raw: string) {
     if (!commandsReady) return;
@@ -88,6 +138,22 @@ export default function TerminalPage() {
 
     if (name === "clear") {
       dispatch({ type: "CLEAR" });
+      return;
+    }
+
+    const resolvedName = ALIASES[name] ?? name;
+
+    if (PAGE_COMMANDS.has(resolvedName)) {
+      const noSubPages = resolvedName === "home" || resolvedName === "skills";
+      if (noSubPages || args.length === 0) {
+        navigate(resolvedName as PageName, getPageOutput(resolvedName as PageName));
+      } else {
+        const n = parseInt(args[0], 10);
+        navigate(
+          resolvedName as "experience" | "projects" | "publications",
+          getDetailOutput(resolvedName as "experience" | "projects" | "publications", n)
+        );
+      }
       return;
     }
 
@@ -111,6 +177,7 @@ export default function TerminalPage() {
     .map((e) => e.command);
 
   return (
+    <TerminalNavProvider value={handleCommand}>
     <div className="flex-1 flex flex-col bg-[var(--t-bg)] text-[var(--t-text)] font-mono overflow-hidden">
       <AnimatePresence>
         {showWelcome && (
@@ -135,10 +202,7 @@ export default function TerminalPage() {
               />
             )}
             {state.phase === "interactive" && (
-              <>
-                <TypewriterIntro />
-                <HistoryList entries={state.history} />
-              </>
+              <HistoryList entries={state.history} />
             )}
             {/* Spacer to push content up when history is short */}
             <div className="flex-1" />
@@ -158,5 +222,6 @@ export default function TerminalPage() {
         </TerminalWindow>
       </motion.div>
     </div>
+    </TerminalNavProvider>
   );
 }
