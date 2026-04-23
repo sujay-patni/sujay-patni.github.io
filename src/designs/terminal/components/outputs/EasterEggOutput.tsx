@@ -61,7 +61,7 @@ export function NeofetchOutput() {
 
   return (
     <div className="font-mono text-sm">
-      <div className="flex gap-6">
+      <div className="flex flex-col gap-2 sm:flex-row sm:gap-6">
         <div className="space-y-0 leading-snug flex-shrink-0">
           {logo.map((line, i) => (
             <p key={i} className="text-[var(--t-accent)] font-bold">
@@ -182,7 +182,7 @@ const LS_COMMANDS = [
 export function LsOutput() {
   return (
     <div className="font-mono text-sm">
-      <div className="grid grid-cols-4 gap-x-4 gap-y-0.5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-0.5">
         {LS_COMMANDS.map((cmd) => (
           <span key={cmd} className="text-[var(--t-accent)]">{cmd}</span>
         ))}
@@ -197,7 +197,7 @@ export function SecretHelpOutput() {
   return (
     <div className="font-mono text-sm space-y-1">
       <p className="text-[var(--t-muted-2)] mb-2 text-xs">shhh — hidden commands:</p>
-      <div className="grid grid-cols-4 gap-x-4 gap-y-0.5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-0.5">
         {hidden.map((cmd) => (
           <span key={cmd} className="text-[var(--t-accent-2)]">{cmd}</span>
         ))}

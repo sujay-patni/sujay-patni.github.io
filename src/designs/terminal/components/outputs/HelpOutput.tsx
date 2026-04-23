@@ -32,7 +32,7 @@ export default function HelpOutput({ secret }: HelpOutputProps) {
       <div className="space-y-1">
         <p className="text-[var(--t-accent)] mb-2">{'// pages'}</p>
         {pageCommands.map(({ name, desc }) => (
-          <div key={name} className="grid grid-cols-[18ch_1fr] gap-x-3">
+          <div key={name} className="grid grid-cols-1 sm:grid-cols-[18ch_1fr] gap-x-3">
             <span className="text-[var(--t-text-2)]">{name}</span>
             <span className="text-[var(--t-muted-1)]">{desc}</span>
           </div>
@@ -41,7 +41,7 @@ export default function HelpOutput({ secret }: HelpOutputProps) {
       <div className="space-y-1">
         <p className="text-[var(--t-accent)] mb-2">{'// commands'}</p>
         {otherCommands.map(({ name, desc }) => (
-          <div key={name} className="grid grid-cols-[18ch_1fr] gap-x-3">
+          <div key={name} className="grid grid-cols-1 sm:grid-cols-[18ch_1fr] gap-x-3">
             <span className="text-[var(--t-text-2)]">{name}</span>
             <span className="text-[var(--t-muted-1)]">{desc}</span>
           </div>

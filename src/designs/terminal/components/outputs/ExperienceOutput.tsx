@@ -29,18 +29,24 @@ export default function ExperienceOutput() {
           ref={(el) => { itemRefs.current[i] = el; }}
           tabIndex={-1}
           onClick={() => nav(`experience ${i + 1}`)}
-          className={`w-full text-left grid grid-cols-[4ch_16ch_20ch_1fr] gap-x-3 px-1 py-1 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
+          className={`w-full text-left px-1 py-1 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
             selected === i
               ? "bg-[var(--t-accent-dim)] border-[var(--t-accent)]"
               : "border-transparent hover:bg-[var(--t-accent-dim)] hover:border-[var(--t-accent)]"
           }`}
         >
-          <span className={`${selected === i ? "text-[var(--t-accent)]" : "text-[var(--t-muted-3)]"}`}>
-            [{i + 1}]
-          </span>
-          <span className="text-[var(--t-muted-2)]">[{job.period.split("–")[0].trim()}]</span>
-          <span className="text-[var(--t-text-2)]">{job.role}</span>
-          <span className="text-[var(--t-accent)]">{job.company.split(" (")[0]}</span>
+          <div className="flex flex-col gap-0.5 sm:grid sm:grid-cols-[4ch_16ch_20ch_1fr] sm:gap-x-3 sm:gap-y-0">
+            <div className="flex gap-2 sm:contents">
+              <span className={`${selected === i ? "text-[var(--t-accent)]" : "text-[var(--t-muted-3)]"}`}>
+                [{i + 1}]
+              </span>
+              <span className="text-[var(--t-muted-2)]">[{job.period.split("–")[0].trim()}]</span>
+            </div>
+            <div className="flex gap-2 sm:contents">
+              <span className="text-[var(--t-text-2)]">{job.role}</span>
+              <span className="text-[var(--t-accent)]">{job.company.split(" (")[0]}</span>
+            </div>
+          </div>
         </button>
       ))}
       <p className="text-[var(--t-muted-3)] mt-2 px-1">

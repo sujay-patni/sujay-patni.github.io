@@ -21,7 +21,7 @@ export default function WhoamiOutput() {
       {rows.map(([key, value]) => (
         <div key={key} className="grid grid-cols-[10ch_1fr] gap-x-3">
           <span className="text-[var(--t-muted-2)]">{key}</span>
-          <span className="text-[var(--t-text-2)]">{value}</span>
+          <span className="text-[var(--t-text-2)] break-all">{value}</span>
         </div>
       ))}
     </div>
