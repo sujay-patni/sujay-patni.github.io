@@ -7,9 +7,10 @@
  * Expected database titles: Config, Personal, Experience, Projects, Skills, Education, Publications
  */
 
-import { Client, isFullPage } from "@notionhq/client";
-import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import { writeFileSync } from "fs";
+import "dotenv/config";
+import { Client, isFullPage, isFullBlock } from "@notionhq/client";
+import type { PageObjectResponse, BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { writeFileSync, mkdirSync } from "fs";
 import { join } from "path";
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
@@ -101,6 +102,102 @@ async function queryAll(dataSourceId: string): Promise<PageObjectResponse[]> {
   return pages;
 }
 
+// ─── Block fetching helpers ──────────────────────────────────────────────────
+
+async function fetchPageBlocks(pageId: string): Promise<BlockObjectResponse[]> {
+  const blocks: BlockObjectResponse[] = [];
+  let cursor: string | undefined;
+
+  do {
+    const response = await notion.blocks.children.list({
+      block_id: pageId,
+      start_cursor: cursor,
+      page_size: 100,
+    });
+
+    for (const block of response.results) {
+      if (isFullBlock(block) && !block.in_trash) blocks.push(block);
+    }
+
+    cursor = response.has_more ? (response.next_cursor ?? undefined) : undefined;
+  } while (cursor);
+
+  return blocks;
+}
+
+function blockText(richText: Array<{ plain_text: string }>): string {
+  return richText.map((t) => t.plain_text).join("");
+}
+
+function extractBullets(blocks: BlockObjectResponse[]): string[] {
+  return blocks
+    .filter((b) => b.type === "bulleted_list_item" || b.type === "numbered_list_item")
+    .map((b) =>
+      b.type === "bulleted_list_item"
+        ? blockText((b as any).bulleted_list_item.rich_text)
+        : blockText((b as any).numbered_list_item.rich_text)
+    )
+    .filter(Boolean);
+}
+
+async function downloadNotionImage(url: string, blockId: string): Promise<string> {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Failed to download image ${blockId}: ${response.statusText}`);
+
+  const contentType = response.headers.get("content-type") ?? "";
+  const extMap: Record<string, string> = {
+    "image/jpeg": "jpg",
+    "image/jpg": "jpg",
+    "image/png": "png",
+    "image/gif": "gif",
+    "image/webp": "webp",
+    "image/svg+xml": "svg",
+  };
+  const ext = extMap[contentType.split(";")[0].trim()] ?? "jpg";
+
+  const dir = join(process.cwd(), "public", "images", "notion");
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, `${blockId}.${ext}`), Buffer.from(await response.arrayBuffer()));
+
+  return `/images/notion/${blockId}.${ext}`;
+}
+
+type ContentBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "image"; src: string; alt?: string };
+
+async function extractContent(blocks: BlockObjectResponse[]): Promise<ContentBlock[]> {
+  const result: ContentBlock[] = [];
+
+  for (const b of blocks) {
+    if (b.type === "paragraph") {
+      const text = blockText((b as any).paragraph.rich_text);
+      if (text) result.push({ type: "paragraph", text });
+    } else if (b.type === "image") {
+      const img = (b as any).image;
+      const isHosted = img.type === "file";
+      const url: string = isHosted ? img.file.url : img.external.url;
+      const alt = img.caption?.length ? blockText(img.caption) : undefined;
+
+      let src: string;
+      if (isHosted) {
+        try {
+          src = await downloadNotionImage(url, b.id);
+        } catch (err) {
+          console.warn(`Skipping image ${b.id}:`, (err as Error).message);
+          continue;
+        }
+      } else {
+        src = url;
+      }
+
+      result.push({ type: "image", src, ...(alt ? { alt } : {}) });
+    }
+  }
+
+  return result;
+}
+
 // ─── Main sync ───────────────────────────────────────────────────────────────
 
 async function main() {
@@ -156,34 +253,53 @@ async function main() {
     : null;
 
   // Experience — newest first (by Start Date descending)
-  const experience = (await queryAll(experienceDbId))
-    .sort((a, b) => getDate(b, "Start Date").localeCompare(getDate(a, "Start Date")))
-    .map((page) => ({
-      role: getText(page, "Title"),
-      company: getText(page, "Company"),
-      team: getText(page, "team"),
-      location: getText(page, "Location"),
-      period: dateToPeriod(
-        getDate(page, "Start Date"),
-        getDate(page, "End Date"),
-        getBool(page, "Current")
-      ),
-      bullets: getBullets(page, "bullets"),
-    }));
+  const experiencePages = (await queryAll(experienceDbId))
+    .sort((a, b) => getDate(b, "Start Date").localeCompare(getDate(a, "Start Date")));
+
+  const experience = await Promise.all(
+    experiencePages.map(async (page) => {
+      const blocks = await fetchPageBlocks(page.id);
+      const blockBullets = extractBullets(blocks);
+      return {
+        role: getText(page, "Title"),
+        company: getText(page, "Company"),
+        team: getText(page, "team"),
+        location: getText(page, "Location"),
+        period: dateToPeriod(
+          getDate(page, "Start Date"),
+          getDate(page, "End Date"),
+          getBool(page, "Current")
+        ),
+        bullets: blockBullets.length > 0 ? blockBullets : getBullets(page, "bullets"),
+      };
+    })
+  );
 
   // Projects — newest first (by Start Date descending)
-  const projects = (await queryAll(projectsDbId))
-    .sort((a, b) => getDate(b, "Start Date").localeCompare(getDate(a, "Start Date")))
-    .map((page) => ({
-      name: getText(page, "Name"),
-      period: dateToPeriod(getDate(page, "Start Date"), getDate(page, "End Date"), false),
-      description: getText(page, "Description"),
-      tech: getText(page, "tech")
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean),
-      publication: getText(page, "publication") || null,
-    }));
+  const projectPages = (await queryAll(projectsDbId))
+    .sort((a, b) => getDate(b, "Start Date").localeCompare(getDate(a, "Start Date")));
+
+  const projects = await Promise.all(
+    projectPages.map(async (page) => {
+      const blocks = await fetchPageBlocks(page.id);
+      const content = await extractContent(blocks);
+      const paragraphText = content
+        .filter((b): b is { type: "paragraph"; text: string } => b.type === "paragraph")
+        .map((b) => b.text)
+        .join(" ");
+      return {
+        name: getText(page, "Name"),
+        period: dateToPeriod(getDate(page, "Start Date"), getDate(page, "End Date"), false),
+        description: paragraphText || getText(page, "Description"),
+        tech: getText(page, "tech")
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean),
+        publication: getText(page, "publication") || null,
+        content,
+      };
+    })
+  );
 
   // Skills — one row per skill, grouped by Category
   const skillPages = await queryAll(skillsDbId);
@@ -202,32 +318,42 @@ async function main() {
   const skills = categoryOrder.map((cat) => ({ category: cat, items: skillMap[cat] }));
 
   // Education — sorted by start date descending
-  const education = (await queryAll(educationDbId))
+  const educationPages = (await queryAll(educationDbId))
     .sort((a, b) => {
       const da = getDate(a, "Start Date");
       const db = getDate(b, "Start Date");
       return db.localeCompare(da);
+    });
+
+  const education = await Promise.all(
+    educationPages.map(async (page) => {
+      const blocks = await fetchPageBlocks(page.id);
+      return {
+        institution: getText(page, "Institution"),
+        degree: getText(page, "Degree"),
+        score: getText(page, "GPA"),
+        period: dateToPeriod(
+          getDate(page, "Start Date"),
+          getDate(page, "End Date"),
+          getBool(page, "Current")
+        ),
+        location: getText(page, "Location"),
+        content: await extractContent(blocks),
+      };
     })
-    .map((page) => ({
-      institution: getText(page, "Institution"),
-      degree: getText(page, "Degree"),
-      score: getText(page, "GPA"),
-      period: dateToPeriod(
-        getDate(page, "Start Date"),
-        getDate(page, "End Date"),
-        getBool(page, "Current")
-      ),
-      location: getText(page, "Location"),
-    }));
+  );
 
   // Publications — sorted by date descending
-  const publications = (await queryAll(publicationsDbId))
+  const publicationPages = (await queryAll(publicationsDbId))
     .sort((a, b) => {
       const da = getDate(a, "Date");
       const db = getDate(b, "Date");
       return db.localeCompare(da);
-    })
-    .map((page) => {
+    });
+
+  const publications = await Promise.all(
+    publicationPages.map(async (page) => {
+      const blocks = await fetchPageBlocks(page.id);
       const dateStr = getDate(page, "Date");
       const date = dateStr
         ? new Date(dateStr).toLocaleDateString("en-US", { month: "long", year: "numeric" })
@@ -236,8 +362,10 @@ async function main() {
         title: getText(page, "Title"),
         venue: getText(page, "Publication"),
         date,
+        content: await extractContent(blocks),
       };
-    });
+    })
+  );
 
   const output = {
     _meta: {

@@ -1,3 +1,7 @@
+export type ContentBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "image"; src: string; alt?: string };
+
 export interface PersonalData {
   name: string;
   title: string;
@@ -23,6 +27,7 @@ export interface ProjectItem {
   description: string;
   tech: string[];
   publication: string | null;
+  content?: ContentBlock[];
 }
 
 export interface SkillCategory {
@@ -36,12 +41,14 @@ export interface EducationItem {
   score: string;
   period: string;
   location: string;
+  content?: ContentBlock[];
 }
 
 export interface PublicationItem {
   title: string;
   venue: string;
   date: string;
+  content?: ContentBlock[];
 }
 
 export interface ConfigData {
