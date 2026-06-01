@@ -14,7 +14,7 @@ export default function PublicationsOutput() {
     (i: number) => nav(`publications ${i + 1}`),
     [nav]
   );
-  const selected = useListKeyNav(publications.length, handleSelect);
+  const [selected, setSelected] = useListKeyNav(publications.length, handleSelect);
 
   useEffect(() => {
     itemRefs.current[selected]?.scrollIntoView({ block: "nearest", behavior: "smooth" });
@@ -27,6 +27,7 @@ export default function PublicationsOutput() {
           key={i}
           ref={(el) => { itemRefs.current[i] = el; }}
           tabIndex={-1}
+          onMouseEnter={() => setSelected(i)}
           onClick={() => nav(`publications ${i + 1}`)}
           className={`w-full text-left space-y-1 px-1 py-2 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
             selected === i

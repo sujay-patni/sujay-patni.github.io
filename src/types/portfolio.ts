@@ -5,12 +5,37 @@ export type ContentBlock =
 export interface PersonalData {
   name: string;
   title: string;
+  company: string;
   tagline: string;
   email: string;
   phone: string;
   location: string;
   linkedin: string;
   github: string;
+}
+
+export interface HomeMetric {
+  value: string;
+  label: string;
+  note: string;
+}
+
+export type HomeCardCommand =
+  | "experience"
+  | "projects"
+  | "publications"
+  | "skills"
+  | "resume"
+  | "contact";
+
+export interface HomeCard {
+  cmd: HomeCardCommand;
+  label: string;
+  path: string;
+  eyebrow: string;
+  title: string;
+  summary: string;
+  meta: string;
 }
 
 export interface ExperienceItem {
@@ -56,11 +81,15 @@ export interface ConfigData {
   active_design: string;
   currently_doing: string;
   open_to_work: boolean;
+  resume_path: string;
+  resume_download_name: string;
 }
 
 export interface PortfolioData {
   config: ConfigData;
   personal: PersonalData;
+  homeMetrics: HomeMetric[];
+  homeCards: HomeCard[];
   experience: ExperienceItem[];
   projects: ProjectItem[];
   skills: SkillCategory[];

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import notionData from "../../public/notion-data.json";
+import type { PortfolioData } from "@/types/portfolio";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,12 +16,25 @@ const geistMono = Geist_Mono({
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
+const portfolioData = notionData as PortfolioData;
+const metadataName = portfolioData.personal.name;
+const metadataTitle = portfolioData.personal.title;
+const metadataCompany = portfolioData.personal.company;
+const metadataSkills = portfolioData.skills
+  .flatMap((group) => group.items)
+  .slice(0, 5);
+
 export const metadata: Metadata = {
-  title: "Sujay Patni — Software Engineer",
-  description:
-    "Personal portfolio of Sujay Patni, Software Engineer specializing in backend systems, microservices, and AI-powered products.",
-  keywords: ["Sujay Patni", "Software Engineer", "Backend", "Java", "Spring Boot", "OfBusiness"],
-  authors: [{ name: "Sujay Patni" }],
+  title: [metadataName, metadataTitle].filter(Boolean).join(" - "),
+  description: [
+    "Personal portfolio of",
+    metadataName,
+    metadataTitle ? `, ${metadataTitle}` : "",
+    metadataCompany ? ` at ${metadataCompany}` : "",
+    ".",
+  ].join(""),
+  keywords: [metadataName, metadataTitle, metadataCompany, ...metadataSkills].filter(Boolean),
+  authors: metadataName ? [{ name: metadataName }] : [],
 };
 
 // Theme CSS injected inline so it's guaranteed to be in the HTML regardless of

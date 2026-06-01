@@ -1,6 +1,7 @@
 "use client";
 
 import { getStoredTheme } from "../../lib/theme";
+import { usePortfolioData } from "@/lib/portfolio-data";
 
 // ─── sudo ────────────────────────────────────────────────────────────────────
 export function SudoOutput() {
@@ -116,6 +117,11 @@ const FAKE_LOG = [
 ];
 
 export function GitLogOutput() {
+  const { personal } = usePortfolioData();
+  const author = [personal.name, personal.email ? `<${personal.email}>` : ""]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div className="font-mono text-xs space-y-3">
       {FAKE_LOG.map((entry) => (
@@ -126,7 +132,7 @@ export function GitLogOutput() {
               <span className="text-[var(--t-muted-3)]"> (HEAD → main)</span>
             )}
           </p>
-          <p className="text-[var(--t-muted-2)]">Author: Sujay Patni &lt;sujaypatni@gmail.com&gt;</p>
+          {author ? <p className="text-[var(--t-muted-2)]">Author: {author}</p> : null}
           <p className="text-[var(--t-muted-2)]">Date:   {entry.date}</p>
           <p className="text-[var(--t-text-2)] mt-1 pl-4">{entry.msg}</p>
         </div>

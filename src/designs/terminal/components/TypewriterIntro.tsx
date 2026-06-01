@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { usePortfolioData } from "@/lib/portfolio-data";
 
-const CHAR_DELAY = 10;
+const CHAR_DELAY = 3;
 
 // Module-level flag — persists across re-renders, resets only on page reload
 let introHasAnimated = false;
@@ -57,12 +57,19 @@ export default function TypewriterIntro() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const visibleIntro = done ? intro : displayed;
+  const paragraphs = visibleIntro.split("\n\n");
+
   return (
-    <p className="font-mono text-sm text-[var(--t-muted-1)] leading-relaxed mb-4">
-      {done ? intro : displayed}
-      {!done && (
-        <span className="cursor-blink inline-block w-[7px] h-[13px] bg-[var(--t-accent)] ml-0.5 align-middle" />
-      )}
-    </p>
+    <div className="font-mono text-sm text-[var(--t-muted-1)] leading-relaxed mb-4 space-y-4">
+      {paragraphs.map((paragraph, index) => (
+        <p key={index}>
+          {paragraph}
+          {!done && index === paragraphs.length - 1 && (
+            <span className="cursor-blink inline-block w-[7px] h-[13px] bg-[var(--t-accent)] ml-0.5 align-middle" />
+          )}
+        </p>
+      ))}
+    </div>
   );
 }

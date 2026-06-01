@@ -1,23 +1,104 @@
 {
   "_meta": {
-    "synced_at": "2026-05-31T09:16:23.502Z",
+    "synced_at": "2026-06-01T07:43:52.912Z",
     "source": "notion"
   },
   "config": {
     "active_design": "terminal",
     "currently_doing": "",
-    "open_to_work": false
+    "open_to_work": false,
+    "resume_path": "/SujayPatni_Resume_2026.pdf",
+    "resume_download_name": "SujayPatni_Resume_2026.pdf"
   },
   "personal": {
     "name": "Sujay Patni",
     "title": "Software Engineer",
-    "tagline": "Hi I’m Sujay, a software engineer with a dual degree in Computer Science and Economics from BITS Pilani. I currently work at OfBusiness building backend infrastructure at real scale — a Stock Transfer and Invoicing System that moves ₹50 Cr+ monthly, a Supplier Portal onboarding 10,000+ vendors, and Ved AI, an AI-powered support assistant that tripled customer inquiry throughput. I also led my team’s shift to AI-agentic development using Claude Code and Antigravity, cutting delivery time by 40%. Before going full-time, I spent a semester at IISc collaborating with IBM Research on power-efficient CPU scheduling, reducing the energy-delay product by 80% against Linux governors — work published at ACM e-Energy 2024. I’ve also published in Elsevier’s Internet of Things on continuous biometric authentication using wearable PPG sensors and LSTM networks. My sweet spot is building things that are fast, reliable, and intelligent.",
+    "company": "OfBusiness",
+    "tagline": "Hi, I'm Sujay Patni.\n\nI'm a Software Engineer at OfBusiness and a Computer Science graduate from BITS Pilani. I enjoy building scalable backend systems, AI-powered applications, and software that solves real-world problems.\n\nOver the past few years, I've worked on products used by hundreds of thousands of users, built AI-driven automation platforms, designed microservices that support large-scale business operations, and contributed to research published in leading academic venues.\n\nMy experience spans Java, Spring Boot, distributed systems, AI agent workflows, search platforms, databases, and system design. What I enjoy most is understanding a problem from first principles and turning it into a solution that is reliable, scalable, and easy to use.\n\nWhether it's building an AI assistant, improving search experiences, designing backend services, or developing custom software solutions, I like working on products that create measurable impact and make people's lives easier.\n\nThis portfolio is a collection of the projects, products, research, and engineering challenges I've worked on throughout my journey as a developer.",
     "email": "sujaypatni@gmail.com",
     "phone": "+91-9205773690",
     "location": "Gurugram, Haryana",
     "linkedin": "https://linkedin.com/in/sujay-patni/",
     "github": "https://github.com/sujay-patni"
   },
+  "homeMetrics": [
+    {
+      "value": "2+ years",
+      "label": "software engineering",
+      "note": "backend systems, AI applications, and production platforms"
+    },
+    {
+      "value": "20+ skills",
+      "label": "technical toolkit",
+      "note": "Java, Spring Boot, databases, search, AI workflows"
+    },
+    {
+      "value": "6+ projects",
+      "label": "built across domains",
+      "note": "AI assistants, backend services, research systems, automation"
+    },
+    {
+      "value": "2 papers",
+      "label": "published research",
+      "note": "sustainable computing + biometric authentication"
+    }
+  ],
+  "homeCards": [
+    {
+      "cmd": "experience",
+      "label": "Experience",
+      "path": "~/experience",
+      "eyebrow": "2+ years",
+      "title": "Software Engineer at OfBusiness",
+      "summary": "Backend infrastructure, AI support automation, supplier onboarding, and systems used in day-to-day business operations.",
+      "meta": "open experience"
+    },
+    {
+      "cmd": "skills",
+      "label": "Skills",
+      "path": "~/skills",
+      "eyebrow": "20+ skills",
+      "title": "Backend, systems, AI, and data",
+      "summary": "Java, Spring Boot, distributed systems, AI agent workflows, search platforms, databases, and system design.",
+      "meta": "open skills"
+    },
+    {
+      "cmd": "projects",
+      "label": "Projects",
+      "path": "~/projects",
+      "eyebrow": "6+ projects",
+      "title": "Software, research, and systems builds",
+      "summary": "Selected work across AI assistants, backend services, high-speed network flow analysis, automation, and biometric authentication.",
+      "meta": "open projects"
+    },
+    {
+      "cmd": "publications",
+      "label": "Research",
+      "path": "~/publications",
+      "eyebrow": "2 papers",
+      "title": "Published research",
+      "summary": "Research work in sustainable computing and continuous biometric authentication using wearable sensor data.",
+      "meta": "open publications"
+    },
+    {
+      "cmd": "resume",
+      "label": "Resume",
+      "path": "~/resume.pdf",
+      "eyebrow": "PDF",
+      "title": "My resume",
+      "summary": "A compact view of my work experience, projects, education, research, and the tools I use most often.",
+      "meta": "open resume"
+    },
+    {
+      "cmd": "contact",
+      "label": "Contact",
+      "path": "~/contact",
+      "eyebrow": "email / links",
+      "title": "Available for the right problems",
+      "summary": "Reach out for backend engineering, AI-powered product work, search experiences, or custom software projects.",
+      "meta": "open contact"
+    }
+  ],
   "experience": [
     {
       "role": "Software Engineer",

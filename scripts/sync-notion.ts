@@ -5,6 +5,9 @@
  *
  * Databases are auto-discovered by title — no IDs needed.
  * Expected database titles: Config, Personal, Experience, Projects, Skills, Education, Publications
+ * Config keys also drive homepage dashboard content:
+ * - home_metrics: JSON array of metric cards
+ * - home_cards: JSON array of homepage summary panels
  */
 
 import "dotenv/config";
@@ -87,6 +90,18 @@ function getBullets(page: PageObjectResponse, key: string): string[] {
     .split("\n")
     .map((l) => l.trim())
     .filter(Boolean);
+}
+
+function parseJsonArray<T>(value: string | undefined, key: string): T[] {
+  if (!value) return [];
+
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (err) {
+    console.warn(`Skipping Config.${key}: invalid JSON`, (err as Error).message);
+    return [];
+  }
 }
 
 // ─── Database query helper ───────────────────────────────────────────────────
@@ -248,7 +263,11 @@ async function main() {
     active_design: configMap["active_design"] || "terminal",
     currently_doing: configMap["currently_doing"] || "",
     open_to_work: configMap["open_to_work"] === "true",
+    resume_path: configMap["resume_path"] || "",
+    resume_download_name: configMap["resume_download_name"] || "",
   };
+  const homeMetrics = parseJsonArray(configMap["home_metrics"], "home_metrics");
+  const homeCards = parseJsonArray(configMap["home_cards"], "home_cards");
 
   // Personal — single row
   const personalPages = await queryAll(personalDbId);
@@ -257,6 +276,7 @@ async function main() {
     ? {
         name: getText(personalPage, "Name"),
         title: getText(personalPage, "title"),
+        company: getText(personalPage, "company"),
         tagline: getText(personalPage, "tagline"),
         email: getText(personalPage, "email"),
         phone: getText(personalPage, "phone"),
@@ -264,7 +284,17 @@ async function main() {
         linkedin: getText(personalPage, "linkedin"),
         github: getText(personalPage, "github"),
       }
-    : null;
+    : {
+        name: "",
+        title: "",
+        company: "",
+        tagline: "",
+        email: "",
+        phone: "",
+        location: "",
+        linkedin: "",
+        github: "",
+      };
 
   // Experience — newest first (by Start Date descending)
   const experiencePages = (await queryAll(experienceDbId))
@@ -388,6 +418,8 @@ async function main() {
     },
     config,
     personal,
+    homeMetrics,
+    homeCards,
     experience,
     projects,
     skills,

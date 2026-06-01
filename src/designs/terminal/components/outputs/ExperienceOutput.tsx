@@ -14,7 +14,7 @@ export default function ExperienceOutput() {
     (i: number) => nav(`experience ${i + 1}`),
     [nav]
   );
-  const selected = useListKeyNav(experience.length, handleSelect);
+  const [selected, setSelected] = useListKeyNav(experience.length, handleSelect);
 
   // Scroll selected item into view on keyboard navigation
   useEffect(() => {
@@ -28,6 +28,7 @@ export default function ExperienceOutput() {
           key={i}
           ref={(el) => { itemRefs.current[i] = el; }}
           tabIndex={-1}
+          onMouseEnter={() => setSelected(i)}
           onClick={() => nav(`experience ${i + 1}`)}
           className={`w-full text-left px-1 py-1 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
             selected === i

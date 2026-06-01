@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useReducer, useRef, useEffect, useState } from "react";
+import React, { useReducer, useRef, useEffect, useLayoutEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { TerminalState, TerminalAction, PageName } from "../types/terminal";
 import { applyTheme, getStoredTheme } from "../lib/theme";
@@ -12,8 +12,6 @@ import HistoryList from "./HistoryList";
 import PromptRow from "./PromptRow";
 import BootSequence from "./BootSequence";
 import WelcomeScreen from "./WelcomeScreen";
-import MotdHeader from "./MotdHeader";
-import CommandChips from "./CommandChips";
 import HomeOutput from "./outputs/HomeOutput";
 import ExperienceOutput from "./outputs/ExperienceOutput";
 import ExperienceDetailOutput from "./outputs/ExperienceDetailOutput";
@@ -99,9 +97,14 @@ export default function TerminalPage() {
   }, []);
 
   // Scroll to top on page navigation, bottom when appending commands
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (navigatedRef.current) {
-      bodyRef.current?.scrollTo({ top: 0, behavior: "instant" });
+      const body = bodyRef.current;
+      body?.scrollTo({ top: 0, behavior: "instant" });
+      requestAnimationFrame(() => {
+        body?.scrollTo({ top: 0, behavior: "instant" });
+        requestAnimationFrame(() => body?.scrollTo({ top: 0, behavior: "instant" }));
+      });
       navigatedRef.current = false;
     } else {
       bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
@@ -191,10 +194,13 @@ export default function TerminalPage() {
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: showWelcome ? 0 : 1, scale: showWelcome ? 0.98 : 1 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
-        className="flex-1 flex flex-col items-center justify-center p-2 min-h-0"
+        className="flex-1 flex flex-col items-center justify-center p-1 min-h-0"
       >
-        <TerminalWindow>
-          <MotdHeader />
+        <TerminalWindow
+            onCommand={handleCommand}
+            disabled={state.phase === "booting"}
+            activePage={state.currentPage}
+        >
           <TerminalBody bodyRef={bodyRef}>
             {state.phase === "booting" && commandsReady && (
               <BootSequence
@@ -207,10 +213,6 @@ export default function TerminalPage() {
             {/* Spacer to push content up when history is short */}
             <div className="flex-1" />
           </TerminalBody>
-          <CommandChips
-            onCommand={handleCommand}
-            disabled={state.phase === "booting"}
-          />
           <PromptRow
             value={inputValue}
             onChange={setInputValue}

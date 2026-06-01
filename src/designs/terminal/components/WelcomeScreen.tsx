@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { usePortfolioData } from "@/lib/portfolio-data";
 
 interface WelcomeScreenProps {
   onComplete: () => void;
@@ -19,6 +20,7 @@ const CURSOR_DELAY = 2450;
 const COMPLETE_DELAY = 3300;
 
 export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
+  const { personal } = usePortfolioData();
   const [scanDone, setScanDone] = useState(false);
   const [visibleLines, setVisibleLines] = useState(0);
   const [showCursor, setShowCursor] = useState(false);
@@ -130,14 +132,16 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
                 "0 0 30px rgba(var(--t-accent-rgb),0.45), 0 0 70px rgba(var(--t-accent-rgb),0.2), 0 0 120px rgba(var(--t-accent-rgb),0.08)",
             }}
           >
-            SUJAY PATNI
+            {personal.name ? personal.name.toUpperCase() : "PORTFOLIO"}
           </h1>
-          <p
-            className="font-mono text-[var(--t-muted-2)] tracking-[0.45em] uppercase"
-            style={{ fontSize: "clamp(0.6rem, 1.8vw, 0.85rem)" }}
-          >
-            Software Engineer
-          </p>
+          {personal.title ? (
+            <p
+              className="font-mono text-[var(--t-muted-2)] tracking-[0.45em] uppercase"
+              style={{ fontSize: "clamp(0.6rem, 1.8vw, 0.85rem)" }}
+            >
+              {personal.title}
+            </p>
+          ) : null}
         </motion.div>
 
         {/* Divider */}

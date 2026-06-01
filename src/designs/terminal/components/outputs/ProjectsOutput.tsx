@@ -14,7 +14,7 @@ export default function ProjectsOutput() {
     (i: number) => nav(`projects ${i + 1}`),
     [nav]
   );
-  const selected = useListKeyNav(projects.length, handleSelect);
+  const [selected, setSelected] = useListKeyNav(projects.length, handleSelect);
 
   useEffect(() => {
     itemRefs.current[selected]?.scrollIntoView({ block: "nearest", behavior: "smooth" });
@@ -27,6 +27,7 @@ export default function ProjectsOutput() {
           key={i}
           ref={(el) => { itemRefs.current[i] = el; }}
           tabIndex={-1}
+          onMouseEnter={() => setSelected(i)}
           onClick={() => nav(`projects ${i + 1}`)}
           className={`w-full text-left space-y-1 px-1 py-2 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
             selected === i

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 // Keyboard navigation for list pages (Up/Down to move, Enter to select).
 // Uses capture phase so it fires before the prompt's onKeyDown.
@@ -8,10 +8,19 @@ import { useState, useEffect, useRef } from "react";
 export function useListKeyNav(
   count: number,
   onSelect: (index: number) => void
-): number {
+): [number, (index: number) => void] {
   const [selected, setSelected] = useState(0);
   const selectedRef = useRef(0);
   const onSelectRef = useRef(onSelect);
+
+  const selectIndex = useCallback(
+    (index: number) => {
+      if (index < 0 || index >= count) return;
+      selectedRef.current = index;
+      setSelected(index);
+    },
+    [count]
+  );
 
   useEffect(() => {
     onSelectRef.current = onSelect;
@@ -65,5 +74,5 @@ export function useListKeyNav(
     return () => window.removeEventListener("keydown", handler, { capture: true });
   }, [count]);
 
-  return selected;
+  return [selected, selectIndex];
 }

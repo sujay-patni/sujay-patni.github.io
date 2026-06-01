@@ -2,13 +2,14 @@
 
 import { useRef } from "react";
 import { motion } from "framer-motion";
+import type { PageName } from "../types/terminal";
 
 const CHIPS = [
-  { label: "home" },
-  { label: "experience" },
-  { label: "projects" },
-  { label: "publications" },
-  { label: "skills" },
+  { label: "home", page: "home" },
+  { label: "experience", page: "experience" },
+  { label: "projects", page: "projects" },
+  { label: "publications", page: "publications" },
+  { label: "skills", page: "skills" },
   { label: "resume" },
   { label: "contact" },
 ];
@@ -16,9 +17,10 @@ const CHIPS = [
 interface CommandChipsProps {
   onCommand: (cmd: string) => void;
   disabled: boolean;
+  activePage?: PageName;
 }
 
-export default function CommandChips({ onCommand, disabled }: CommandChipsProps) {
+export default function CommandChips({ onCommand, disabled, activePage }: CommandChipsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -46,18 +48,33 @@ export default function CommandChips({ onCommand, disabled }: CommandChipsProps)
       initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="flex flex-wrap gap-1.5 px-4 py-2.5 border-t border-[var(--t-border)] flex-shrink-0"
+      className="flex items-center gap-2 px-3 sm:px-4 py-2.5 border-b border-[var(--t-border)] bg-[var(--t-surface)]/70 flex-shrink-0 overflow-x-auto"
+      role="navigation"
+      aria-label="Primary portfolio pages"
     >
-      {CHIPS.map(({ label }) => (
-        <button
-          key={label}
-          onClick={() => !disabled && onCommand(label)}
-          disabled={disabled}
-          className="font-mono text-xs px-2.5 py-1 rounded border border-[var(--t-border)] text-[var(--t-muted-2)] hover:border-[var(--t-accent)] hover:text-[var(--t-accent)] hover:bg-[var(--t-accent-dim)] active:scale-95 transition-all duration-100 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer"
-        >
-          {label}
-        </button>
-      ))}
+      <span className="hidden sm:inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--t-muted-3)] mr-1 whitespace-nowrap">
+        pages
+      </span>
+      {CHIPS.map(({ label, page }) => {
+        const active = page === activePage;
+
+        return (
+          <button
+            key={label}
+            onClick={() => !disabled && onCommand(label)}
+            disabled={disabled}
+            aria-current={active ? "page" : undefined}
+            className={`font-mono text-xs px-3 py-1.5 rounded-md border whitespace-nowrap active:scale-95 transition-all duration-100 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer ${
+              active
+                ? "border-[var(--t-accent)] bg-[var(--t-accent-dim)] text-[var(--t-accent)] shadow-[0_0_0_1px_var(--t-accent-dim)]"
+                : "border-[var(--t-border)] text-[var(--t-muted-2)] hover:border-[var(--t-accent)] hover:text-[var(--t-accent)] hover:bg-[var(--t-accent-dim)]"
+            }`}
+          >
+            <span className="text-[var(--t-muted-3)]">/</span>
+            {label}
+          </button>
+        );
+      })}
     </motion.div>
   );
 }

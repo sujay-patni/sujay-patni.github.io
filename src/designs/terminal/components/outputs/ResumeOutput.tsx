@@ -1,14 +1,26 @@
-const RESUME_PATH = "/SujayPatni_Resume_2026.pdf";
+import { usePortfolioData } from "@/lib/portfolio-data";
 
 export default function ResumeOutput() {
+  const { config, personal } = usePortfolioData();
+  const resumePath = config.resume_path;
+  const downloadName = config.resume_download_name || "resume.pdf";
+
+  if (!resumePath) {
+    return (
+      <p className="font-mono text-sm text-[var(--t-danger)]">
+        resume is not configured in Notion
+      </p>
+    );
+  }
+
   return (
     <div className="font-mono text-sm space-y-3">
       <p className="text-[var(--t-muted-1)]">
-        Sujay Patni — Resume <span className="text-[var(--t-muted-3)]">(PDF, 2026)</span>
+        {personal.name ? `${personal.name} - ` : ""}Resume <span className="text-[var(--t-muted-3)]">(PDF)</span>
       </p>
       <div className="flex gap-4">
         <a
-          href={RESUME_PATH}
+          href={resumePath}
           target="_blank"
           rel="noreferrer"
           className="text-[var(--t-accent)] underline underline-offset-2 hover:text-[var(--t-accent-2)] transition-colors"
@@ -16,8 +28,8 @@ export default function ResumeOutput() {
           ↗ view
         </a>
         <a
-          href={RESUME_PATH}
-          download="SujayPatni_Resume_2026.pdf"
+          href={resumePath}
+          download={downloadName}
           className="text-[var(--t-muted-1)] underline underline-offset-2 hover:text-[var(--t-text)] transition-colors"
         >
           ↓ download

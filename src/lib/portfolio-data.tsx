@@ -3,31 +3,38 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { PortfolioData } from "@/types/portfolio";
 
-import { personal } from "@/data/personal";
-import { experience } from "@/data/experience";
-import { projects } from "@/data/projects";
-import { skills } from "@/data/skills";
-import { education } from "@/data/education";
-import { publications } from "@/data/publications";
-
-const staticData: PortfolioData = {
+const emptyData: PortfolioData = {
   config: {
     active_design: "terminal",
     currently_doing: "",
     open_to_work: false,
+    resume_path: "",
+    resume_download_name: "",
   },
-  personal,
-  experience,
-  projects,
-  skills,
-  education,
-  publications,
+  personal: {
+    name: "",
+    title: "",
+    company: "",
+    tagline: "",
+    email: "",
+    phone: "",
+    location: "",
+    linkedin: "",
+    github: "",
+  },
+  homeMetrics: [],
+  homeCards: [],
+  experience: [],
+  projects: [],
+  skills: [],
+  education: [],
+  publications: [],
 };
 
-const PortfolioDataContext = createContext<PortfolioData>(staticData);
+const PortfolioDataContext = createContext<PortfolioData>(emptyData);
 
 export function PortfolioDataProvider({ children }: { children: React.ReactNode }) {
-  const [data, setData] = useState<PortfolioData>(staticData);
+  const [data, setData] = useState<PortfolioData>(emptyData);
 
   useEffect(() => {
     fetch("/notion-data.json")
