@@ -2,7 +2,7 @@
 
 import React, { useReducer, useRef, useEffect, useLayoutEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import type { TerminalState, TerminalAction, PageName } from "../types/terminal";
 import { applyTheme, getStoredTheme } from "../lib/theme";
 import { registry, initCommands, getCommandNames } from "../lib/commands";
@@ -183,7 +183,6 @@ export default function TerminalPage() {
   const [inputValue, setInputValue] = useState("");
   const [commandsReady, setCommandsReady] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
-  const router = useRouter();
   const bodyRef = useRef<HTMLDivElement>(null);
   const navigatedRef = useRef(false);
   const shouldScrollToBottomRef = useRef(false);
@@ -238,6 +237,21 @@ export default function TerminalPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.phase, commandsReady, pathname]);
 
+  useEffect(() => {
+    if (state.phase !== "interactive" || !commandsReady) return;
+
+    function handlePopState() {
+      const searchParams = new URLSearchParams(window.location.search);
+      const routeCommand = searchParams.get("run") ?? pathnameToCommand(window.location.pathname);
+      lastAppliedRouteRef.current = routeCommand;
+      handleCommand(routeCommand, { updateUrl: false });
+    }
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.phase, commandsReady]);
+
   function navigate(page: PageName, output: React.ReactNode) {
     navigatedRef.current = true;
     dispatch({
@@ -272,7 +286,7 @@ export default function TerminalPage() {
 
     if (routedPath && routedPath !== window.location.pathname) {
       lastAppliedRouteRef.current = raw.trim().toLowerCase();
-      router.push(routedPath);
+      window.history.pushState({ command: raw }, "", routedPath);
     }
 
     if (PAGE_COMMANDS.has(resolvedName)) {
