@@ -105,7 +105,7 @@ export default function HomeOutput() {
         <Reveal>
           <div className="terminal-code flex items-center gap-3 text-sm text-[var(--t-muted-3)]">
             <span className="text-[var(--t-accent)]">$</span>
-            <span>ls -la recruiter-summary</span>
+            <span>ls -la summary</span>
             <span className="h-px flex-1 bg-[var(--t-border)]" />
           </div>
         </Reveal>

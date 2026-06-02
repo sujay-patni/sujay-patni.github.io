@@ -2,6 +2,7 @@
 
 import React, { useReducer, useRef, useEffect, useLayoutEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
 import type { TerminalState, TerminalAction, PageName } from "../types/terminal";
 import { applyTheme, getStoredTheme } from "../lib/theme";
 import { registry, initCommands, getCommandNames } from "../lib/commands";
@@ -17,31 +18,36 @@ import ExperienceOutput from "./outputs/ExperienceOutput";
 import ExperienceDetailOutput from "./outputs/ExperienceDetailOutput";
 import ProjectsOutput from "./outputs/ProjectsOutput";
 import ProjectDetailOutput from "./outputs/ProjectDetailOutput";
-import PublicationsOutput from "./outputs/PublicationsOutput";
-import PublicationDetailOutput from "./outputs/PublicationDetailOutput";
-import SkillsOutput from "./outputs/SkillsOutput";
 
 function getPageOutput(page: PageName): React.ReactNode {
   if (page === "home") return <HomeOutput />;
   if (page === "experience") return <ExperienceOutput />;
   if (page === "projects") return <ProjectsOutput />;
-  if (page === "publications") return <PublicationsOutput />;
-  if (page === "skills") return <SkillsOutput tree={false} />;
   return null;
 }
 
 function getDetailOutput(
-  page: "experience" | "projects" | "publications",
+  page: "experience" | "projects",
   n: number
 ): React.ReactNode {
   if (page === "experience") return <ExperienceDetailOutput index={n} />;
   if (page === "projects") return <ProjectDetailOutput index={n} />;
-  if (page === "publications") return <PublicationDetailOutput index={n} />;
   return null;
 }
 
-const PAGE_COMMANDS = new Set(["home", "experience", "projects", "publications", "skills"]);
-const ALIASES: Record<string, string> = { exp: "experience", pubs: "publications" };
+const PAGE_COMMANDS = new Set(["home", "experience", "projects"]);
+const ALIASES: Record<string, string> = { exp: "experience" };
+// `resume` and `contact` are intentionally NOT routed: they run as plain
+// commands that append their output at the end of the terminal, without owning
+// a URL or a standalone page.
+const ROUTED_COMMANDS = new Set([
+  ...PAGE_COMMANDS,
+  "education",
+  "help",
+  "timeline",
+  "whoami",
+]);
+const WELCOME_SEEN_KEY = "terminal-welcome-seen-session-v1";
 
 function terminalReducer(state: TerminalState, action: TerminalAction): TerminalState {
   switch (action.type) {
@@ -78,17 +84,77 @@ function tabComplete(current: string): string {
   return lcp;
 }
 
+function commandToPath(raw: string): string | null {
+  const parts = raw.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return null;
+
+  const name = ALIASES[parts[0]] ?? parts[0];
+  const firstArg = parts[1];
+
+  if (name === "home") return "/";
+  if (["experience", "projects"].includes(name)) {
+    return firstArg && /^\d+$/.test(firstArg) ? `/${name}/${firstArg}/` : `/${name}/`;
+  }
+  if (ROUTED_COMMANDS.has(name)) return `/${name}/`;
+
+  return null;
+}
+
+function pathnameToCommand(pathname: string): string {
+  const segments = pathname.split("/").filter(Boolean).map(decodeURIComponent);
+  const [page, detail] = segments;
+
+  if (!page || page === "home") return "home";
+  if (["experience", "projects"].includes(page)) {
+    return detail && /^\d+$/.test(detail) ? `${page} ${detail}` : page;
+  }
+  if (ROUTED_COMMANDS.has(page)) return page;
+
+  return "home";
+}
+
+function hasSeenWelcome(): boolean {
+  try {
+    return window.sessionStorage.getItem(WELCOME_SEEN_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+
+function markWelcomeSeen() {
+  try {
+    window.sessionStorage.setItem(WELCOME_SEEN_KEY, "true");
+  } catch {
+    // Storage can be unavailable in private browsing; the intro still completes.
+  }
+}
+
 export default function TerminalPage() {
   const [state, dispatch] = useReducer(terminalReducer, initialState);
   const [inputValue, setInputValue] = useState("");
   const [commandsReady, setCommandsReady] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [welcomeChecked, setWelcomeChecked] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
   const bodyRef = useRef<HTMLDivElement>(null);
   const navigatedRef = useRef(false);
+  const lastAppliedRouteRef = useRef<string | null>(null);
 
   // Apply stored theme on mount
   useEffect(() => {
     applyTheme(getStoredTheme());
+  }, []);
+
+  // Show the welcome overlay only once per tab session.
+  useEffect(() => {
+    if (hasSeenWelcome()) {
+      dispatch({ type: "BOOT_COMPLETE" });
+      setShowWelcome(false);
+    } else {
+      setShowWelcome(true);
+    }
+    setWelcomeChecked(true);
   }, []);
 
   // Load command registry
@@ -111,18 +177,16 @@ export default function TerminalPage() {
     }
   }, [state.history]);
 
-  // URL deep-link or auto-navigate home on boot complete
+  // URL deep-link on boot and browser back/forward.
   useEffect(() => {
     if (state.phase !== "interactive" || !commandsReady) return;
-    const params = new URLSearchParams(window.location.search);
-    const cmd = params.get("run");
-    if (cmd) {
-      handleCommand(cmd);
-    } else {
-      navigate("home", getPageOutput("home"));
-    }
+    const searchParams = new URLSearchParams(window.location.search);
+    const routeCommand = searchParams.get("run") ?? pathnameToCommand(pathname);
+    if (lastAppliedRouteRef.current === routeCommand) return;
+    lastAppliedRouteRef.current = routeCommand;
+    handleCommand(routeCommand, { updateUrl: false });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.phase, commandsReady]);
+  }, [state.phase, commandsReady, pathname]);
 
   function navigate(page: PageName, output: React.ReactNode) {
     navigatedRef.current = true;
@@ -133,11 +197,19 @@ export default function TerminalPage() {
     });
   }
 
-  function handleCommand(raw: string) {
+  function handleWelcomeComplete() {
+    markWelcomeSeen();
+    dispatch({ type: "BOOT_COMPLETE" });
+    setShowWelcome(false);
+  }
+
+  function handleCommand(raw: string, options: { updateUrl?: boolean } = {}) {
     if (!commandsReady) return;
-    const parts = raw.trim().split(/\s+/);
+    const parts = raw.trim().split(/\s+/).filter(Boolean);
+    if (parts.length === 0) return;
     const name = parts[0].toLowerCase();
     const args = parts.slice(1);
+    const shouldUpdateUrl = options.updateUrl ?? true;
 
     if (name === "clear") {
       dispatch({ type: "CLEAR" });
@@ -145,16 +217,22 @@ export default function TerminalPage() {
     }
 
     const resolvedName = ALIASES[name] ?? name;
+    const routedPath = shouldUpdateUrl ? commandToPath(raw) : null;
+
+    if (routedPath && routedPath !== window.location.pathname) {
+      lastAppliedRouteRef.current = raw.trim().toLowerCase();
+      router.push(routedPath);
+    }
 
     if (PAGE_COMMANDS.has(resolvedName)) {
-      const noSubPages = resolvedName === "home" || resolvedName === "skills";
+      const noSubPages = resolvedName === "home";
       if (noSubPages || args.length === 0) {
         navigate(resolvedName as PageName, getPageOutput(resolvedName as PageName));
       } else {
         const n = parseInt(args[0], 10);
         navigate(
-          resolvedName as "experience" | "projects" | "publications",
-          getDetailOutput(resolvedName as "experience" | "projects" | "publications", n)
+          resolvedName as "experience" | "projects",
+          getDetailOutput(resolvedName as "experience" | "projects", n)
         );
       }
       return;
@@ -186,13 +264,13 @@ export default function TerminalPage() {
         {showWelcome && (
           <WelcomeScreen
             key="welcome"
-            onComplete={() => setShowWelcome(false)}
+            onComplete={handleWelcomeComplete}
           />
         )}
       </AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: showWelcome ? 0 : 1 }}
+        animate={{ opacity: !welcomeChecked || showWelcome ? 0 : 1 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
         className="flex-1 flex min-h-0 flex-col"
       >

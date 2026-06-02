@@ -44,15 +44,25 @@ export interface ExperienceItem {
   team: string;
   location: string;
   period: string;
+  /** One-line context/scope of the role — sets up the impact bullets. */
+  summary?: string;
   bullets: string[];
+  /** Optional "Published in …" label for a paper that came out of this role. */
+  publication?: string;
+  /** External URL for the publication, making the label clickable. */
+  publicationUrl?: string;
 }
 
 export interface ProjectItem {
   name: string;
   period: string;
+  /** One-line, outcome-first summary — leads the case-study card. */
+  summary?: string;
   description: string;
   tech: string[];
   publication: string | null;
+  /** External URL for the publication, making the label clickable. */
+  publicationUrl?: string;
   content?: ContentBlock[];
 }
 

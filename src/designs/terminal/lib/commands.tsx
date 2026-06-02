@@ -81,13 +81,6 @@ export async function initCommands() {
   });
 
   register({
-    name: "publications",
-    aliases: ["pubs"],
-    description: "Publications list; add number for detail",
-    run: () => null,
-  });
-
-  register({
     name: "whoami",
     description: "Personal info and contact details",
     run: () => <WhoamiOutput />,
@@ -97,12 +90,6 @@ export async function initCommands() {
     name: "contact",
     description: "Contact links",
     run: () => <ContactOutput />,
-  });
-
-  register({
-    name: "skills",
-    description: "Skill set",
-    run: () => null,
   });
 
   register({

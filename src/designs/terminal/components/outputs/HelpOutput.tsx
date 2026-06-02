@@ -4,8 +4,6 @@ const pageCommands = [
   { name: "home", desc: "Home page — intro, experience, projects, resume" },
   { name: "experience [n]", desc: "Work history list; add number for detail" },
   { name: "projects [n]", desc: "Projects list; add number for detail" },
-  { name: "publications [n]", desc: "Publications list; add number for detail" },
-  { name: "skills", desc: "Skill set" },
 ];
 
 const otherCommands = [

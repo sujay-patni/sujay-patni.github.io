@@ -314,7 +314,10 @@ async function main() {
           getDate(page, "End Date"),
           getBool(page, "Current")
         ),
+        summary: getText(page, "Summary"),
         bullets: blockBullets.length > 0 ? blockBullets : getBullets(page, "bullets"),
+        publication: getText(page, "Publication") || undefined,
+        publicationUrl: getText(page, "Publication URL") || undefined,
       };
     })
   );
@@ -334,12 +337,14 @@ async function main() {
       return {
         name: getText(page, "Name"),
         period: dateToPeriod(getDate(page, "Start Date"), getDate(page, "End Date"), false),
+        summary: getText(page, "Summary") || undefined,
         description: paragraphText || getText(page, "Description"),
         tech: getText(page, "tech")
           .split(",")
           .map((t) => t.trim())
           .filter(Boolean),
         publication: getText(page, "publication") || null,
+        publicationUrl: getText(page, "Publication URL") || undefined,
         content,
       };
     })

@@ -11,7 +11,7 @@ export interface HistoryEntry {
 
 export type TerminalPhase = "booting" | "interactive";
 
-export type PageName = "home" | "experience" | "projects" | "publications" | "skills";
+export type PageName = "home" | "experience" | "projects";
 
 export interface TerminalState {
   phase: TerminalPhase;

@@ -8,8 +8,6 @@ const NAV_ITEMS = [
   { label: "home", page: "home" },
   { label: "experience", page: "experience" },
   { label: "projects", page: "projects" },
-  { label: "publications", page: "publications" },
-  { label: "skills", page: "skills" },
   { label: "resume" },
   { label: "contact" },
 ];

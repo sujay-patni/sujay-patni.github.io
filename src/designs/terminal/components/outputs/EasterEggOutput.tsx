@@ -181,7 +181,7 @@ export function PingOutput() {
 // ─── ls ──────────────────────────────────────────────────────────────────────
 const LS_COMMANDS = [
   "help", "whoami", "experience", "projects",
-  "skills", "publications", "education", "resume",
+  "education", "resume",
   "themes", "timeline", "clear",
 ];
 
