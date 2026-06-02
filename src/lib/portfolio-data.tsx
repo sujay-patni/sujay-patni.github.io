@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
+import notionData from "../../public/notion-data.json";
 import type { PortfolioData } from "@/types/portfolio";
 
 const emptyData: PortfolioData = {
@@ -32,21 +33,11 @@ const emptyData: PortfolioData = {
 };
 
 const PortfolioDataContext = createContext<PortfolioData>(emptyData);
+const portfolioData = notionData as PortfolioData;
 
 export function PortfolioDataProvider({ children }: { children: React.ReactNode }) {
-  const [data, setData] = useState<PortfolioData>(emptyData);
-
-  useEffect(() => {
-    fetch("/notion-data.json")
-      .then((r) => (r.ok ? r.json() : null))
-      .catch(() => null)
-      .then((json: PortfolioData | null) => {
-        if (json) setData(json);
-      });
-  }, []);
-
   return (
-    <PortfolioDataContext.Provider value={data}>
+    <PortfolioDataContext.Provider value={portfolioData}>
       {children}
     </PortfolioDataContext.Provider>
   );

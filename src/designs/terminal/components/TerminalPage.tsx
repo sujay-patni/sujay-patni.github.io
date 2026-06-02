@@ -66,6 +66,53 @@ function terminalReducer(state: TerminalState, action: TerminalAction): Terminal
 
 const initialState: TerminalState = { phase: "booting", history: [], currentPage: "home" };
 
+function getInitialRouteOutput(pathname: string):
+  | { command: string; page: PageName; output: React.ReactNode }
+  | null {
+  const command = pathnameToCommand(pathname);
+  const parts = command.split(/\s+/).filter(Boolean);
+  const name = ALIASES[parts[0]] ?? parts[0];
+  const firstArg = parts[1];
+
+  if (!PAGE_COMMANDS.has(name)) return null;
+
+  if (name === "experience" || name === "projects") {
+    const detailNumber = firstArg && /^\d+$/.test(firstArg) ? Number(firstArg) : null;
+    return {
+      command,
+      page: name,
+      output: detailNumber ? getDetailOutput(name, detailNumber) : getPageOutput(name),
+    };
+  }
+
+  return {
+    command,
+    page: name as PageName,
+    output: getPageOutput(name as PageName),
+  };
+}
+
+function getInitialState(pathname: string): TerminalState {
+  if (!hasSeenWelcome()) return initialState;
+
+  const routeOutput = getInitialRouteOutput(pathname);
+  if (!routeOutput) {
+    return { ...initialState, phase: "interactive" };
+  }
+
+  return {
+    phase: "interactive",
+    currentPage: routeOutput.page,
+    history: [
+      {
+        id: "initial-route",
+        command: routeOutput.command,
+        output: routeOutput.output,
+      },
+    ],
+  };
+}
+
 function tabComplete(current: string): string {
   const lower = current.toLowerCase().trim();
   if (!lower) return current;
@@ -130,16 +177,19 @@ function markWelcomeSeen() {
 }
 
 export default function TerminalPage() {
-  const [state, dispatch] = useReducer(terminalReducer, initialState);
+  const pathname = usePathname();
+  const initialRouteCommand = getInitialRouteOutput(pathname)?.command ?? null;
+  const [state, dispatch] = useReducer(terminalReducer, pathname, getInitialState);
   const [inputValue, setInputValue] = useState("");
   const [commandsReady, setCommandsReady] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
-  const [welcomeChecked, setWelcomeChecked] = useState(false);
-  const pathname = usePathname();
   const router = useRouter();
   const bodyRef = useRef<HTMLDivElement>(null);
   const navigatedRef = useRef(false);
-  const lastAppliedRouteRef = useRef<string | null>(null);
+  const shouldScrollToBottomRef = useRef(false);
+  const lastAppliedRouteRef = useRef<string | null>(
+    state.history.length > 0 ? initialRouteCommand : null
+  );
 
   // Apply stored theme on mount
   useEffect(() => {
@@ -154,7 +204,6 @@ export default function TerminalPage() {
     } else {
       setShowWelcome(true);
     }
-    setWelcomeChecked(true);
   }, []);
 
   // Load command registry
@@ -162,7 +211,7 @@ export default function TerminalPage() {
     initCommands().then(() => setCommandsReady(true));
   }, []);
 
-  // Scroll to top on page navigation, bottom when appending commands
+  // Scroll to top on page navigation, bottom only when appending command output.
   useLayoutEffect(() => {
     if (navigatedRef.current) {
       const body = bodyRef.current;
@@ -172,8 +221,9 @@ export default function TerminalPage() {
         requestAnimationFrame(() => body?.scrollTo({ top: 0, behavior: "instant" }));
       });
       navigatedRef.current = false;
-    } else {
+    } else if (shouldScrollToBottomRef.current) {
       bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
+      shouldScrollToBottomRef.current = false;
     }
   }, [state.history]);
 
@@ -212,6 +262,7 @@ export default function TerminalPage() {
     const shouldUpdateUrl = options.updateUrl ?? true;
 
     if (name === "clear") {
+      navigatedRef.current = true;
       dispatch({ type: "CLEAR" });
       return;
     }
@@ -247,6 +298,7 @@ export default function TerminalPage() {
       output = notFound ? notFound.run([name]) : null;
     }
 
+    shouldScrollToBottomRef.current = true;
     dispatch({
       type: "RUN_COMMAND",
       entry: { id: String(Date.now() + Math.random()), command: raw, output },
@@ -269,8 +321,8 @@ export default function TerminalPage() {
         )}
       </AnimatePresence>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: !welcomeChecked || showWelcome ? 0 : 1 }}
+        initial={false}
+        animate={{ opacity: showWelcome ? 0 : 1 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
         className="flex-1 flex min-h-0 flex-col"
       >

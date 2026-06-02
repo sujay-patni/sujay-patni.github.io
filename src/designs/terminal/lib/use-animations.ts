@@ -23,7 +23,7 @@ export function useInView<T extends Element = HTMLDivElement>(
           if (e.isIntersecting) setSeen(true);
         });
       },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px", ...opts }
+      { threshold: 0.01, rootMargin: "0px 0px 24% 0px", ...opts }
     );
     io.observe(el);
     return () => io.disconnect();
