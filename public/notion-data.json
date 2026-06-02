@@ -33,9 +33,9 @@
       "note": "Java, Spring Boot, databases, search, AI workflows"
     },
     {
-      "value": "6+ projects",
+      "value": "6 projects",
       "label": "built across domains",
-      "note": "AI assistants, backend services, research systems, automation"
+      "note": "productivity systems, security tools, automation, and research"
     },
     {
       "value": "2 papers",
@@ -57,9 +57,9 @@
       "cmd": "projects",
       "label": "Projects",
       "path": "~/projects",
-      "eyebrow": "6+ projects",
-      "title": "Software, research, and systems builds",
-      "summary": "Selected work across AI assistants, backend services, high-speed network flow analysis, automation, and biometric authentication.",
+      "eyebrow": "6 projects",
+      "title": "Products, tools, and research systems",
+      "summary": "Selected work across personal productivity, offline security, developer tooling, Notion automation, network analysis, and biometric authentication.",
       "meta": "open projects"
     },
     {
@@ -138,10 +138,78 @@
   ],
   "projects": [
     {
+      "name": "Vault Offline Secrets Manager",
+      "period": "April 28, 2026 – April 29, 2026",
+      "summary": "Built an Android-first offline encrypted vault for passwords, notes, recovery codes, API keys, cards, IDs, Wi-Fi secrets, and finance records.",
+      "description": "Vault is a Flutter-based secrets manager built around a strict offline privacy model: no account server, no analytics, no cloud sync, and no Internet permission in release builds. It stores multiple secret types in one encrypted local vault file, derives unlock keys with Argon2id, supports search, tags, favorites, encrypted backup export, and encrypted restore, and keeps decrypted data only within the unlocked app session.",
+      "tech": [
+        "Flutter",
+        "Android",
+        "Dart",
+        "Argon2id",
+        "Encryption",
+        "GitHub Actions"
+      ],
+      "publication": "GitHub Repository",
+      "publicationUrl": "https://github.com/sujay-patni/vault",
+      "content": []
+    },
+    {
+      "name": "Claude Multi-Account Switcher",
+      "period": "April 27, 2026 – April 27, 2026",
+      "summary": "Built a macOS shell utility that runs multiple Claude Code accounts side by side with separate OAuth state per account.",
+      "description": "Claude Multi-Account Switcher solves a macOS-specific Claude Code workflow issue where separate config directories still share the same Keychain-backed OAuth credential. The tool creates per-account overlays, symlinks shared configuration, isolates runtime state, and launches Claude through a scoped security shim so each account keeps its own credentials. It adds account add/list/remove commands and a claude-as launcher for parallel personal and work sessions.",
+      "tech": [
+        "Shell",
+        "macOS",
+        "Claude Code",
+        "OAuth",
+        "Keychain",
+        "CLI Tooling"
+      ],
+      "publication": "GitHub Repository",
+      "publicationUrl": "https://github.com/sujay-patni/claude-multi-account",
+      "content": []
+    },
+    {
+      "name": "Routine Manager",
+      "period": "April 12, 2026 – Present",
+      "summary": "Built a private daily-system PWA for habits, events, tasks, deadlines, progress tracking, and day logs backed by Postgres.",
+      "description": "Routine Manager is a private daily operating system that brings habits, timed events, all-day tasks, deadlines, progress logging, actual-time tracking, skips, vacations, groups, and day logs into one mobile-friendly PWA. It is backed by Postgres and Drizzle so recurring schedules, completions, settings, and historical reviews behave like durable product data rather than loose checklist state.",
+      "tech": [
+        "Next.js 16",
+        "React 19",
+        "TypeScript",
+        "Postgres",
+        "Drizzle ORM",
+        "PWA"
+      ],
+      "publication": "GitHub Repository",
+      "publicationUrl": "https://github.com/sujay-patni/routine-manager",
+      "content": []
+    },
+    {
+      "name": "Notion-to-GitHub Sync CLI",
+      "period": "April 12, 2026 – April 17, 2026",
+      "summary": "Built a CLI tool that syncs recursive Notion page trees into GitHub repos as Markdown with local assets and rewritten internal links.",
+      "description": "Notion-to-GitHub Sync CLI turns Notion knowledge bases into durable GitHub repositories by recursively fetching page trees, mirroring the hierarchy as folders, converting pages to Markdown, downloading expiring Notion image URLs into local assets, and rewriting internal Notion links as relative Markdown paths. It can sync one repo, one page subtree, or all 6 configured repos, with dry-run support before committing and pushing.",
+      "tech": [
+        "Node.js",
+        "Notion API",
+        "notion-to-md",
+        "Markdown",
+        "GitHub",
+        "CLI Tooling"
+      ],
+      "publication": "GitHub Repository",
+      "publicationUrl": "https://github.com/sujay-patni/notion-sync",
+      "content": []
+    },
+    {
       "name": "Query System for High-Speed IP Flow Analysis",
       "period": "January 2023 – May 2023",
       "summary": "Built a 3-tier query framework for high-speed network flow storage, cutting query latency by 5%.",
-      "description": "Engineered a 3-tier framework for query processing on high-speed network flow storage systems for CAIR Lab. Accelerated query performance by 5% by utilizing nProbe to export network flows and analyzing on ClickHouse.",
+      "description": "Designed a 3-tier query-processing framework for CAIR Lab to make high-speed network flow records easier to inspect at scale. The system used nProbe for flow export, ClickHouse for analytical storage, and a structured query layer to reduce friction between collection and analysis, improving query latency by 5%.",
       "tech": [
         "ClickHouse",
         "nProbe",
@@ -156,7 +224,7 @@
       "name": "Continuous Authentication via PPG Sensors",
       "period": "August 2022 – July 2023",
       "summary": "Built an LSTM-based continuous authentication model on wearable PPG biosignals, reaching 82% accuracy.",
-      "description": "Devised a Continuous Authentication model using PPG data from wearable biosensors worn by 15 volunteers. Developed an LSTM ANN model to learn individual biometric characteristics and attained 82% accuracy at 0.75 confidence threshold.",
+      "description": "Built a continuous authentication model that uses wearable PPG biosignals as an ongoing identity signal rather than a one-time unlock event. Using data collected from 15 volunteers, I trained an LSTM model to learn temporal biometric characteristics from noisy physiological signals and reached 82% accuracy at a 0.75 confidence threshold.",
       "tech": [
         "Python",
         "LSTM",

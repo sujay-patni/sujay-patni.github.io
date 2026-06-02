@@ -74,11 +74,15 @@ function getDate(page: PageObjectResponse, key: string): string {
   return prop.date.start ?? "";
 }
 
-function dateToPeriod(start: string, end: string, current: boolean): string {
+function dateToPeriod(start: string, end: string, current: boolean, includeDay = false): string {
   const fmt = (d: string) => {
-    const [year, month] = d.split("-");
-    const date = new Date(Number(year), Number(month) - 1);
-    return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+    const [year, month, day] = d.split("-");
+    const date = new Date(Number(year), Number(month) - 1, Number(day || "1"));
+    return date.toLocaleDateString("en-US", {
+      month: "long",
+      ...(includeDay ? { day: "numeric" } : {}),
+      year: "numeric",
+    });
   };
   const s = start ? fmt(start) : "";
   const e = current ? "Present" : end ? fmt(end) : "";
@@ -336,7 +340,12 @@ async function main() {
         .join(" ");
       return {
         name: getText(page, "Name"),
-        period: dateToPeriod(getDate(page, "Start Date"), getDate(page, "End Date"), false),
+        period: dateToPeriod(
+          getDate(page, "Start Date"),
+          getDate(page, "End Date"),
+          getText(page, "Status") === "In Progress" && !getDate(page, "End Date"),
+          true
+        ),
         summary: getText(page, "Summary") || undefined,
         description: paragraphText || getText(page, "Description"),
         tech: getText(page, "tech")

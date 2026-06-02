@@ -2,6 +2,7 @@
 
 import React from "react";
 import { usePortfolioData } from "@/lib/portfolio-data";
+import PublicationLink from "../PublicationLink";
 
 interface ProjectDetailOutputProps {
   index: number;
@@ -54,12 +55,7 @@ export default function ProjectDetailOutput({ index }: ProjectDetailOutputProps)
       </p>
       {project.publication && (
         <div className="mt-1">
-          <span
-            className="terminal-code inline-flex items-center gap-1 rounded-full border border-[var(--t-accent-2)] px-2 py-0.5 text-xs text-[var(--t-accent-2)]"
-            style={{ backgroundColor: "var(--t-accent-dim)" }}
-          >
-            ↗ {project.publication}
-          </span>
+          <PublicationLink label={project.publication} url={project.publicationUrl} />
         </div>
       )}
       <div className="chips mt-1">
