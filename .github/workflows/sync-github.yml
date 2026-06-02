@@ -1,0 +1,44 @@
+name: Sync GitHub contributions
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # every day at 6 AM UTC
+  workflow_dispatch:          # allow manual trigger from GitHub Actions UI
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run GitHub sync
+        # The auto-provided GITHUB_TOKEN can read a public user's contributions.
+        # If GitHub ever rejects it for the GraphQL contributions query, add a
+        # classic PAT as the GH_PAT repo secret — the script prefers it when set.
+        run: npm run sync:github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/github-data.json
+          git diff --cached --quiet || git commit -m "chore: sync github contributions"
+          git push

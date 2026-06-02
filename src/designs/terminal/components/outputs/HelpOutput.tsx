@@ -28,21 +28,21 @@ export default function HelpOutput({ secret }: HelpOutputProps) {
   }
 
   return (
-    <div className="font-mono text-sm space-y-4">
+    <div className="text-base space-y-5">
       <div className="space-y-1">
-        <p className="text-[var(--t-accent)] mb-2">{'// pages'}</p>
+        <p className="terminal-code text-[var(--t-accent)] mb-2">{'// pages'}</p>
         {pageCommands.map(({ name, desc }) => (
           <div key={name} className="grid grid-cols-1 sm:grid-cols-[18ch_1fr] gap-x-3">
-            <span className="text-[var(--t-text-2)]">{name}</span>
+            <span className="terminal-code text-[var(--t-text-2)]">{name}</span>
             <span className="text-[var(--t-muted-1)]">{desc}</span>
           </div>
         ))}
       </div>
       <div className="space-y-1">
-        <p className="text-[var(--t-accent)] mb-2">{'// commands'}</p>
+        <p className="terminal-code text-[var(--t-accent)] mb-2">{'// commands'}</p>
         {otherCommands.map(({ name, desc }) => (
           <div key={name} className="grid grid-cols-1 sm:grid-cols-[18ch_1fr] gap-x-3">
-            <span className="text-[var(--t-text-2)]">{name}</span>
+            <span className="terminal-code text-[var(--t-text-2)]">{name}</span>
             <span className="text-[var(--t-muted-1)]">{desc}</span>
           </div>
         ))}

@@ -12,17 +12,17 @@ export default function PublicationDetailOutput({ index }: PublicationDetailOutp
 
   if (!pub) {
     return (
-      <p className="font-mono text-sm text-[var(--t-error)]">
+      <p className="terminal-code font-mono text-base text-[var(--t-error)]">
         error: no entry {index} — use &apos;publications&apos; to list all
       </p>
     );
   }
 
   return (
-    <div className="font-mono text-sm space-y-2">
+    <div className="text-base space-y-2 max-w-5xl">
       <div className="text-[var(--t-text-2)] leading-relaxed">{pub.title}</div>
-      <div className="text-[var(--t-accent-2)] text-xs">{pub.venue}</div>
-      <div className="text-[var(--t-muted-3)] text-xs">{pub.date}</div>
+      <div className="text-[var(--t-accent-2)] text-sm">{pub.venue}</div>
+      <div className="terminal-code text-[var(--t-muted-3)] text-sm">{pub.date}</div>
     </div>
   );
 }

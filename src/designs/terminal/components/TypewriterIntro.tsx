@@ -61,7 +61,7 @@ export default function TypewriterIntro() {
   const paragraphs = visibleIntro.split("\n\n");
 
   return (
-    <div className="font-mono text-sm text-[var(--t-muted-1)] leading-relaxed mb-4 space-y-4">
+    <div className="text-base sm:text-lg text-[var(--t-muted-1)] leading-relaxed mb-4 space-y-4 max-w-4xl">
       {paragraphs.map((paragraph, index) => (
         <p key={index}>
           {paragraph}

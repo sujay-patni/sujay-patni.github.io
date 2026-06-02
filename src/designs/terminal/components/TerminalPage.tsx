@@ -181,7 +181,7 @@ export default function TerminalPage() {
 
   return (
     <TerminalNavProvider value={handleCommand}>
-    <div className="flex-1 flex flex-col bg-[var(--t-bg)] text-[var(--t-text)] font-mono overflow-hidden">
+    <div className="terminal-readable flex-1 flex h-dvh w-screen flex-col bg-[var(--t-bg)] text-[var(--t-text)] overflow-hidden">
       <AnimatePresence>
         {showWelcome && (
           <WelcomeScreen
@@ -191,10 +191,10 @@ export default function TerminalPage() {
         )}
       </AnimatePresence>
       <motion.div
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: showWelcome ? 0 : 1, scale: showWelcome ? 0.98 : 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showWelcome ? 0 : 1 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
-        className="flex-1 flex flex-col items-center justify-center p-1 min-h-0"
+        className="flex-1 flex min-h-0 flex-col"
       >
         <TerminalWindow
             onCommand={handleCommand}

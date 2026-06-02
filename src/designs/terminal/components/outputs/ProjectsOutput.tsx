@@ -21,7 +21,7 @@ export default function ProjectsOutput() {
   }, [selected]);
 
   return (
-    <div className="font-mono text-sm space-y-1">
+    <div className="text-base space-y-2">
       {projects.map((p, i) => (
         <button
           key={i}
@@ -29,20 +29,20 @@ export default function ProjectsOutput() {
           tabIndex={-1}
           onMouseEnter={() => setSelected(i)}
           onClick={() => nav(`projects ${i + 1}`)}
-          className={`w-full text-left space-y-1 px-1 py-2 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
+          className={`w-full text-left space-y-2 px-2 py-3 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
             selected === i
               ? "bg-[var(--t-accent-dim)] border-[var(--t-accent)]"
               : "border-transparent hover:bg-[var(--t-accent-dim)] hover:border-[var(--t-accent)]"
           }`}
         >
-          <div className="flex gap-3 items-baseline">
+          <div className="flex flex-wrap gap-x-3 gap-y-1 items-baseline">
             <span className={`flex-shrink-0 ${selected === i ? "text-[var(--t-accent)]" : "text-[var(--t-muted-3)]"}`}>
               [{i + 1}]
             </span>
             <span className="text-[var(--t-accent)] font-semibold">{p.name}</span>
-            <span className="text-[var(--t-muted-3)] text-xs">{p.period}</span>
+            <span className="terminal-code text-[var(--t-muted-3)] text-sm">{p.period}</span>
           </div>
-          <p className="text-[var(--t-muted-1)] leading-relaxed ml-[4ch] text-xs">{p.description}</p>
+          <p className="text-[var(--t-muted-1)] leading-relaxed sm:ml-[4ch] text-sm sm:text-base">{p.description}</p>
         </button>
       ))}
       <p className="text-[var(--t-muted-3)] mt-1 px-1">

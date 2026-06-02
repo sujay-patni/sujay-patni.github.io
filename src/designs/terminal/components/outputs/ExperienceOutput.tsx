@@ -22,7 +22,7 @@ export default function ExperienceOutput() {
   }, [selected]);
 
   return (
-    <div className="font-mono text-sm space-y-0.5">
+    <div className="text-base space-y-1">
       {experience.map((job, i) => (
         <button
           key={i}
@@ -30,14 +30,14 @@ export default function ExperienceOutput() {
           tabIndex={-1}
           onMouseEnter={() => setSelected(i)}
           onClick={() => nav(`experience ${i + 1}`)}
-          className={`w-full text-left px-1 py-1 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
+          className={`w-full text-left px-2 py-2 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
             selected === i
               ? "bg-[var(--t-accent-dim)] border-[var(--t-accent)]"
               : "border-transparent hover:bg-[var(--t-accent-dim)] hover:border-[var(--t-accent)]"
           }`}
         >
-          <div className="flex flex-col gap-0.5 sm:grid sm:grid-cols-[4ch_16ch_20ch_1fr] sm:gap-x-3 sm:gap-y-0">
-            <div className="flex gap-2 sm:contents">
+          <div className="flex flex-col gap-1 sm:grid sm:grid-cols-[4ch_16ch_20ch_1fr] sm:gap-x-4 sm:gap-y-0">
+            <div className="terminal-code flex gap-2 sm:contents">
               <span className={`${selected === i ? "text-[var(--t-accent)]" : "text-[var(--t-muted-3)]"}`}>
                 [{i + 1}]
               </span>

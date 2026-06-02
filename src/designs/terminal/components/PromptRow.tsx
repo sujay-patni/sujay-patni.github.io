@@ -85,8 +85,8 @@ export default function PromptRow({
   }
 
   return (
-    <div className="flex items-center gap-2 px-4 py-3 border-t border-[var(--t-border)] flex-shrink-0">
-      <span className="text-[var(--t-accent)] font-mono text-sm sm:text-sm text-base select-none">
+    <div className="flex items-center gap-2 px-4 py-3.5 border-t border-[var(--t-border)] flex-shrink-0">
+      <span className="terminal-code text-[var(--t-accent)] font-mono text-base select-none">
         $
       </span>
       <input
@@ -97,7 +97,7 @@ export default function PromptRow({
         onKeyDown={handleKeyDown}
         disabled={disabled}
         tabIndex={-1}
-        className="flex-1 bg-transparent text-[var(--t-text)] font-mono text-base sm:text-sm outline-none caret-[var(--t-accent)] placeholder-[var(--t-muted-3)] disabled:opacity-0"
+        className="terminal-code flex-1 bg-transparent text-[var(--t-text)] font-mono text-base outline-none caret-[var(--t-accent)] placeholder-[var(--t-muted-3)] disabled:opacity-0"
         placeholder={disabled ? "" : "type a command or 'help'…"}
         autoComplete="off"
         autoCorrect="off"

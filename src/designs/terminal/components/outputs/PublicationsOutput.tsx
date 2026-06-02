@@ -21,7 +21,7 @@ export default function PublicationsOutput() {
   }, [selected]);
 
   return (
-    <div className="font-mono text-sm space-y-1">
+    <div className="text-base space-y-2">
       {publications.map((pub, i) => (
         <button
           key={i}
@@ -29,7 +29,7 @@ export default function PublicationsOutput() {
           tabIndex={-1}
           onMouseEnter={() => setSelected(i)}
           onClick={() => nav(`publications ${i + 1}`)}
-          className={`w-full text-left space-y-1 px-1 py-2 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
+          className={`w-full text-left space-y-2 px-2 py-3 rounded border-l-2 transition-colors duration-100 cursor-pointer ${
             selected === i
               ? "bg-[var(--t-accent-dim)] border-[var(--t-accent)]"
               : "border-transparent hover:bg-[var(--t-accent-dim)] hover:border-[var(--t-accent)]"
@@ -42,8 +42,8 @@ export default function PublicationsOutput() {
             <span className="text-[var(--t-text-2)] leading-relaxed">{pub.title}</span>
           </div>
           <div className="ml-[4ch] space-y-0.5">
-            <div className="text-[var(--t-accent-2)] text-xs">{pub.venue}</div>
-            <div className="text-[var(--t-muted-3)] text-xs">{pub.date}</div>
+            <div className="text-[var(--t-accent-2)] text-sm">{pub.venue}</div>
+            <div className="terminal-code text-[var(--t-muted-3)] text-sm">{pub.date}</div>
           </div>
         </button>
       ))}

@@ -22,7 +22,7 @@ export default function SkillsOutput({ tree }: SkillsOutputProps) {
     });
 
     return (
-      <pre className="font-mono text-sm leading-relaxed overflow-x-auto">
+      <pre className="terminal-code font-mono text-base leading-relaxed overflow-x-auto">
         {lines.map((line, i) => {
           const isCategoryLine = line.match(/^[├└]──.+\/$/) !== null;
           return (
@@ -38,13 +38,13 @@ export default function SkillsOutput({ tree }: SkillsOutputProps) {
   }
 
   return (
-    <div className="font-mono text-sm space-y-3">
+    <div className="text-base space-y-4">
       {skills.map((cat) => (
         <div key={cat.category}>
           <div className="text-[var(--t-accent)] mb-1">{cat.category}</div>
           <div className="flex flex-wrap gap-2 ml-2">
             {cat.items.map((item) => (
-              <span key={item} className="text-[var(--t-muted-1)] border border-[var(--t-border)] rounded px-2 py-0.5 text-xs">
+              <span key={item} className="terminal-code text-[var(--t-muted-1)] border border-[var(--t-border)] rounded px-2.5 py-1 text-sm">
                 {item}
               </span>
             ))}
