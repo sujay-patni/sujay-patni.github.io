@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "synced_at": "2026-06-02T17:15:21.358Z",
+    "synced_at": "2026-06-03T07:28:45.303Z",
     "source": "notion"
   },
   "config": {
@@ -139,7 +139,7 @@
   "projects": [
     {
       "name": "Vault Offline Secrets Manager",
-      "period": "April 28, 2026 – April 29, 2026",
+      "period": "April 2026",
       "summary": "Built an Android-first offline encrypted vault for passwords, notes, recovery codes, API keys, cards, IDs, Wi-Fi secrets, and finance records.",
       "description": "Vault is a Flutter-based secrets manager built around a strict offline privacy model: no account server, no analytics, no cloud sync, and no Internet permission in release builds. It stores multiple secret types in one encrypted local vault file, derives unlock keys with Argon2id, supports search, tags, favorites, encrypted backup export, and encrypted restore, and keeps decrypted data only within the unlocked app session.",
       "tech": [
@@ -155,25 +155,8 @@
       "content": []
     },
     {
-      "name": "Claude Multi-Account Switcher",
-      "period": "April 27, 2026 – April 27, 2026",
-      "summary": "Built a macOS shell utility that runs multiple Claude Code accounts side by side with separate OAuth state per account.",
-      "description": "Claude Multi-Account Switcher solves a macOS-specific Claude Code workflow issue where separate config directories still share the same Keychain-backed OAuth credential. The tool creates per-account overlays, symlinks shared configuration, isolates runtime state, and launches Claude through a scoped security shim so each account keeps its own credentials. It adds account add/list/remove commands and a claude-as launcher for parallel personal and work sessions.",
-      "tech": [
-        "Shell",
-        "macOS",
-        "Claude Code",
-        "OAuth",
-        "Keychain",
-        "CLI Tooling"
-      ],
-      "publication": "GitHub Repository",
-      "publicationUrl": "https://github.com/sujay-patni/claude-multi-account",
-      "content": []
-    },
-    {
       "name": "Routine Manager",
-      "period": "April 12, 2026 – Present",
+      "period": "April 2026",
       "summary": "Built a private daily-system PWA for habits, events, tasks, deadlines, progress tracking, and day logs backed by Postgres.",
       "description": "Routine Manager is a private daily operating system that brings habits, timed events, all-day tasks, deadlines, progress logging, actual-time tracking, skips, vacations, groups, and day logs into one mobile-friendly PWA. It is backed by Postgres and Drizzle so recurring schedules, completions, settings, and historical reviews behave like durable product data rather than loose checklist state.",
       "tech": [
@@ -190,7 +173,7 @@
     },
     {
       "name": "Notion-to-GitHub Sync CLI",
-      "period": "April 12, 2026 – April 17, 2026",
+      "period": "April 2026",
       "summary": "Built a CLI tool that syncs recursive Notion page trees into GitHub repos as Markdown with local assets and rewritten internal links.",
       "description": "Notion-to-GitHub Sync CLI turns Notion knowledge bases into durable GitHub repositories by recursively fetching page trees, mirroring the hierarchy as folders, converting pages to Markdown, downloading expiring Notion image URLs into local assets, and rewriting internal Notion links as relative Markdown paths. It can sync one repo, one page subtree, or all 6 configured repos, with dry-run support before committing and pushing.",
       "tech": [
@@ -203,6 +186,23 @@
       ],
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/notion-sync",
+      "content": []
+    },
+    {
+      "name": "Claude Multi-Account Switcher",
+      "period": "April 2026",
+      "summary": "Built a macOS shell utility that runs multiple Claude Code accounts side by side with separate OAuth state per account.",
+      "description": "Claude Multi-Account Switcher solves a macOS-specific Claude Code workflow issue where separate config directories still share the same Keychain-backed OAuth credential. The tool creates per-account overlays, symlinks shared configuration, isolates runtime state, and launches Claude through a scoped security shim so each account keeps its own credentials. It adds account add/list/remove commands and a claude-as launcher for parallel personal and work sessions.",
+      "tech": [
+        "Shell",
+        "macOS",
+        "Claude Code",
+        "OAuth",
+        "Keychain",
+        "CLI Tooling"
+      ],
+      "publication": "GitHub Repository",
+      "publicationUrl": "https://github.com/sujay-patni/claude-multi-account",
       "content": []
     },
     {

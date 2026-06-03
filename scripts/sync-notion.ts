@@ -74,15 +74,78 @@ function getDate(page: PageObjectResponse, key: string): string {
   return prop.date.start ?? "";
 }
 
+const MONTHS = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
+
+function monthYearFromDate(date: string): string {
+  const [year, month] = date.split("-");
+  if (!year || !month) return "";
+
+  const parsed = new Date(Number(year), Number(month) - 1);
+  return Number.isNaN(parsed.getTime())
+    ? ""
+    : parsed.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+}
+
+function normalizeMonthYear(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+
+  const isoMonth = trimmed.match(/^(\d{4})-(\d{1,2})$/);
+  if (isoMonth) {
+    return monthYearFromDate(`${isoMonth[1]}-${isoMonth[2].padStart(2, "0")}-01`);
+  }
+
+  const parsed = new Date(`${trimmed} 1`);
+  return Number.isNaN(parsed.getTime())
+    ? trimmed
+    : parsed.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+}
+
+function monthYearSortValue(value: string): string {
+  const normalized = normalizeMonthYear(value);
+  const [monthName, year] = normalized.toLowerCase().split(/\s+/);
+  const monthIndex = MONTHS.indexOf(monthName);
+
+  if (!year || monthIndex === -1) return "";
+  return `${year}-${String(monthIndex + 1).padStart(2, "0")}`;
+}
+
+function projectMonthYear(page: PageObjectResponse, key: "Start" | "End"): string {
+  const monthYear = getText(page, `${key} Month`);
+  if (monthYear) return normalizeMonthYear(monthYear);
+
+  return monthYearFromDate(getDate(page, `${key} Date`));
+}
+
+function projectPeriod(page: PageObjectResponse): string {
+  const start = projectMonthYear(page, "Start");
+  const end = projectMonthYear(page, "End");
+  if (start && end && start === end) return start;
+  return start && end ? `${start} – ${end}` : start || end;
+}
+
 function dateToPeriod(start: string, end: string, current: boolean, includeDay = false): string {
   const fmt = (d: string) => {
+    if (!includeDay) return monthYearFromDate(d);
+
     const [year, month, day] = d.split("-");
     const date = new Date(Number(year), Number(month) - 1, Number(day || "1"));
-    return date.toLocaleDateString("en-US", {
-      month: "long",
-      ...(includeDay ? { day: "numeric" } : {}),
-      year: "numeric",
-    });
+    return Number.isNaN(date.getTime())
+      ? ""
+      : date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
   };
   const s = start ? fmt(start) : "";
   const e = current ? "Present" : end ? fmt(end) : "";
@@ -326,9 +389,13 @@ async function main() {
     })
   );
 
-  // Projects — newest first (by Start Date descending)
+  // Projects — newest first (by Start Month descending)
   const projectPages = (await queryAll(projectsDbId))
-    .sort((a, b) => getDate(b, "Start Date").localeCompare(getDate(a, "Start Date")));
+    .sort((a, b) =>
+      monthYearSortValue(projectMonthYear(b, "Start")).localeCompare(
+        monthYearSortValue(projectMonthYear(a, "Start"))
+      )
+    );
 
   const projects = await Promise.all(
     projectPages.map(async (page) => {
@@ -340,12 +407,7 @@ async function main() {
         .join(" ");
       return {
         name: getText(page, "Name"),
-        period: dateToPeriod(
-          getDate(page, "Start Date"),
-          getDate(page, "End Date"),
-          getText(page, "Status") === "In Progress" && !getDate(page, "End Date"),
-          true
-        ),
+        period: projectPeriod(page),
         summary: getText(page, "Summary") || undefined,
         description: paragraphText || getText(page, "Description"),
         tech: getText(page, "tech")
