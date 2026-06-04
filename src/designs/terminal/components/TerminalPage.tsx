@@ -66,51 +66,13 @@ function terminalReducer(state: TerminalState, action: TerminalAction): Terminal
 
 const initialState: TerminalState = { phase: "booting", history: [], currentPage: "home" };
 
-function getInitialRouteOutput(pathname: string):
-  | { command: string; page: PageName; output: React.ReactNode }
-  | null {
-  const command = pathnameToCommand(pathname);
-  const parts = command.split(/\s+/).filter(Boolean);
-  const name = ALIASES[parts[0]] ?? parts[0];
-  const firstArg = parts[1];
-
-  if (!PAGE_COMMANDS.has(name)) return null;
-
-  if (name === "experience" || name === "projects") {
-    const detailNumber = firstArg && /^\d+$/.test(firstArg) ? Number(firstArg) : null;
-    return {
-      command,
-      page: name,
-      output: detailNumber ? getDetailOutput(name, detailNumber) : getPageOutput(name),
-    };
-  }
-
-  return {
-    command,
-    page: name as PageName,
-    output: getPageOutput(name as PageName),
-  };
-}
-
-function getInitialState(pathname: string): TerminalState {
-  if (!hasSeenWelcome()) return initialState;
-
-  const routeOutput = getInitialRouteOutput(pathname);
-  if (!routeOutput) {
-    return { ...initialState, phase: "interactive" };
-  }
-
-  return {
-    phase: "interactive",
-    currentPage: routeOutput.page,
-    history: [
-      {
-        id: "initial-route",
-        command: routeOutput.command,
-        output: routeOutput.output,
-      },
-    ],
-  };
+// The static export is always prerendered in the pre-welcome "booting" state —
+// the server can't read sessionStorage, so it can't know the welcome was already
+// seen this session. Every client render must therefore start from this same
+// booting state or hydration mismatches. The mount effects below promote it to
+// interactive and replay the current route once we're on the client.
+function getInitialState(): TerminalState {
+  return initialState;
 }
 
 function tabComplete(current: string): string {
@@ -178,17 +140,16 @@ function markWelcomeSeen() {
 
 export default function TerminalPage() {
   const pathname = usePathname();
-  const initialRouteCommand = getInitialRouteOutput(pathname)?.command ?? null;
-  const [state, dispatch] = useReducer(terminalReducer, pathname, getInitialState);
+  const [state, dispatch] = useReducer(terminalReducer, getInitialState());
   const [inputValue, setInputValue] = useState("");
   const [commandsReady, setCommandsReady] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const bodyRef = useRef<HTMLDivElement>(null);
   const navigatedRef = useRef(false);
   const shouldScrollToBottomRef = useRef(false);
-  const lastAppliedRouteRef = useRef<string | null>(
-    state.history.length > 0 ? initialRouteCommand : null
-  );
+  // The current route is applied by the deep-link effect after mount; history
+  // always starts empty, so nothing has been applied yet.
+  const lastAppliedRouteRef = useRef<string | null>(null);
 
   // Apply stored theme on mount
   useEffect(() => {
@@ -221,8 +182,16 @@ export default function TerminalPage() {
       });
       navigatedRef.current = false;
     } else if (shouldScrollToBottomRef.current) {
-      bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
       shouldScrollToBottomRef.current = false;
+      const body = bodyRef.current;
+      if (body) {
+        const toBottom = () => body.scrollTo({ top: body.scrollHeight, behavior: "smooth" });
+        toBottom();
+        // The appended output can still be growing (lazy data/fonts) when the
+        // smooth scroll starts, leaving it short of the new entry. Re-assert once
+        // layout settles so the chip is fully revealed on the first click.
+        requestAnimationFrame(() => requestAnimationFrame(toBottom));
+      }
     }
   }, [state.history]);
 
