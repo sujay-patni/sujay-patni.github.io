@@ -55,8 +55,8 @@ The sync script auto-discovers databases by title via `notion.search()`. Propert
 |---|---|
 | Config | Key (title) + Value (text) — key/value rows |
 | Personal | Name (title), title, tagline, email, location, linkedin, github |
-| Experience | Title (title=role), Company, team, Location, bullets (newline-separated text), Start/End Date, Current (checkbox) |
-| Projects | Name (title), Description, tech (comma-separated text), publication, Start/End Date |
+| Experience | Title (title=role), Company, team, Location, bullets (newline-separated text), Start/End Date, Current (checkbox), Summary, Lead (list lead paragraph), Story (narrative — paragraphs separated by blank lines), Focus (meta scope line), Illustration (select: systems/search/research/quality) |
+| Projects | Name (title), Summary, Description, tech (comma-separated text), publication, Start/End Date, Current (checkbox → renders "Start – Present"), Category (select: Product/Tool/Research → grouped into subsections), Rank (number — manual order within a section, lower = higher), Lead (card lead paragraph), Story (narrative — paragraphs separated by blank lines), Problem/Approach/Outcome (meta panel lines), Illustration (select: flow/biometric/app/secure/tool/sync) |
 | Skills | Skill (title), Category (select) — one row per skill, grouped by category in sync script |
 | Education | Degree (title), Institution, GPA, Location, Start/End Date |
 | Publications | Title (title), Publication (=venue), Date (date) |

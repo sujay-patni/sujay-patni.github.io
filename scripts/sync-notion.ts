@@ -62,6 +62,32 @@ function getText(page: PageObjectResponse, key: string): string {
   return "";
 }
 
+function getNumber(page: PageObjectResponse, key: string): number | undefined {
+  const prop = page.properties[key];
+  if (!prop || prop.type !== "number" || prop.number === null) return undefined;
+  return prop.number;
+}
+
+// Split a multi-paragraph rich_text value (paragraphs separated by blank lines)
+// into trimmed, non-empty paragraphs.
+function splitParagraphs(value: string): string[] {
+  return value
+    .split(/\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
+function normalizeProjectCategory(
+  raw: string
+): "product" | "tool" | "research" | undefined {
+  const value = raw.trim().toLowerCase();
+  if (!value) return undefined;
+  if (/product|system|featured/.test(value)) return "product";
+  if (/tool|utilit|cli/.test(value)) return "tool";
+  if (/research|paper/.test(value)) return "research";
+  return undefined;
+}
+
 function getBool(page: PageObjectResponse, key: string): boolean {
   const prop = page.properties[key];
   if (!prop || prop.type !== "checkbox") return false;
@@ -132,6 +158,7 @@ function projectMonthYear(page: PageObjectResponse, key: "Start" | "End"): strin
 
 function projectPeriod(page: PageObjectResponse): string {
   const start = projectMonthYear(page, "Start");
+  if (getBool(page, "Current")) return start ? `${start} – Present` : "Present";
   const end = projectMonthYear(page, "End");
   if (start && end && start === end) return start;
   return start && end ? `${start} – ${end}` : start || end;
@@ -385,6 +412,10 @@ async function main() {
         bullets: blockBullets.length > 0 ? blockBullets : getBullets(page, "bullets"),
         publication: getText(page, "Publication") || undefined,
         publicationUrl: getText(page, "Publication URL") || undefined,
+        lead: getText(page, "Lead") || undefined,
+        expanded: splitParagraphs(getText(page, "Story")),
+        focus: getText(page, "Focus") || undefined,
+        illustration: getText(page, "Illustration") || undefined,
       };
     })
   );
@@ -416,6 +447,14 @@ async function main() {
           .filter(Boolean),
         publication: getText(page, "publication") || null,
         publicationUrl: getText(page, "Publication URL") || undefined,
+        category: normalizeProjectCategory(getText(page, "Category")),
+        rank: getNumber(page, "Rank"),
+        lead: getText(page, "Lead") || undefined,
+        expanded: splitParagraphs(getText(page, "Story")),
+        problem: getText(page, "Problem") || undefined,
+        approach: getText(page, "Approach") || undefined,
+        outcome: getText(page, "Outcome") || undefined,
+        illustration: getText(page, "Illustration") || undefined,
         content,
       };
     })

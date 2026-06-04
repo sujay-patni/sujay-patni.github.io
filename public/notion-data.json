@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "synced_at": "2026-06-03T11:19:13.064Z",
+    "synced_at": "2026-06-04T09:16:42.127Z",
     "source": "notion"
   },
   "config": {
@@ -94,7 +94,15 @@
         "Drove a 40% gain in team delivery efficiency by leading adoption of AI-agentic development (Claude Code, Antigravity) — building the supporting infrastructure and training engineers on best practices.",
         "Onboarded 10,000+ suppliers by architecting a Supplier Portal microservice for self-onboarding, verification, and dashboard tracking.",
         "Handled ₹50 Cr+ in monthly stock movement with a Stock Transfer & Invoicing System I helped design, with real-time status tracking and invoice generation."
-      ]
+      ],
+      "lead": "At OfBusiness, I work on backend systems that sit close to day-to-day order operations: AI-led support, supplier onboarding, stock movement, invoicing, and the internal workflows teams depend on when trade volume is high.",
+      "expanded": [
+        "My current role is about turning operational friction into dependable backend systems. The work spans AI support automation, supplier self-onboarding, stock transfer flows, and invoice generation, all inside a commerce environment where reliability and speed matter because teams use these tools every day.",
+        "The biggest theme has been leverage. Ved AI 2.0 helped support teams handle a much larger inquiry load by detecting intent, retrieving internal service data, and creating Zoho tickets automatically. In parallel, I helped push AI-agentic development into the engineering workflow itself by setting up the supporting infrastructure and training engineers on practical usage.",
+        "On the platform side, I helped architect supplier onboarding and stock transfer systems that made heavy operational flows trackable, auditable, and easier to scale. The result is backend work that is not just technically solid, but visible in how quickly business teams can move."
+      ],
+      "focus": "Operational backend systems, AI automation, supplier workflows",
+      "illustration": "systems"
     },
     {
       "role": "Software Developer Intern",
@@ -107,7 +115,15 @@
         "Lifted search success rate by 108% and click-through rate by 30% by rebuilding website search with auto-complete, product keyword mapping, and fuzzy matching.",
         "Cut homepage load time by 55% by optimizing API response times and Java memory utilization.",
         "Scaled and maintained backend features for a platform serving 500K+ customers and 10K+ monthly active users."
-      ]
+      ],
+      "lead": "During my internship at OfBusiness, I owned backend improvements for the buyer app and website, focusing on search relevance, page performance, and features used by a large B2B customer base.",
+      "expanded": [
+        "This internship gave me a clear view of what backend quality looks like when it reaches customers directly. I worked on ofbusiness.com and the OFB app, where search, homepage performance, and API reliability shaped how buyers discovered and interacted with products.",
+        "The search rebuild was the center of the work. I improved auto-complete, product keyword mapping, and fuzzy matching so customers could get to relevant products faster. That work moved both search success and click-through in the right direction, which made the impact easy to connect to user behavior.",
+        "I also worked on API response times and Java memory utilization to cut homepage load time. The role taught me to treat performance, relevance, and maintainability as connected product concerns rather than isolated engineering tasks."
+      ],
+      "focus": "Search relevance, API performance, buyer experience",
+      "illustration": "search"
     },
     {
       "role": "Research Intern",
@@ -121,7 +137,15 @@
         "Co-developed the work in collaboration with IBM Research."
       ],
       "publication": "Published in ACM e-Energy 2024",
-      "publicationUrl": "https://dl.acm.org/doi/10.1145/3632775.3661968"
+      "publicationUrl": "https://dl.acm.org/doi/10.1145/3632775.3661968",
+      "lead": "At IISc, I worked on energy-aware scheduling for latency-sensitive workloads, connecting systems research with measurable performance and sustainability outcomes.",
+      "expanded": [
+        "At the Centre for Networked Intelligence, my work sat at the intersection of operating systems, sustainable computing, and performance guarantees. The goal was to schedule latency-sensitive workloads across heterogeneous CPU cores while reducing wasted energy.",
+        "I helped build and evaluate a power-saving scheduler that reduced energy-delay product significantly compared with stock Linux governors. The project required careful measurement, systems reasoning, and collaboration across IISc and IBM Research.",
+        "The work became part of a publication at ACM e-Energy 2024, which made the experience especially valuable: it moved from implementation and experimentation into a peer-reviewed systems research contribution."
+      ],
+      "focus": "Systems research, scheduling, sustainable computing",
+      "illustration": "research"
     },
     {
       "role": "Software Development Intern",
@@ -133,7 +157,15 @@
       "bullets": [
         "Resolved 25+ critical SonarQube issues to improve API and overall code quality for the Invoice API.",
         "Built automated JUnit test coverage and migrated a module from Angular v13 to v15."
-      ]
+      ],
+      "lead": "At Societe Generale, I worked on code quality, test coverage, and frontend migration work for the NITRO Invoice API, strengthening maintainability in an enterprise engineering environment.",
+      "expanded": [
+        "This internship was a focused introduction to enterprise code quality. I worked on the NITRO project, where the priority was improving maintainability and confidence around the Invoice API.",
+        "The work included resolving critical SonarQube issues, building automated JUnit coverage, and migrating a module from Angular v13 to v15. It was less about adding a flashy feature and more about making an existing system safer to evolve.",
+        "That experience shaped how I think about engineering hygiene: tests, migration discipline, and static analysis are not background chores; they are what let product teams keep shipping without accumulating silent risk."
+      ],
+      "focus": "Code quality, automated testing, enterprise maintainability",
+      "illustration": "quality"
     }
   ],
   "projects": [
@@ -152,11 +184,23 @@
       ],
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/vault",
+      "category": "product",
+      "rank": 2,
+      "lead": "Built an Android-first offline encrypted vault for passwords, notes, recovery codes, API keys, cards, IDs, Wi-Fi secrets, and finance records.",
+      "expanded": [
+        "Vault is built around a strict privacy constraint: secrets should stay on the device, encrypted, and independent of account servers, analytics, cloud sync, or network access. That constraint shaped both the product scope and the implementation.",
+        "The app supports several record types, including passwords, notes, recovery codes, API keys, cards, IDs, Wi-Fi secrets, and finance records. Search, tags, favorites, export, and restore are designed around one local encrypted vault file.",
+        "The security model uses Argon2id-derived unlock keys, keeps decrypted data only while the app is unlocked, and verifies that release builds do not request Android Internet permission. It is intentionally small, auditable, and offline-first."
+      ],
+      "problem": "Keeping everyday secrets private without relying on cloud sync or account infrastructure",
+      "approach": "Flutter Android app, offline-first design, encrypted vault payloads, and Argon2id key derivation",
+      "outcome": "A small local-first password and secrets manager with encrypted backup support",
+      "illustration": "secure",
       "content": []
     },
     {
       "name": "Routine Manager",
-      "period": "April 2026",
+      "period": "April 2026 – Present",
       "summary": "Built a private daily-system PWA for habits, events, tasks, deadlines, progress tracking, and day logs backed by Postgres.",
       "description": "Routine Manager is a private daily operating system that brings habits, timed events, all-day tasks, deadlines, progress logging, actual-time tracking, skips, vacations, groups, and day logs into one mobile-friendly PWA. It is backed by Postgres and Drizzle so recurring schedules, completions, settings, and historical reviews behave like durable product data rather than loose checklist state.",
       "tech": [
@@ -169,6 +213,18 @@
       ],
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/routine-manager",
+      "category": "product",
+      "rank": 1,
+      "lead": "Built a private daily-system PWA for habits, events, tasks, deadlines, progress tracking, and day logs backed by Postgres.",
+      "expanded": [
+        "Routine came from a very ordinary pain point: personal planning tools often split habits, tasks, calendars, and progress logs into separate workflows. I built it as a single daily operating system centered on a focused Today view.",
+        "The app models habits, completions, events, skips, groups, settings, vacations, and day logs in Postgres instead of treating them as loose client state. That made recurring schedules, progress units, actual-time tracking, and historical review feel dependable.",
+        "The result is a private PWA that works well on mobile, supports passphrase protection and Health Connect webhook sync, and gives a self-hosted routine system enough structure to survive real daily use."
+      ],
+      "problem": "Managing personal routines, tasks, deadlines, and progress in one private daily hub",
+      "approach": "Next.js App Router, Postgres, Drizzle ORM, recurring schedules, and PWA support",
+      "outcome": "A mobile-ready personal system for daily planning, tracking, and review",
+      "illustration": "app",
       "content": []
     },
     {
@@ -186,6 +242,18 @@
       ],
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/notion-sync",
+      "category": "tool",
+      "rank": 3,
+      "lead": "Built a CLI tool that syncs recursive Notion page trees into GitHub repos as Markdown with local assets and rewritten internal links.",
+      "expanded": [
+        "notion-sync solves the gap between writing notes in Notion and preserving them as GitHub-friendly Markdown. The tool walks recursive page trees, mirrors the hierarchy as folders, and converts each page into a durable repository structure.",
+        "The tricky parts are the ones manual exports usually leave messy: Notion image URLs expire, and internal Notion links do not work once content moves to GitHub. The CLI downloads assets locally and rewrites internal links into relative Markdown paths.",
+        "It can sync one configured repo, a single page subtree, or all 6 knowledge repos, with dry-run support before committing and pushing. The result is a repeatable personal knowledge sync instead of a one-off export chore."
+      ],
+      "problem": "Keeping Notion notes mirrored into GitHub repos without manual export cleanup",
+      "approach": "Node.js CLI, Notion API, notion-to-md conversion, local asset downloads, and relative link rewriting",
+      "outcome": "Automated sync for 6 configured knowledge repos with Markdown output and GitHub commits",
+      "illustration": "sync",
       "content": []
     },
     {
@@ -203,6 +271,18 @@
       ],
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/claude-multi-account",
+      "category": "tool",
+      "rank": 4,
+      "lead": "Built a macOS shell utility that runs multiple Claude Code accounts side by side with separate OAuth state per account.",
+      "expanded": [
+        "Claude Code's macOS credential storage creates a practical workflow problem: different accounts still collide through the same Keychain-backed credential entry. Separate config directories alone do not fully isolate sessions.",
+        "This tool creates per-account overlays that share stable configuration through symlinks while keeping runtime state and OAuth credentials separate. A scoped security shim changes credential resolution only inside the launched Claude session.",
+        "The result is a small shell utility that lets personal and work Claude Code sessions run side by side in different terminals, with explicit account selection and no repeated logout/login cycle."
+      ],
+      "problem": "Running multiple Claude Code accounts on one Mac without shared credential collisions",
+      "approach": "Shell wrappers, per-account config overlays, symlinked shared settings, and a scoped macOS security shim",
+      "outcome": "Side-by-side Claude Code sessions with isolated OAuth state",
+      "illustration": "tool",
       "content": []
     },
     {
@@ -218,6 +298,18 @@
         "SQL"
       ],
       "publication": null,
+      "category": "research",
+      "rank": 6,
+      "lead": "This project explored how to query high-speed network flow data more efficiently, using a 3-tier processing framework with nProbe exports and ClickHouse-backed analysis.",
+      "expanded": [
+        "Network flow data becomes difficult to inspect when packet-derived records arrive quickly and analysts need specific answers rather than raw dumps. I worked on a query-processing framework that made the path from flow export to analysis more structured and repeatable.",
+        "The system separated collection, storage, and query execution into a 3-tier flow. nProbe handled flow export, ClickHouse handled analytical storage, and the query layer focused on making high-volume inspection easier to reason about.",
+        "The result was a 5% reduction in query latency and a stronger understanding of how observability systems depend on storage design, query shape, and clean data movement between layers."
+      ],
+      "problem": "Fast inspection of high-speed network flow records",
+      "approach": "nProbe exports, ClickHouse analysis, 3-tier query flow",
+      "outcome": "5% faster query performance",
+      "illustration": "flow",
       "content": []
     },
     {
@@ -234,6 +326,18 @@
       ],
       "publication": "Published in Elsevier: Internet of Things (Dec 2024)",
       "publicationUrl": "https://www.sciencedirect.com/science/article/abs/pii/S2542660524003159",
+      "category": "research",
+      "rank": 5,
+      "lead": "This research project used wearable PPG biosignals for continuous authentication, building an LSTM model that learned biometric patterns from sensor data collected across volunteers.",
+      "expanded": [
+        "The project explored authentication as a continuous signal instead of a one-time unlock. PPG data from wearable sensors carries physiological patterns over time, and the goal was to test whether those patterns could support identity verification.",
+        "I worked with data from 15 volunteers and built an LSTM model to learn temporal biometric features from noisy biosignals. The modeling work had to balance signal quality, confidence thresholds, and the risk of false identity decisions.",
+        "The system reached 82% accuracy at a 0.75 confidence threshold and later became part of an Elsevier Internet of Things publication, giving the work both experimental depth and a clear security use case."
+      ],
+      "problem": "Continuous identity verification from wearable sensor data",
+      "approach": "PPG biosignals, LSTM modeling, confidence-threshold evaluation",
+      "outcome": "82% accuracy at 0.75 confidence threshold",
+      "illustration": "biometric",
       "content": []
     }
   ],

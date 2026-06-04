@@ -5,7 +5,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { usePortfolioData } from "@/lib/portfolio-data";
 import { useInView } from "../../lib/use-animations";
 import PublicationLink from "../PublicationLink";
-import type { ExperienceItem } from "@/types/portfolio";
+import type { ExperienceItem, ExperienceIllustration } from "@/types/portfolio";
 
 const METRIC_RE =
   /(₹\s?[\d,]+\s?Cr\+?|\d[\d,]*\.?\d*%|\d{1,3}(?:,\d{3})+\+?|\d{1,3}K\+?|\d+\+)/g;
@@ -17,8 +17,7 @@ type Story = {
   compact: string;
   expanded: string[];
   focus: string;
-  illustration: "systems" | "search" | "research" | "quality";
-  metrics: string[];
+  illustration: ExperienceIllustration;
 };
 
 function highlightMetrics(text: string): React.ReactNode[] {
@@ -41,77 +40,12 @@ function highlightMetrics(text: string): React.ReactNode[] {
   return parts;
 }
 
-function extractMetrics(job: ExperienceItem): string[] {
-  const seen = new Set<string>();
-  const source = [job.summary, ...job.bullets].filter(Boolean).join(" ");
-  METRIC_RE.lastIndex = 0;
-
-  for (const match of source.matchAll(METRIC_RE)) {
-    seen.add(match[0]);
-  }
-
-  return Array.from(seen).slice(0, 4);
-}
-
 function getStory(job: ExperienceItem): Story {
-  const metrics = extractMetrics(job);
-
-  if (job.role === "Software Engineer") {
-    return {
-      compact:
-        "At OfBusiness, I work on backend systems that sit close to day-to-day order operations: AI-led support, supplier onboarding, stock movement, invoicing, and the internal workflows teams depend on when trade volume is high.",
-      expanded: [
-        "My current role is about turning operational friction into dependable backend systems. The work spans AI support automation, supplier self-onboarding, stock transfer flows, and invoice generation, all inside a commerce environment where reliability and speed matter because teams use these tools every day.",
-        "The biggest theme has been leverage. Ved AI 2.0 helped support teams handle a much larger inquiry load by detecting intent, retrieving internal service data, and creating Zoho tickets automatically. In parallel, I helped push AI-agentic development into the engineering workflow itself by setting up the supporting infrastructure and training engineers on practical usage.",
-        "On the platform side, I helped architect supplier onboarding and stock transfer systems that made heavy operational flows trackable, auditable, and easier to scale. The result is backend work that is not just technically solid, but visible in how quickly business teams can move.",
-      ],
-      focus: "Operational backend systems, AI automation, supplier workflows",
-      illustration: "systems",
-      metrics,
-    };
-  }
-
-  if (job.role === "Software Developer Intern") {
-    return {
-      compact:
-        "During my internship at OfBusiness, I owned backend improvements for the buyer app and website, focusing on search relevance, page performance, and features used by a large B2B customer base.",
-      expanded: [
-        "This internship gave me a clear view of what backend quality looks like when it reaches customers directly. I worked on ofbusiness.com and the OFB app, where search, homepage performance, and API reliability shaped how buyers discovered and interacted with products.",
-        "The search rebuild was the center of the work. I improved auto-complete, product keyword mapping, and fuzzy matching so customers could get to relevant products faster. That work moved both search success and click-through in the right direction, which made the impact easy to connect to user behavior.",
-        "I also worked on API response times and Java memory utilization to cut homepage load time. The role taught me to treat performance, relevance, and maintainability as connected product concerns rather than isolated engineering tasks.",
-      ],
-      focus: "Search relevance, API performance, buyer experience",
-      illustration: "search",
-      metrics,
-    };
-  }
-
-  if (job.role === "Research Intern") {
-    return {
-      compact:
-        "At IISc, I worked on energy-aware scheduling for latency-sensitive workloads, connecting systems research with measurable performance and sustainability outcomes.",
-      expanded: [
-        "At the Centre for Networked Intelligence, my work sat at the intersection of operating systems, sustainable computing, and performance guarantees. The goal was to schedule latency-sensitive workloads across heterogeneous CPU cores while reducing wasted energy.",
-        "I helped build and evaluate a power-saving scheduler that reduced energy-delay product significantly compared with stock Linux governors. The project required careful measurement, systems reasoning, and collaboration across IISc and IBM Research.",
-        "The work became part of a publication at ACM e-Energy 2024, which made the experience especially valuable: it moved from implementation and experimentation into a peer-reviewed systems research contribution.",
-      ],
-      focus: "Systems research, scheduling, sustainable computing",
-      illustration: "research",
-      metrics,
-    };
-  }
-
   return {
-    compact:
-      "At Societe Generale, I worked on code quality, test coverage, and frontend migration work for the NITRO Invoice API, strengthening maintainability in an enterprise engineering environment.",
-    expanded: [
-      "This internship was a focused introduction to enterprise code quality. I worked on the NITRO project, where the priority was improving maintainability and confidence around the Invoice API.",
-      "The work included resolving critical SonarQube issues, building automated JUnit coverage, and migrating a module from Angular v13 to v15. It was less about adding a flashy feature and more about making an existing system safer to evolve.",
-      "That experience shaped how I think about engineering hygiene: tests, migration discipline, and static analysis are not background chores; they are what let product teams keep shipping without accumulating silent risk.",
-    ],
-    focus: "Code quality, automated testing, enterprise maintainability",
-    illustration: "quality",
-    metrics,
+    compact: job.lead || job.summary || "",
+    expanded: job.expanded ?? [],
+    focus: job.focus ?? "",
+    illustration: job.illustration ?? "systems",
   };
 }
 
@@ -165,7 +99,7 @@ function MetaPanel({
 
   if (!expanded) {
     return (
-      <aside className="rounded-md border border-[var(--t-border)] p-4" style={{ backgroundColor: SURFACE }}>
+      <aside className="space-y-3 rounded-md border border-[var(--t-border)] p-4" style={{ backgroundColor: SURFACE }}>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <span className="terminal-code text-xs uppercase text-[var(--t-muted-3)]">
             {company}
@@ -182,16 +116,13 @@ function MetaPanel({
             </>
           )}
         </div>
-        {story.metrics.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-2">
-            {story.metrics.slice(0, 2).map((metric) => (
-              <span
-                key={metric}
-                className="terminal-code rounded-md border border-[var(--t-border)] px-2 py-0.5 text-xs text-[var(--t-muted-2)]"
-              >
-                {metric}
-              </span>
-            ))}
+        <div>
+          <p className="terminal-code text-xs uppercase text-[var(--t-muted-3)]">Focus</p>
+          <p className="mt-1 leading-snug text-[var(--t-text-2)]">{story.focus}</p>
+        </div>
+        {job.publication && (
+          <div onClick={(event) => event.stopPropagation()}>
+            <PublicationLink label={job.publication} url={job.publicationUrl} />
           </div>
         )}
       </aside>
@@ -201,6 +132,12 @@ function MetaPanel({
   return (
     <aside className="space-y-4">
       <StoryIllustration type={story.illustration} />
+
+      {job.publication && (
+        <div onClick={(event) => event.stopPropagation()}>
+          <PublicationLink label={job.publication} url={job.publicationUrl} />
+        </div>
+      )}
 
       <div className="grid gap-3 rounded-md border border-[var(--t-border)] p-4" style={{ backgroundColor: SURFACE }}>
         <div>
@@ -226,24 +163,6 @@ function MetaPanel({
         )}
       </div>
 
-      {story.metrics.length > 0 && (
-        <div>
-          <p className="terminal-code mb-2 text-xs uppercase text-[var(--t-muted-3)]">Impact signals</p>
-          <div className="flex flex-wrap gap-2">
-            {story.metrics.map((metric) => (
-              <span
-                key={metric}
-                className="terminal-code rounded-md border border-[var(--t-accent)] px-2.5 py-1 text-xs text-[var(--t-accent)]"
-                style={{ backgroundColor: "var(--t-accent-dim)" }}
-              >
-                {metric}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {job.publication && <PublicationLink label={job.publication} url={job.publicationUrl} />}
     </aside>
   );
 }
@@ -366,13 +285,12 @@ export default function ExperienceOutput() {
           {experience.length} {experience.length === 1 ? "role" : "roles"} · backend, AI, systems
         </p>
         <h2 className="mt-2 text-2xl font-semibold leading-tight text-[var(--t-text)] sm:text-3xl">
-          Building systems that make teams move faster
+          Where I&apos;ve worked
         </h2>
         <p className="mt-3 max-w-[78ch] text-[var(--t-muted-1)] leading-relaxed">
-          A quick walk through the engineering work I have done so far: production backend
-          systems at OfBusiness, AI-assisted operations, search and performance improvements,
-          research in sustainable computing, and the early internships that shaped how I think
-          about quality and maintainability.
+          Backend systems at OfBusiness, a stint on search and performance, and energy-aware
+          scheduling research at IISc &mdash; plus the early internships that taught me to care
+          about quality.
         </p>
       </header>
 

@@ -51,7 +51,17 @@ export interface ExperienceItem {
   publication?: string;
   /** External URL for the publication, making the label clickable. */
   publicationUrl?: string;
+  /** Lead paragraph shown at the top of the role card. From Notion "Lead". */
+  lead?: string;
+  /** Multi-paragraph narrative shown when the card is expanded. From Notion "Story". */
+  expanded?: string[];
+  /** One-line scope shown in the meta panel. From Notion "Focus". */
+  focus?: string;
+  /** Decorative diagram key. From Notion "Illustration". */
+  illustration?: ExperienceIllustration;
 }
+
+export type ExperienceIllustration = "systems" | "search" | "research" | "quality";
 
 export interface ProjectItem {
   name: string;
@@ -64,7 +74,27 @@ export interface ProjectItem {
   /** External URL for the publication, making the label clickable. */
   publicationUrl?: string;
   content?: ContentBlock[];
+  /** Subsection bucket. Defaults applied in the component when absent. */
+  category?: ProjectCategory;
+  /** Manual ordering rank within a section (lower = higher up). From Notion "Rank". */
+  rank?: number;
+  /** Lead paragraph shown at the top of the card. From Notion "Lead". */
+  lead?: string;
+  /** Multi-paragraph narrative shown when the card is expanded. From Notion "Story". */
+  expanded?: string[];
+  /** One-line problem statement in the meta panel. From Notion "Problem". */
+  problem?: string;
+  /** One-line approach in the meta panel. From Notion "Approach". */
+  approach?: string;
+  /** One-line outcome in the meta panel. From Notion "Outcome". */
+  outcome?: string;
+  /** Decorative diagram key. From Notion "Illustration". */
+  illustration?: ProjectIllustration;
 }
+
+export type ProjectCategory = "product" | "tool" | "research";
+
+export type ProjectIllustration = "flow" | "biometric" | "app" | "secure" | "tool" | "sync";
 
 export interface SkillCategory {
   category: string;
