@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback } from "react";
-import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
+import { Mail, Phone, MapPin, ArrowUpRight, Copy, Check } from "lucide-react";
 import { usePortfolioData } from "@/lib/portfolio-data";
 
 function GithubGlyph({ className }: { className?: string }) {
@@ -25,11 +25,15 @@ type Entry = {
   value: string;
   href: string;
   external?: boolean;
+  /** Show a copy-to-clipboard button (for plain values like email/phone). */
+  copyable?: boolean;
   icon: React.ReactNode;
 };
 
 export default function ContactOutput() {
   const { personal } = usePortfolioData();
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const onMove = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     const el = e.currentTarget;
@@ -38,6 +42,17 @@ export default function ContactOutput() {
     el.style.setProperty("--my", `${e.clientY - r.top}px`);
   }, []);
 
+  function handleCopy(e: React.MouseEvent, entry: Entry) {
+    // The button lives inside an <a> card — don't trigger the link.
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard?.writeText(entry.value).then(() => {
+      setCopiedKey(entry.key);
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+      copyTimeoutRef.current = setTimeout(() => setCopiedKey(null), 1500);
+    });
+  }
+
   const iconCls = "h-5 w-5";
   const entries: Entry[] = [
     personal.email && {
@@ -45,6 +60,7 @@ export default function ContactOutput() {
       label: "Email",
       value: personal.email,
       href: `mailto:${personal.email}`,
+      copyable: true,
       icon: <Mail className={iconCls} />,
     },
     personal.phone && {
@@ -52,6 +68,7 @@ export default function ContactOutput() {
       label: "Phone",
       value: personal.phone,
       href: `tel:${personal.phone}`,
+      copyable: true,
       icon: <Phone className={iconCls} />,
     },
     personal.github && {
@@ -105,6 +122,20 @@ export default function ContactOutput() {
                 {e.value}
               </span>
             </span>
+            {e.copyable && (
+              <button
+                type="button"
+                onClick={(ev) => handleCopy(ev, e)}
+                aria-label={copiedKey === e.key ? `${e.label} copied` : `Copy ${e.label.toLowerCase()}`}
+                className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md border border-[var(--t-border)] text-[var(--t-muted-3)] transition-colors hover:border-[var(--t-accent)] hover:text-[var(--t-accent)]"
+              >
+                {copiedKey === e.key ? (
+                  <Check className="h-4 w-4 text-[var(--t-accent)]" />
+                ) : (
+                  <Copy className="h-4 w-4" />
+                )}
+              </button>
+            )}
             <ArrowUpRight className="h-4 w-4 flex-shrink-0 text-[var(--t-muted-3)] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--t-accent)]" />
           </a>
         ))}

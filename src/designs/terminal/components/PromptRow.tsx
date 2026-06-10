@@ -89,22 +89,34 @@ export default function PromptRow({
       <span className="terminal-code text-[var(--t-accent)] font-mono text-base select-none">
         $
       </span>
-      <input
-        ref={inputRef}
-        type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        onKeyDown={handleKeyDown}
-        disabled={disabled}
-        tabIndex={-1}
-        className="terminal-code flex-1 bg-transparent text-[var(--t-text)] font-mono text-base outline-none caret-[var(--t-accent)] placeholder-[var(--t-muted-3)] disabled:opacity-0"
-        placeholder={disabled ? "" : "type a command or 'help'…"}
-        autoComplete="off"
-        autoCorrect="off"
-        autoCapitalize="off"
-        spellCheck={false}
-        aria-label="Terminal command input"
-      />
+      <div className="relative flex-1">
+        {/* Blinking block cursor while the prompt is empty; the native accent
+            caret takes over as soon as the user types. */}
+        {!disabled && value === "" && (
+          <span
+            aria-hidden="true"
+            className="cursor-blink pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 h-[1.2em] w-[0.6em] bg-[var(--t-accent)]"
+          />
+        )}
+        <input
+          ref={inputRef}
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyDown={handleKeyDown}
+          disabled={disabled}
+          tabIndex={-1}
+          className={`terminal-code w-full bg-transparent text-[var(--t-text)] font-mono text-base outline-none placeholder-[var(--t-muted-3)] disabled:opacity-0 ${
+            value === "" ? "caret-transparent pl-[0.85em]" : "caret-[var(--t-accent)]"
+          }`}
+          placeholder={disabled ? "" : "type a command or 'help'…"}
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
+          aria-label="Terminal command input"
+        />
+      </div>
     </div>
   );
 }

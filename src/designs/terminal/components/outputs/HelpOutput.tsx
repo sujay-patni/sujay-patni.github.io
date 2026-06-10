@@ -9,6 +9,8 @@ const pageCommands = [
 const otherCommands = [
   { name: "whoami", desc: "Personal info and contact details" },
   { name: "education", desc: "Academic background" },
+  { name: "skills", desc: "Technical skills by category" },
+  { name: "publications", desc: "Research publications" },
   { name: "resume", desc: "View or download resume PDF" },
   { name: "themes", desc: "Switch color theme" },
   { name: "timeline", desc: "Career and education timeline" },
@@ -47,7 +49,12 @@ export default function HelpOutput({ secret }: HelpOutputProps) {
       </div>
       <p className="text-[var(--t-muted-3)]">
         Use <span className="text-[var(--t-muted-1)]">Tab</span> to autocomplete.{" "}
-        Use <span className="text-[var(--t-muted-1)]">↑ / ↓</span> to navigate history.
+        Use <span className="text-[var(--t-muted-1)]">↑ / ↓</span> to navigate history.{" "}
+        Press <span className="text-[var(--t-muted-1)]">Ctrl+L</span> to clear.
+      </p>
+      <p className="terminal-code text-xs text-[var(--t-muted-3)]">
+        hint: there&apos;s more than meets the eye — try{" "}
+        <span className="text-[var(--t-muted-1)]">help --secret</span>
       </p>
     </div>
   );

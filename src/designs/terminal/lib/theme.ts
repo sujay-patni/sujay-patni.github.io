@@ -8,8 +8,22 @@ export function getStoredTheme(): Theme {
   return (localStorage.getItem(KEY) as Theme) ?? DEFAULT;
 }
 
+let transitionTimer: ReturnType<typeof setTimeout> | undefined;
+
 export function applyTheme(theme: Theme) {
-  document.documentElement.setAttribute("data-theme", theme);
+  const root = document.documentElement;
+  const prev = root.getAttribute("data-theme");
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Crossfade colors only on an actual switch — never on first paint, where
+  // the boot script has already set the same theme.
+  if (prev && prev !== theme && !prefersReduced) {
+    clearTimeout(transitionTimer);
+    root.classList.add("theme-transition");
+    transitionTimer = setTimeout(() => root.classList.remove("theme-transition"), 400);
+  }
+
+  root.setAttribute("data-theme", theme);
   localStorage.setItem(KEY, theme);
 }
 

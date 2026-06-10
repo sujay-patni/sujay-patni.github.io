@@ -32,6 +32,8 @@ export async function initCommands() {
     { default: ResumeOutput },
     { default: ThemesOutput },
     { default: TimelineOutput },
+    { default: SkillsOutput },
+    { default: PublicationsOutput },
     { default: NotFoundOutput },
     {
       SudoOutput,
@@ -51,6 +53,8 @@ export async function initCommands() {
     import("../components/outputs/ResumeOutput"),
     import("../components/outputs/ThemesOutput"),
     import("../components/outputs/TimelineOutput"),
+    import("../components/outputs/SkillsOutput"),
+    import("../components/outputs/PublicationsOutput"),
     import("../components/outputs/NotFoundOutput"),
     import("../components/outputs/EasterEggOutput"),
   ]);
@@ -76,6 +80,7 @@ export async function initCommands() {
 
   register({
     name: "projects",
+    aliases: ["proj", "pj"],
     description: "Projects list; add number for detail",
     run: () => null,
   });
@@ -121,6 +126,20 @@ export async function initCommands() {
     name: "timeline",
     description: "Career and education timeline",
     run: () => <TimelineOutput />,
+  });
+
+  register({
+    name: "skills",
+    aliases: ["sk"],
+    description: "Technical skills by category",
+    run: () => <SkillsOutput />,
+  });
+
+  register({
+    name: "publications",
+    aliases: ["pubs", "pub"],
+    description: "Research publications",
+    run: () => <PublicationsOutput />,
   });
 
   // ─── Easter eggs ───────────────────────────────────────────────────────────

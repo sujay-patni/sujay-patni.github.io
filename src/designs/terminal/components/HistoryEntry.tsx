@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { HistoryEntry as HistoryEntryType } from "../types/terminal";
+import TypedCommand from "./TypedCommand";
 
 interface HistoryEntryProps {
   entry: HistoryEntryType;
@@ -10,15 +11,16 @@ interface HistoryEntryProps {
 export default function HistoryEntry({ entry }: HistoryEntryProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 4 }}
+      // Boot lines pace their own appearance in BootSequence.
+      initial={entry.isBootLine ? false : { opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.15, ease: "easeOut" }}
+      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
       className="space-y-2"
     >
       {!entry.isBootLine && entry.command && (
         <div className="terminal-code flex items-center gap-2">
           <span className="text-[var(--t-accent)] text-base select-none">$</span>
-          <span className="text-[var(--t-text-2)] text-base">{entry.command}</span>
+          <TypedCommand text={entry.command} />
         </div>
       )}
       {entry.output && (

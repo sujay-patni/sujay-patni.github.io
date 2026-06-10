@@ -521,6 +521,7 @@ async function main() {
         title: getText(page, "Title"),
         venue: getText(page, "Publication"),
         date,
+        url: getText(page, "URL") || undefined,
         content: await extractContent(blocks),
       };
     })

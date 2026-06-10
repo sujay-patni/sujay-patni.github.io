@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useReducer, useRef, useEffect, useLayoutEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 import { usePathname } from "next/navigation";
 import type { TerminalState, TerminalAction, PageName } from "../types/terminal";
 import { applyTheme, getStoredTheme } from "../lib/theme";
@@ -11,6 +11,7 @@ import TerminalWindow from "./TerminalWindow";
 import TerminalBody from "./TerminalBody";
 import HistoryList from "./HistoryList";
 import PromptRow from "./PromptRow";
+import StatusBar from "./StatusBar";
 import BootSequence from "./BootSequence";
 import WelcomeScreen from "./WelcomeScreen";
 import HomeOutput from "./outputs/HomeOutput";
@@ -36,7 +37,15 @@ function getDetailOutput(
 }
 
 const PAGE_COMMANDS = new Set(["home", "experience", "projects"]);
-const ALIASES: Record<string, string> = { exp: "experience" };
+const ALIASES: Record<string, string> = {
+  exp: "experience",
+  edu: "education",
+  proj: "projects",
+  pj: "projects",
+  sk: "skills",
+  pubs: "publications",
+  pub: "publications",
+};
 // `resume` and `contact` are intentionally NOT routed: they run as plain
 // commands that append their output at the end of the terminal, without owning
 // a URL or a standalone page.
@@ -46,6 +55,8 @@ const ROUTED_COMMANDS = new Set([
   "help",
   "timeline",
   "whoami",
+  "skills",
+  "publications",
 ]);
 const WELCOME_SEEN_KEY = "terminal-welcome-seen-session-v1";
 
@@ -171,6 +182,20 @@ export default function TerminalPage() {
     initCommands().then(() => setCommandsReady(true));
   }, []);
 
+  // Ctrl+L clears the terminal, like a real shell. (Not Cmd+L — that's the
+  // browser's address-bar shortcut.)
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === "l") {
+        e.preventDefault();
+        navigatedRef.current = true;
+        dispatch({ type: "CLEAR" });
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   // Scroll to top on page navigation, bottom only when appending command output.
   useLayoutEffect(() => {
     if (navigatedRef.current) {
@@ -294,6 +319,7 @@ export default function TerminalPage() {
 
   return (
     <TerminalNavProvider value={handleCommand}>
+    <MotionConfig reducedMotion="user">
     <div className="terminal-readable flex-1 flex h-dvh w-screen flex-col bg-[var(--t-bg)] text-[var(--t-text)] overflow-hidden">
       <AnimatePresence>
         {showWelcome && (
@@ -334,9 +360,11 @@ export default function TerminalPage() {
             commandHistory={commandHistory}
             disabled={state.phase === "booting"}
           />
+          <StatusBar />
         </TerminalWindow>
       </motion.div>
     </div>
+    </MotionConfig>
     </TerminalNavProvider>
   );
 }

@@ -46,6 +46,9 @@
 .cursor-blink {
   animation: blink 1s step-end infinite;
 }
+@media (prefers-reduced-motion: reduce) {
+  .cursor-blink { animation: none; }
+}
 
 /* ─── Home redesign: reveal-on-scroll primitive ──────────────────────────── */
 .reveal {

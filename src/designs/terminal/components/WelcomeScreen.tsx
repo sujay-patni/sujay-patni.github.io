@@ -21,6 +21,7 @@ const COMPLETE_DELAY = 3300;
 
 export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
   const { personal } = usePortfolioData();
+  const displayName = personal.name ? personal.name.toUpperCase() : "PORTFOLIO";
   const [scanDone, setScanDone] = useState(false);
   const [visibleLines, setVisibleLines] = useState(0);
   const [showCursor, setShowCursor] = useState(false);
@@ -125,18 +126,20 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
           className="flex flex-col items-center gap-3"
         >
           <h1
-            className="font-mono font-bold tracking-[0.18em] text-[var(--t-accent)] select-none"
+            className="font-mono font-bold tracking-[0.1em] sm:tracking-[0.18em] mr-[-0.1em] sm:mr-[-0.18em] text-[var(--t-accent)] select-none whitespace-nowrap max-w-full"
             style={{
-              fontSize: "clamp(2rem, 8vw, 5.5rem)",
+              // Character-aware fit: the tracked mono glyphs must never exceed
+              // the viewport, so divide available width by glyph count.
+              fontSize: `clamp(1.5rem, min(8vw, 88vw / ${displayName.length}), 5.5rem)`,
               textShadow:
                 "0 0 30px rgba(var(--t-accent-rgb),0.45), 0 0 70px rgba(var(--t-accent-rgb),0.2), 0 0 120px rgba(var(--t-accent-rgb),0.08)",
             }}
           >
-            {personal.name ? personal.name.toUpperCase() : "PORTFOLIO"}
+            {displayName}
           </h1>
           {personal.title ? (
             <p
-              className="font-mono text-[var(--t-muted-2)] tracking-[0.45em] uppercase"
+              className="font-mono text-[var(--t-muted-2)] tracking-[0.3em] sm:tracking-[0.45em] uppercase"
               style={{ fontSize: "clamp(0.6rem, 1.8vw, 0.85rem)" }}
             >
               {personal.title}
@@ -149,7 +152,7 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: scanDone ? 1 : 0, opacity: scanDone ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="h-px w-80 bg-[var(--t-border)] origin-center"
+          className="h-px w-full max-w-80 bg-[var(--t-border)] origin-center"
         />
 
         {/* Boot status lines */}

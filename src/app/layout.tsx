@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import notionData from "../../public/notion-data.json";
 import type { PortfolioData } from "@/types/portfolio";
+import { SITE_URL } from "@/lib/routes";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,22 +25,63 @@ const metadataSkills = portfolioData.skills
   .flatMap((group) => group.items)
   .slice(0, 5);
 
+const siteTitle = [metadataName, metadataTitle].filter(Boolean).join(" - ");
+const siteDescription = [
+  "Personal portfolio of ",
+  metadataName,
+  metadataTitle ? `, ${metadataTitle}` : "",
+  metadataCompany ? ` at ${metadataCompany}` : "",
+  ".",
+].join("");
+
 export const metadata: Metadata = {
-  title: [metadataName, metadataTitle].filter(Boolean).join(" - "),
-  description: [
-    "Personal portfolio of",
-    metadataName,
-    metadataTitle ? `, ${metadataTitle}` : "",
-    metadataCompany ? ` at ${metadataCompany}` : "",
-    ".",
-  ].join(""),
+  metadataBase: new URL(SITE_URL),
+  title: siteTitle,
+  description: siteDescription,
   keywords: [metadataName, metadataTitle, metadataCompany, ...metadataSkills].filter(Boolean),
   authors: metadataName ? [{ name: metadataName }] : [],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: siteTitle,
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/og.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/og.png"],
+  },
+};
+
+// Schema.org Person — gives search engines structured identity data.
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: metadataName,
+  jobTitle: metadataTitle,
+  url: SITE_URL,
+  email: portfolioData.personal.email ? `mailto:${portfolioData.personal.email}` : undefined,
+  worksFor: metadataCompany ? { "@type": "Organization", name: metadataCompany } : undefined,
+  sameAs: [portfolioData.personal.github, portfolioData.personal.linkedin].filter(Boolean),
+  alumniOf: portfolioData.education.map((edu) => ({
+    "@type": "EducationalOrganization",
+    name: edu.institution,
+  })),
+  knowsAbout: portfolioData.skills.flatMap((group) => group.items),
 };
 
 // Theme CSS injected inline so it's guaranteed to be in the HTML regardless of
 // the build pipeline (Turbopack dev strips [data-theme] blocks from globals.css).
 const THEME_CSS = `
+html.theme-transition, html.theme-transition * {
+  transition: background-color .35s ease, color .35s ease,
+              border-color .35s ease, box-shadow .35s ease,
+              fill .35s ease, stroke .35s ease !important;
+}
 :root {
   color-scheme: dark;
   --t-bg: #09090b;
@@ -147,6 +189,12 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){var t=localStorage.getItem('sp-theme')||'terminal';document.documentElement.setAttribute('data-theme',t);})();`,
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
           }}
         />
         {children}

@@ -114,6 +114,8 @@ export interface PublicationItem {
   title: string;
   venue: string;
   date: string;
+  /** External URL (DOI / paper page), making the title clickable. */
+  url?: string;
   content?: ContentBlock[];
 }
 
