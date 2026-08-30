@@ -1,41 +1,11 @@
 {
   "login": "sujay-patni",
-  "generatedAt": "2026-08-29T12:31:35.901Z",
+  "generatedAt": "2026-08-30T11:35:59.598Z",
   "totalContributions": 1668,
   "totalContributionsAllTime": 3728,
   "currentStreak": 0,
   "longestStreak": 12,
   "weeks": [
-    [
-      {
-        "date": "2025-08-24",
-        "count": 0
-      },
-      {
-        "date": "2025-08-25",
-        "count": 7
-      },
-      {
-        "date": "2025-08-26",
-        "count": 6
-      },
-      {
-        "date": "2025-08-27",
-        "count": 13
-      },
-      {
-        "date": "2025-08-28",
-        "count": 4
-      },
-      {
-        "date": "2025-08-29",
-        "count": 0
-      },
-      {
-        "date": "2025-08-30",
-        "count": 0
-      }
-    ],
     [
       {
         "date": "2025-08-31",
@@ -1593,6 +1563,12 @@
       },
       {
         "date": "2026-08-29",
+        "count": 0
+      }
+    ],
+    [
+      {
+        "date": "2026-08-30",
         "count": 0
       }
     ]
