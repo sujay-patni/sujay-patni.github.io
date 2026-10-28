@@ -201,29 +201,34 @@
     {
       "name": "Routine Manager",
       "period": "April 2026 – Present",
-      "summary": "Built a private daily-system PWA for habits, events, tasks, deadlines, progress tracking, and day logs backed by Postgres.",
-      "description": "Routine Manager is a private daily operating system that brings habits, timed events, all-day tasks, deadlines, progress logging, actual-time tracking, skips, vacations, groups, and day logs into one mobile-friendly PWA. It is backed by Postgres and Drizzle so recurring schedules, completions, settings, and historical reviews behave like durable product data rather than loose checklist state.",
+      "summary": "Built a private daily system for habits, events, tasks, deadlines, and progress, shipped as a Postgres-backed PWA and Rise, a native Android app that keeps all data on the phone.",
+      "description": "Routine Manager is a private daily operating system that brings habits, timed events, all-day tasks, deadlines, progress logging, actual-time tracking, skips, vacations, groups, and day logs into one place. It runs as a mobile-friendly PWA backed by Postgres and Drizzle, and as Rise, a native Android app built with Expo and React Native that stores everything on-device in SQLite and reads steps, sleep, distance, and active calories directly from Health Connect.",
       "tech": [
         "Next.js 16",
         "React 19",
         "TypeScript",
         "Postgres",
         "Drizzle ORM",
-        "PWA"
+        "PWA",
+        "React Native",
+        "Expo",
+        "SQLite",
+        "Health Connect"
       ],
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/routine-manager",
       "category": "product",
       "rank": 1,
-      "lead": "Built a private daily-system PWA for habits, events, tasks, deadlines, progress tracking, and day logs backed by Postgres.",
+      "lead": "Built a private daily system for habits, events, tasks, deadlines, and progress, shipped as a Postgres-backed PWA and Rise, a native Android app that keeps all data on the phone.",
       "expanded": [
         "Routine came from a very ordinary pain point: personal planning tools often split habits, tasks, calendars, and progress logs into separate workflows. I built it as a single daily operating system centered on a focused Today view.",
-        "The app models habits, completions, events, skips, groups, settings, vacations, and day logs in Postgres instead of treating them as loose client state. That made recurring schedules, progress units, actual-time tracking, and historical review feel dependable.",
-        "The result is a private PWA that works well on mobile, supports passphrase protection and Health Connect webhook sync, and gives a self-hosted routine system enough structure to survive real daily use."
+        "The app models habits, completions, events, skips, groups, settings, vacations, and day logs as real data instead of loose client state. That made recurring schedules, progress units, actual-time tracking, and historical review feel dependable.",
+        "The web version is a private PWA that works well on mobile, supports passphrase protection and Health Connect webhook sync, and gives a self-hosted routine system enough structure to survive real daily use.",
+        "Rise is the native Android follow-up. It ports the same scheduling logic and data model to SQLite on the phone, drops the server and login entirely, reads health data straight from Health Connect, and adds JSON backup plus a one-time import from Postgres. Running both apps' logic against the same real data across 50 days produced identical results."
       ],
       "problem": "Managing personal routines, tasks, deadlines, and progress in one private daily hub",
-      "approach": "Next.js App Router, Postgres, Drizzle ORM, recurring schedules, and PWA support",
-      "outcome": "A mobile-ready personal system for daily planning, tracking, and review",
+      "approach": "Next.js and Postgres for the web; Expo, React Native, SQLite, and Health Connect for the Android app, sharing one Drizzle data layer",
+      "outcome": "A web PWA and an offline-first Android app running the same daily logic",
       "illustration": "app",
       "content": []
     },
