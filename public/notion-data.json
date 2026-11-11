@@ -1,18 +1,18 @@
 {
   "_meta": {
-    "synced_at": "2026-11-10T14:44:27.725Z",
+    "synced_at": "2026-11-11T13:59:24.160Z",
     "source": "notion"
   },
   "config": {
     "active_design": "terminal",
     "currently_doing": "",
     "open_to_work": false,
-    "resume_path": "/Sujay_Patni_Resume.pdf",
-    "resume_download_name": "Sujay_Patni_Resume.pdf"
+    "resume_path": "/SujayPatni_Resume_2026.pdf",
+    "resume_download_name": "SujayPatni_Resume_2026.pdf"
   },
   "personal": {
     "name": "Sujay Patni",
-    "title": "Software Engineer II",
+    "title": "Software Engineer",
     "company": "OfBusiness",
     "tagline": "Hi, I'm Sujay.\n\nI'm a Software Engineer at OfBusiness and a Computer Science graduate from BITS Pilani. I enjoy building scalable backend systems, AI-powered applications, and software that solves real-world problems.\n\nOver the past few years, I've worked on products used by hundreds of thousands of users, built AI-driven automation platforms, designed microservices that support large-scale business operations, and contributed to research published in leading academic venues.\n\nMy experience spans Java, Spring Boot, distributed systems, AI agent workflows, search platforms, databases, and system design. What I enjoy most is understanding a problem from first principles and turning it into a solution that is reliable, scalable, and easy to use.\n\nWhether it's building an AI assistant, improving search experiences, designing backend services, or developing custom software solutions, I like working on products that create measurable impact and make people's lives easier.\n\nThis portfolio is a collection of the projects, products, research, and engineering challenges I've worked on throughout my journey as a developer.",
     "email": "sujaypatni@gmail.com",
@@ -25,17 +25,17 @@
     {
       "value": "2+ years",
       "label": "software engineering",
-      "note": "backend systems, AI architectures, and production platforms"
+      "note": "backend systems, AI applications, and production platforms"
     },
     {
-      "value": "25+ skills",
+      "value": "20+ skills",
       "label": "technical toolkit",
-      "note": "Java 21, Spring Boot, distributed systems, AI workflows"
+      "note": "Java, Spring Boot, databases, search, AI workflows"
     },
     {
-      "value": "8 projects",
+      "value": "6 projects",
       "label": "built across domains",
-      "note": "offline mobile apps, personal systems, developer tooling, and research"
+      "note": "productivity systems, security tools, automation, and research"
     },
     {
       "value": "2 papers",
@@ -49,17 +49,17 @@
       "label": "Experience",
       "path": "~/experience",
       "eyebrow": "2+ years",
-      "title": "Software Engineer II at OfBusiness",
-      "summary": "Buyer Platform architecture, in-JVM APM profiling, multi-agent AI tooling, and enterprise order systems.",
+      "title": "Software Engineer at OfBusiness",
+      "summary": "Backend infrastructure, AI support automation, supplier onboarding, and systems used in day-to-day business operations.",
       "meta": "open experience"
     },
     {
       "cmd": "projects",
       "label": "Projects",
       "path": "~/projects",
-      "eyebrow": "8 projects",
+      "eyebrow": "6 projects",
       "title": "Products, tools, and research systems",
-      "summary": "Selected work across local-first mobile apps (Rise, Orbit, Quill), offline security, developer tooling, and research.",
+      "summary": "Selected work across personal productivity, offline security, developer tooling, Notion automation, network analysis, and biometric authentication.",
       "meta": "open projects"
     },
     {
@@ -77,52 +77,31 @@
       "path": "~/contact",
       "eyebrow": "email / links",
       "title": "Available for the right problems",
-      "summary": "Reach out for backend engineering, AI-powered systems, high-performance services, or custom software projects.",
+      "summary": "Reach out for backend engineering, AI-powered product work, search experiences, or custom software projects.",
       "meta": "open contact"
     }
   ],
   "experience": [
     {
-      "role": "Software Engineer II",
+      "role": "Software Engineer",
       "company": "OfBusiness (OFB Tech Pvt Ltd)",
-      "team": "Buyer Platform, Backend Architecture & AI Systems",
+      "team": "Order Admin System",
       "location": "Gurugram, Haryana",
-      "period": "July 2026 \u2013 Present",
-      "summary": "Leading backend architecture for the Buyer Platform revamp, engineering custom in-JVM APM instrumentation, and building multi-agent AI engineering workflows.",
+      "period": "July 2024 – Present",
+      "summary": "Building and scaling backend systems for OfBusiness's order operations — from AI-driven support to supplier onboarding — on a platform that moves crores in trade each month.",
       "bullets": [
-        "Led backend architecture for a complete Buyer Website Revamp, designing Spring Boot REST APIs, MySQL schemas, and enquiry-to-order workflows spanning draft organizations, sales-call tracking, and order conversion.",
-        "Engineered a custom in-JVM APM framework for clustered Java services, instrumenting p50/p95/p99 latency, SQL/N+1 queries, and upstream calls with Redis/MySQL aggregation at ~100 ns/request overhead.",
-        "Built a multi-agent engineering platform using Claude Code, Codex, and custom MCP tools for cross-repo analysis, coding, tests, and code reviews, improving team delivery efficiency by 40%."
+        "Increased customer inquiries handled by 120% by building Ved AI 2.0, an AI support assistant with intent detection that retrieves internal service data and auto-creates Zoho tickets.",
+        "Drove a 40% gain in team delivery efficiency by leading adoption of AI-agentic development (Claude Code, Antigravity) — building the supporting infrastructure and training engineers on best practices.",
+        "Onboarded 10,000+ suppliers by architecting a Supplier Portal microservice for self-onboarding, verification, and dashboard tracking.",
+        "Handled ₹50 Cr+ in monthly stock movement with a Stock Transfer & Invoicing System I helped design, with real-time status tracking and invoice generation."
       ],
-      "lead": "At OfBusiness, I lead backend architecture for the Buyer Platform and high-leverage developer systems, focusing on website revamp APIs, in-JVM performance profiling, and multi-agent AI tooling.",
+      "lead": "At OfBusiness, I work on backend systems that sit close to day-to-day order operations: AI-led support, supplier onboarding, stock movement, invoicing, and the internal workflows teams depend on when trade volume is high.",
       "expanded": [
-        "My work as Software Engineer II centers on architectural ownership and high-performance backend systems. I led the backend revamp of the Buyer Website, structuring Spring Boot services, database schemas, and workflows that take buyers from initial product discovery and sales inquiries through to completed orders.",
-        "To gain deep visibility into microservice performance without vendor bloat or heavy latency penalties, I engineered a custom in-JVM APM framework. It profiles p50/p95/p99 execution times, tracks N+1 SQL queries, and monitors upstream RPC dependencies with Redis and MySQL aggregation at roughly 100 nanoseconds per request overhead.",
-        "In parallel, I designed and rolled out our team's multi-agent engineering platform. By connecting Claude Code, OpenAI Codex, and bespoke Model Context Protocol (MCP) servers into internal codebases and review workflows, we reduced repetitive delivery overhead and improved team development velocity by 40%."
+        "My current role is about turning operational friction into dependable backend systems. The work spans AI support automation, supplier self-onboarding, stock transfer flows, and invoice generation, all inside a commerce environment where reliability and speed matter because teams use these tools every day.",
+        "The biggest theme has been leverage. Ved AI 2.0 helped support teams handle a much larger inquiry load by detecting intent, retrieving internal service data, and creating Zoho tickets automatically. In parallel, I helped push AI-agentic development into the engineering workflow itself by setting up the supporting infrastructure and training engineers on practical usage.",
+        "On the platform side, I helped architect supplier onboarding and stock transfer systems that made heavy operational flows trackable, auditable, and easier to scale. The result is backend work that is not just technically solid, but visible in how quickly business teams can move."
       ],
-      "focus": "Buyer platform architecture, in-JVM APM profiling, multi-agent AI systems",
-      "illustration": "systems"
-    },
-    {
-      "role": "Software Engineer I",
-      "company": "OfBusiness (OFB Tech Pvt Ltd)",
-      "team": "Order Admin System, Enterprise Microservices & AI",
-      "location": "Gurugram, Haryana",
-      "period": "July 2024 \u2013 June 2026",
-      "summary": "Built the VedAI 2.0 multilingual B2B commerce agent, cross-organization reconciliation engine, branch accounting microservices, and supplier onboarding.",
-      "bullets": [
-        "Built VedAI 2.0, a multilingual B2B commerce agent using Java 21, Spring AI, LLM tool calling, and hybrid RAG (Redis vectors + BM25) for real-time pricing, shipments, and support, increasing customer inquiries by 120%.",
-        "Designed a cross-organization ledger reconciliation engine from scratch, matching invoices through shared IDs and generating auditable mismatch reports with explanations for finance teams.",
-        "Architected multi-organization branch accounting for intercompany trade, stock transfers, and invoicing with real-time transaction tracking, handling \u20b950 Cr+ in monthly stock movement.",
-        "Built a Supplier Portal microservice integrating self-onboarding, verification, and operational dashboards for 10,000+ suppliers."
-      ],
-      "lead": "As Software Engineer I, I owned core modules across the Order Admin System, bridging heavy transactional accounting with practical AI-driven support automation.",
-      "expanded": [
-        "My engineering focus was automating high-friction business operations. I built VedAI 2.0, an intelligent multilingual B2B commerce assistant powered by Java 21, Spring AI, LLM tool calling, and hybrid RAG (combining Redis semantic vector search with BM25 keyword matching) to serve live pricing, order tracking, and support, driving a 120% surge in handled customer inquiries.",
-        "On the financial engineering side, I designed an automated cross-organization ledger reconciliation engine that matches invoices across enterprise entities via shared transaction keys, generating auditable mismatch analysis and variance reports for finance teams.",
-        "I also architected multi-organization branch accounting for intercompany transfers and stock movements, supporting \u20b950 Cr+ in monthly volume, and built the self-service Supplier Portal microservice used by over 10,000 suppliers."
-      ],
-      "focus": "B2B AI commerce agents, hybrid RAG, financial ledger reconciliation, branch accounting",
+      "focus": "Operational backend systems, AI automation, supplier workflows",
       "illustration": "systems"
     },
     {
@@ -130,7 +109,7 @@
       "company": "OfBusiness (OFB Tech Pvt Ltd)",
       "team": "Buyer App and Website",
       "location": "Gurugram, Haryana",
-      "period": "January 2024 \u2013 June 2024",
+      "period": "January 2024 – June 2024",
       "summary": "Owned backend features for ofbusiness.com and the OFB app, a B2B commerce platform serving 500K+ customers.",
       "bullets": [
         "Lifted search success rate by 108% and click-through rate by 30% by rebuilding website search with auto-complete, product keyword mapping, and fuzzy matching.",
@@ -151,7 +130,7 @@
       "company": "Indian Institute of Science",
       "team": "Centre for Networked Intelligence",
       "location": "Bengaluru, Karnataka",
-      "period": "August 2023 \u2013 December 2023",
+      "period": "August 2023 – December 2023",
       "summary": "Worked on the Scheduling for Latency-Sensitive Workloads for Sustainable Computing project at IISc, building energy-efficient CPU scheduling in collaboration with IBM Research.",
       "bullets": [
         "Achieved an 80% reduction in energy-delay product versus stock Linux governors by building a power-saving scheduler across heterogeneous CPU cores.",
@@ -173,7 +152,7 @@
       "company": "Societe Generale Global Solutions",
       "team": "NITRO Project, CLI Tribe",
       "location": "Chennai, Tamil Nadu",
-      "period": "June 2023 \u2013 July 2023",
+      "period": "June 2023 – July 2023",
       "summary": "Hardened code quality and test coverage for the Invoice API on the NITRO project.",
       "bullets": [
         "Resolved 25+ critical SonarQube issues to improve API and overall code quality for the Invoice API.",
@@ -191,98 +170,6 @@
   ],
   "projects": [
     {
-      "name": "Rise (Routine Manager)",
-      "period": "April 2026 \u2013 Present",
-      "summary": "Built a private daily system for habits, events, tasks, and progress, shipped as a Postgres-backed PWA and Rise, an offline native Android app with Health Connect sync.",
-      "description": "Routine Manager is a personal daily operating system that consolidates habits, timed events, all-day tasks, deadlines, progress metrics, actual-time tracking, skips, and day logs into one unified view. It runs as a mobile PWA backed by Postgres and Drizzle ORM, and as Rise, a native offline Android app built with Expo and React Native that stores all data locally in SQLite and syncs steps, sleep, distance, and calories directly via Android Health Connect without any external server or account.",
-      "tech": [
-        "Expo",
-        "React Native",
-        "Android",
-        "Health Connect",
-        "SQLite",
-        "Next.js 16",
-        "React 19",
-        "Postgres",
-        "TypeScript",
-        "Drizzle ORM"
-      ],
-      "publication": "GitHub Repository",
-      "publicationUrl": "https://github.com/sujay-patni/routine-manager",
-      "category": "product",
-      "rank": 1,
-      "lead": "Built a private daily productivity system for habits, events, tasks, and health metrics, shipped as a Postgres PWA and Rise, a native offline Android app with direct Health Connect sync.",
-      "expanded": [
-        "Personal daily planning often breaks down when habits, calendars, deadlines, and fitness metrics are split across fragmented apps. I built Routine Manager to unify them into a cohesive, dependable Today view.",
-        "The system models habits, recurring schedules, skips, vacations, and historical day logs with a robust relational schema. The web version is a responsive PWA with optional passphrase access and webhook ingestion.",
-        "Rise is the native Android version built with Expo and React Native. It operates completely offline using SQLite on the phone, requires no login or server, reads steps, sleep, distance, and calories directly from Health Connect, and supports JSON backup and restore."
-      ],
-      "problem": "Unifying habits, timed events, tasks, and health metrics into a private, offline-first daily workflow",
-      "approach": "Offline-first React Native Android app with SQLite and Health Connect, plus a companion Postgres PWA",
-      "outcome": "A serverless Android app (Rise) and web PWA running identical daily scheduling and habit logic",
-      "illustration": "app",
-      "content": []
-    },
-    {
-      "name": "Orbit \u2014 Local-First Finance System",
-      "period": "October 2026 \u2013 Present",
-      "summary": "Engineered an offline-first financial system with zero telemetry, accounts, budgets, trade journals with FIFO accounting, shared bill splits, and encrypted backups.",
-      "description": "Orbit is a private, offline-first personal financial operating system built in Flutter and Dart, backed by a local SQLite database (13 schema migrations) and validated by 1,374 automated tests. It delivers complete cash-flow and net-worth tracking across bank accounts, per-month budgets with rollups, investment trade journaling with FIFO profit/loss tracking, sinking funds with automated shortfall alerts, multi-party bill splitting with repayment tracking, biometric app locking, and encrypted passphrase backups (.orbk) \u2014 keeping 100% of financial data on-device with zero cloud servers.",
-      "tech": [
-        "Flutter",
-        "Dart",
-        "SQLite",
-        "Local-First",
-        "Cryptography",
-        "Financial Modeling",
-        "Android"
-      ],
-      "publication": "Private Project",
-      "publicationUrl": null,
-      "category": "product",
-      "rank": 2,
-      "lead": "Engineered a local-first personal financial operating system with zero telemetry, complete cash-flow tracking, investment journaling, and encrypted backups.",
-      "expanded": [
-        "Orbit was designed from a zero-cloud principle: sensitive financial records and account balances should never depend on third-party servers or risk unauthorized exposure. I built Orbit as a local-first mobile system with rigorous data safety and complete financial tracking.",
-        "The app handles day-to-day transactions, custom per-month category budgets, sinking funds with automated shortfall detection, and shared expense splitting with multi-party settlements and employer claim tracking.",
-        "It features a full investment tracker supporting stock and mutual fund trade journaling with FIFO cost accounting and profit/loss calculations. All data is stored in a structured local SQLite database with 13 schema versions, protected by biometric lock, recycle bin with undo, and encrypted passphrase backups (.orbk)."
-      ],
-      "problem": "Tracking comprehensive personal finances, investments, and split expenses without exposing sensitive data to cloud servers",
-      "approach": "Flutter and Dart with a local SQLite database, 1,374 automated tests, FIFO trade accounting, and encrypted offline backups",
-      "outcome": "A zero-cloud financial operating system with accounts, budgets, trade journals, shared splits, and 0.4.2 production releases",
-      "illustration": "secure",
-      "content": []
-    },
-    {
-      "name": "Quill \u2014 Personal Offline Reader",
-      "period": "November 2026 \u2013 Present",
-      "summary": "Distraction-free offline Android reader for EPUB, PDF, and CBZ with Readium rendering, bookcase shelf UI, and warm paper/ink themes.",
-      "description": "Quill is a personal offline reader for Android built with Flutter, Dart, and Readium (flutter_readium). Built for long-form reading without distractions, feeds, or cloud lock-in, Quill features an interactive bookcase shelf with series filtering and author browsing, custom procedural paper textures, warm typography themes (oak, pale parchment, walnut night mode), dictionary lookups, local annotations and highlights, and smooth 300ms page turns without layout shift.",
-      "tech": [
-        "Flutter",
-        "Dart",
-        "Readium",
-        "EPUB/PDF/CBZ",
-        "Android",
-        "Local-First"
-      ],
-      "publication": "Private Project",
-      "publicationUrl": null,
-      "category": "product",
-      "rank": 3,
-      "lead": "Built a calm, distraction-free offline Android reader for EPUB, PDF, and CBZ books with custom library aesthetics, Readium rendering, and zero telemetry.",
-      "expanded": [
-        "Modern e-readers are often bloated with promotional feeds, cloud sync friction, or clumsy interfaces. Quill was built for readers with their own book collections (EPUB, PDF, CBZ) who want a fast, beautiful, and completely offline reading experience.",
-        "The interface takes cues from classic physical libraries and Moon Reader's efficient ergonomics: an interactive bookcase view with series grouping, tag filtering, and custom shelf sorting. The reading view features procedural paper textures, balanced serif typography, walnut night modes, and an always-on status bar showing reading velocity and chapter progress.",
-        "Under the hood, Quill integrates Readium via flutter_readium with custom patches for reliable pagination and memory efficiency, accompanied by an offline dictionary and local reading statistics."
-      ],
-      "problem": "Modern reader apps suffer from cloud dependencies, bloated promotional interfaces, and poor shelf organization",
-      "approach": "Flutter with flutter_readium, custom paper shader textures, offline metadata extraction, and library bookcase UI",
-      "outcome": "A quiet, offline reader with 220+ book library support, EPUB/PDF/CBZ rendering, and v0.1.0 release",
-      "illustration": "app",
-      "content": []
-    },
-    {
       "name": "Vault Offline Secrets Manager",
       "period": "April 2026",
       "summary": "Built an Android-first offline encrypted vault for passwords, notes, recovery codes, API keys, cards, IDs, Wi-Fi secrets, and finance records.",
@@ -298,7 +185,7 @@
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/vault",
       "category": "product",
-      "rank": 4,
+      "rank": 2,
       "lead": "Built an Android-first offline encrypted vault for passwords, notes, recovery codes, API keys, cards, IDs, Wi-Fi secrets, and finance records.",
       "expanded": [
         "Vault is built around a strict privacy constraint: secrets should stay on the device, encrypted, and independent of account servers, analytics, cloud sync, or network access. That constraint shaped both the product scope and the implementation.",
@@ -309,6 +196,40 @@
       "approach": "Flutter Android app, offline-first design, encrypted vault payloads, and Argon2id key derivation",
       "outcome": "A small local-first password and secrets manager with encrypted backup support",
       "illustration": "secure",
+      "content": []
+    },
+    {
+      "name": "Routine Manager",
+      "period": "April 2026 – Present",
+      "summary": "Built a private daily system for habits, events, tasks, deadlines, and progress, shipped as a Postgres-backed PWA and Rise, a native Android app that keeps all data on the phone.",
+      "description": "Routine Manager is a private daily operating system that brings habits, timed events, all-day tasks, deadlines, progress logging, actual-time tracking, skips, vacations, groups, and day logs into one place. It runs as a mobile-friendly PWA backed by Postgres and Drizzle, and as Rise, a native Android app built with Expo and React Native that stores everything on-device in SQLite and reads steps, sleep, distance, and active calories directly from Health Connect.",
+      "tech": [
+        "Next.js 16",
+        "React 19",
+        "TypeScript",
+        "Postgres",
+        "Drizzle ORM",
+        "PWA",
+        "React Native",
+        "Expo",
+        "SQLite",
+        "Health Connect"
+      ],
+      "publication": "GitHub Repository",
+      "publicationUrl": "https://github.com/sujay-patni/routine-manager",
+      "category": "product",
+      "rank": 1,
+      "lead": "Built a private daily system for habits, events, tasks, deadlines, and progress, shipped as a Postgres-backed PWA and Rise, a native Android app that keeps all data on the phone.",
+      "expanded": [
+        "Routine came from a very ordinary pain point: personal planning tools often split habits, tasks, calendars, and progress logs into separate workflows. I built it as a single daily operating system centered on a focused Today view.",
+        "The app models habits, completions, events, skips, groups, settings, vacations, and day logs as real data instead of loose client state. That made recurring schedules, progress units, actual-time tracking, and historical review feel dependable.",
+        "The web version is a private PWA that works well on mobile, supports passphrase protection and Health Connect webhook sync, and gives a self-hosted routine system enough structure to survive real daily use.",
+        "Rise is the native Android follow-up. It ports the same scheduling logic and data model to SQLite on the phone, drops the server and login entirely, reads health data straight from Health Connect, and adds JSON backup plus a one-time import from Postgres. Running both apps' logic against the same real data across 50 days produced identical results."
+      ],
+      "problem": "Managing personal routines, tasks, deadlines, and progress in one private daily hub",
+      "approach": "Next.js and Postgres for the web; Expo, React Native, SQLite, and Health Connect for the Android app, sharing one Drizzle data layer",
+      "outcome": "A web PWA and an offline-first Android app running the same daily logic",
+      "illustration": "app",
       "content": []
     },
     {
@@ -327,7 +248,7 @@
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/notion-sync",
       "category": "tool",
-      "rank": 5,
+      "rank": 3,
       "lead": "Built a CLI tool that syncs recursive Notion page trees into GitHub repos as Markdown with local assets and rewritten internal links.",
       "expanded": [
         "notion-sync solves the gap between writing notes in Notion and preserving them as GitHub-friendly Markdown. The tool walks recursive page trees, mirrors the hierarchy as folders, and converts each page into a durable repository structure.",
@@ -356,7 +277,7 @@
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/claude-multi-account",
       "category": "tool",
-      "rank": 6,
+      "rank": 4,
       "lead": "Built a macOS shell utility that runs multiple Claude Code accounts side by side with separate OAuth state per account.",
       "expanded": [
         "Claude Code's macOS credential storage creates a practical workflow problem: different accounts still collide through the same Keychain-backed credential entry. Separate config directories alone do not fully isolate sessions.",
@@ -371,7 +292,7 @@
     },
     {
       "name": "Query System for High-Speed IP Flow Analysis",
-      "period": "January 2023 \u2013 May 2023",
+      "period": "January 2023 – May 2023",
       "summary": "Built a 3-tier query framework for high-speed network flow storage, cutting query latency by 5%.",
       "description": "Designed a 3-tier query-processing framework for CAIR Lab to make high-speed network flow records easier to inspect at scale. The system used nProbe for flow export, ClickHouse for analytical storage, and a structured query layer to reduce friction between collection and analysis, improving query latency by 5%.",
       "tech": [
@@ -383,7 +304,7 @@
       ],
       "publication": null,
       "category": "research",
-      "rank": 8,
+      "rank": 6,
       "lead": "This project explored how to query high-speed network flow data more efficiently, using a 3-tier processing framework with nProbe exports and ClickHouse-backed analysis.",
       "expanded": [
         "Network flow data becomes difficult to inspect when packet-derived records arrive quickly and analysts need specific answers rather than raw dumps. I worked on a query-processing framework that made the path from flow export to analysis more structured and repeatable.",
@@ -398,7 +319,7 @@
     },
     {
       "name": "Continuous Authentication via PPG Sensors",
-      "period": "August 2022 \u2013 July 2023",
+      "period": "August 2022 – July 2023",
       "summary": "Built an LSTM-based continuous authentication model on wearable PPG biosignals, reaching 82% accuracy.",
       "description": "Built a continuous authentication model that uses wearable PPG biosignals as an ongoing identity signal rather than a one-time unlock event. Using data collected from 15 volunteers, I trained an LSTM model to learn temporal biometric characteristics from noisy physiological signals and reached 82% accuracy at a 0.75 confidence threshold.",
       "tech": [
@@ -411,7 +332,7 @@
       "publication": "Published in Elsevier: Internet of Things (Dec 2024)",
       "publicationUrl": "https://www.sciencedirect.com/science/article/abs/pii/S2542660524003159",
       "category": "research",
-      "rank": 7,
+      "rank": 5,
       "lead": "This research project used wearable PPG biosignals for continuous authentication, building an LSTM model that learned biometric patterns from sensor data collected across volunteers.",
       "expanded": [
         "The project explored authentication as a continuous signal instead of a one-time unlock. PPG data from wearable sensors carries physiological patterns over time, and the goal was to test whether those patterns could support identity verification.",
@@ -427,51 +348,44 @@
   ],
   "skills": [
     {
+      "category": "Databases",
+      "items": [
+        "SQL",
+        "MongoDB",
+        "Elasticsearch",
+        "Redis"
+      ]
+    },
+    {
       "category": "Languages",
       "items": [
-        "Java 21",
-        "Python",
-        "C++",
+        "Java",
         "C",
-        "TypeScript",
-        "Dart"
+        "Python",
+        "C++"
       ]
     },
     {
-      "category": "Backend & Architecture",
+      "category": "Backend & Frameworks",
       "items": [
-        "Spring Boot 3",
-        "Hibernate / JPA",
         "Microservices",
-        "Distributed Systems",
-        "REST APIs",
         "System Design",
-        "JUnit"
+        "REST APIs",
+        "Hibernate",
+        "Agile",
+        "Spring Boot"
       ]
     },
     {
-      "category": "Databases & Performance",
+      "category": "Tools & Platforms",
       "items": [
-        "MySQL",
-        "Redis",
-        "RediSearch",
-        "Elasticsearch",
-        "SQLite",
-        "Caffeine",
-        "JVM Profiling"
-      ]
-    },
-    {
-      "category": "AI & Developer Tools",
-      "items": [
-        "Spring AI",
-        "LLM Tool Calling",
-        "Hybrid RAG",
-        "Model Context Protocol (MCP)",
-        "Claude Code",
-        "Codex",
+        "AI Agentic Workflows",
+        "Antigravity",
+        "Postman",
+        "Linux",
+        "AI Automation",
         "Git",
-        "Linux"
+        "Claude Code"
       ]
     }
   ],
@@ -480,7 +394,7 @@
       "institution": "Birla Institute of Technology and Science, Pilani",
       "degree": "B.E. Computer Science & MSc Economics",
       "score": "CGPA: 8.12",
-      "period": "August 2019 \u2013 July 2024",
+      "period": "August 2019 – July 2024",
       "location": "Pilani, Rajasthan",
       "content": []
     },
@@ -488,7 +402,7 @@
       "institution": "Delhi Public School Indirapuram",
       "degree": "Central Board of Secondary Education (Class XII)",
       "score": "97.40%",
-      "period": "April 2018 \u2013 May 2019",
+      "period": "April 2018 – May 2019",
       "location": "Ghaziabad, Uttar Pradesh",
       "content": []
     }
