@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "synced_at": "2026-11-12T15:00:31.760Z",
+    "synced_at": "2026-11-13T08:40:07.052Z",
     "source": "notion"
   },
   "config": {
@@ -33,9 +33,9 @@
       "note": "Java, Spring Boot, databases, search, AI workflows"
     },
     {
-      "value": "6 projects",
+      "value": "8 projects",
       "label": "built across domains",
-      "note": "productivity systems, security tools, automation, and research"
+      "note": "productivity, reading, finance, security tools, automation, and research"
     },
     {
       "value": "2 papers",
@@ -57,9 +57,9 @@
       "cmd": "projects",
       "label": "Projects",
       "path": "~/projects",
-      "eyebrow": "6 projects",
+      "eyebrow": "8 projects",
       "title": "Products, tools, and research systems",
-      "summary": "Selected work across personal productivity, offline security, developer tooling, Notion automation, network analysis, and biometric authentication.",
+      "summary": "Selected work across personal productivity, an offline reader, local-first finance, offline security, developer tooling, network analysis, and biometric authentication.",
       "meta": "open projects"
     },
     {
@@ -170,6 +170,64 @@
   ],
   "projects": [
     {
+      "name": "Quill — Offline Reader",
+      "period": "November 2026 – Present",
+      "summary": "Built an offline Android reader for EPUB, PDF and comics with its own Dart EPUB engine, rolled page curl, highlights, dictionary, backup and Goodreads export, and no account or server.",
+      "description": "Quill is an offline Android reader built in Flutter and Dart. It reads EPUB, PDF and CBR/CBZ comics in place from a folder the reader chooses, and keeps the library, positions, notes and statistics on the device. EPUBs open in Quill's own engine, written in Dart, which paginates in well under a second and turns pages with a rolled curl that follows the finger. PDFs and comics use a patched Readium that opens multi-gigabyte PDFs from the file instead of memory. The library adds series, universes and custom reading orders, backup and restore, Goodreads export and a Moon Reader import.",
+      "tech": [
+        "Flutter",
+        "Dart",
+        "Kotlin",
+        "Readium",
+        "PDFium",
+        "Android",
+        "Local-First"
+      ],
+      "publication": "GitHub Repository",
+      "publicationUrl": "https://github.com/sujay-patni/quill",
+      "category": "product",
+      "rank": 2,
+      "lead": "Built an offline Android reader with its own EPUB engine, for people who keep their own book collection on their phone.",
+      "expanded": [
+        "Most Android readers either lock books into a cloud account or bury them in feeds. Quill is for readers with their own files who want a fast, calm and completely offline reader that keeps their place.",
+        "It started on Readium and grew its own EPUB engine in Dart. A parser and a chunked paginator lay a book out once and slice it into pages, so a 3.8-million-character book opens at its middle in under half a second, and positions stay stable when the font changes.",
+        "Around it: a bookcase shelf with series and universes, highlights in five colours with notes, an offline WordNet dictionary, backups with merge or replace, Goodreads export, and a Moon Reader import. Version 0.2.1 is public under the MIT licence."
+      ],
+      "problem": "Reading your own book files on Android without cloud accounts, feeds, or slow, reflowing pages",
+      "approach": "Flutter with its own Dart EPUB engine (parser, paginator, page curl) and a patched Readium for PDF and comics, all local",
+      "outcome": "An open-source offline reader with sub-second opening, stable positions, and v0.2.1 released on GitHub",
+      "illustration": "app",
+      "content": []
+    },
+    {
+      "name": "Orbit — Local-First Finance System",
+      "period": "October 2026 – Present",
+      "summary": "Engineered an offline-first financial system with zero telemetry, accounts, budgets, trade journals with FIFO accounting, shared bill splits, and encrypted backups.",
+      "description": "Orbit is a private, offline-first personal financial operating system built in Flutter and Dart on a local SQLite database with an extensive automated test suite. It covers cash-flow and net-worth tracking across bank accounts, per-month budgets with rollups, investment trade journaling with FIFO profit/loss tracking, sinking funds with shortfall alerts, multi-party bill splitting with repayment tracking, biometric app lock, and encrypted passphrase backups (.orbk), keeping all financial data on the device with no cloud servers.",
+      "tech": [
+        "Flutter",
+        "Dart",
+        "SQLite",
+        "Local-First",
+        "Cryptography",
+        "Android"
+      ],
+      "publication": "Private Project",
+      "category": "product",
+      "rank": 3,
+      "lead": "Engineered a local-first personal financial operating system with zero telemetry, complete cash-flow tracking, investment journaling, and encrypted backups.",
+      "expanded": [
+        "Orbit was designed from a zero-cloud principle: sensitive financial records and account balances should never depend on third-party servers. I built it as a local-first mobile system with rigorous data safety and complete financial tracking.",
+        "The app handles day-to-day transactions, per-month category budgets, sinking funds with automated shortfall detection, and shared expense splitting with multi-party settlements and employer claim tracking.",
+        "It includes an investment tracker for stock and mutual fund trades with FIFO cost accounting and profit/loss, all stored in a versioned local SQLite database and protected by biometric lock, a recycle bin with undo, and encrypted passphrase backups."
+      ],
+      "problem": "Tracking personal finances, investments, and split expenses without exposing sensitive data to cloud servers",
+      "approach": "Flutter and Dart with a local SQLite database, FIFO trade accounting, automated tests, and encrypted offline backups",
+      "outcome": "A zero-cloud financial system with accounts, budgets, trade journals and shared splits, at release 0.4.2",
+      "illustration": "secure",
+      "content": []
+    },
+    {
       "name": "Vault Offline Secrets Manager",
       "period": "April 2026",
       "summary": "Built an Android-first offline encrypted vault for passwords, notes, recovery codes, API keys, cards, IDs, Wi-Fi secrets, and finance records.",
@@ -185,7 +243,7 @@
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/vault",
       "category": "product",
-      "rank": 2,
+      "rank": 4,
       "lead": "Built an Android-first offline encrypted vault for passwords, notes, recovery codes, API keys, cards, IDs, Wi-Fi secrets, and finance records.",
       "expanded": [
         "Vault is built around a strict privacy constraint: secrets should stay on the device, encrypted, and independent of account servers, analytics, cloud sync, or network access. That constraint shaped both the product scope and the implementation.",
@@ -201,34 +259,33 @@
     {
       "name": "Routine Manager",
       "period": "April 2026 – Present",
-      "summary": "Built a private daily system for habits, events, tasks, deadlines, and progress, shipped as a Postgres-backed PWA and Rise, a native Android app that keeps all data on the phone.",
-      "description": "Routine Manager is a private daily operating system that brings habits, timed events, all-day tasks, deadlines, progress logging, actual-time tracking, skips, vacations, groups, and day logs into one place. It runs as a mobile-friendly PWA backed by Postgres and Drizzle, and as Rise, a native Android app built with Expo and React Native that stores everything on-device in SQLite and reads steps, sleep, distance, and active calories directly from Health Connect.",
+      "summary": "Built a private daily system for habits, events, tasks, and progress, shipped as a Postgres-backed PWA and Rise, an offline native Android app with Health Connect sync.",
+      "description": "Routine Manager is a personal daily operating system that consolidates habits, timed events, all-day tasks, deadlines, progress metrics, actual-time tracking, skips, and day logs into one unified view. It runs as a mobile PWA backed by Postgres and Drizzle ORM, and as Rise, a native offline Android app built with Expo and React Native that stores all data locally in SQLite and syncs steps, sleep, distance, and calories directly via Android Health Connect without any external server or account.",
       "tech": [
+        "Expo",
+        "React Native",
+        "Android",
+        "Health Connect",
+        "SQLite",
         "Next.js 16",
         "React 19",
-        "TypeScript",
         "Postgres",
-        "Drizzle ORM",
-        "PWA",
-        "React Native",
-        "Expo",
-        "SQLite",
-        "Health Connect"
+        "TypeScript",
+        "Drizzle ORM"
       ],
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/routine-manager",
       "category": "product",
       "rank": 1,
-      "lead": "Built a private daily system for habits, events, tasks, deadlines, and progress, shipped as a Postgres-backed PWA and Rise, a native Android app that keeps all data on the phone.",
+      "lead": "Built a private daily productivity system for habits, events, tasks, and health metrics, shipped as a Postgres PWA and Rise, a native offline Android app with direct Health Connect sync.",
       "expanded": [
-        "Routine came from a very ordinary pain point: personal planning tools often split habits, tasks, calendars, and progress logs into separate workflows. I built it as a single daily operating system centered on a focused Today view.",
-        "The app models habits, completions, events, skips, groups, settings, vacations, and day logs as real data instead of loose client state. That made recurring schedules, progress units, actual-time tracking, and historical review feel dependable.",
-        "The web version is a private PWA that works well on mobile, supports passphrase protection and Health Connect webhook sync, and gives a self-hosted routine system enough structure to survive real daily use.",
-        "Rise is the native Android follow-up. It ports the same scheduling logic and data model to SQLite on the phone, drops the server and login entirely, reads health data straight from Health Connect, and adds JSON backup plus a one-time import from Postgres. Running both apps' logic against the same real data across 50 days produced identical results."
+        "Personal daily planning often breaks down when habits, calendars, deadlines, and fitness metrics are split across fragmented apps. I built Routine Manager to unify them into a cohesive, dependable Today view.",
+        "The system models habits, recurring schedules, skips, vacations, and historical day logs with a robust relational schema. The web version is a responsive PWA with optional passphrase access and webhook ingestion.",
+        "Rise is the native Android version built with Expo and React Native. It operates completely offline using SQLite on the phone, requires no login or server, reads steps, sleep, distance, and calories directly from Health Connect, and supports JSON backup and restore."
       ],
-      "problem": "Managing personal routines, tasks, deadlines, and progress in one private daily hub",
-      "approach": "Next.js and Postgres for the web; Expo, React Native, SQLite, and Health Connect for the Android app, sharing one Drizzle data layer",
-      "outcome": "A web PWA and an offline-first Android app running the same daily logic",
+      "problem": "Unifying habits, timed events, tasks, and health metrics into a private, offline-first daily workflow",
+      "approach": "Offline-first React Native Android app with SQLite and Health Connect, plus a companion Postgres PWA",
+      "outcome": "A serverless Android app (Rise) and web PWA running identical daily scheduling and habit logic",
       "illustration": "app",
       "content": []
     },
