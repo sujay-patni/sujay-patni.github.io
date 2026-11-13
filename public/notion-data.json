@@ -1,18 +1,18 @@
 {
   "_meta": {
-    "synced_at": "2026-11-13T08:57:06.847Z",
+    "synced_at": "2026-11-13T09:09:28.468Z",
     "source": "notion"
   },
   "config": {
     "active_design": "terminal",
     "currently_doing": "",
     "open_to_work": false,
-    "resume_path": "/SujayPatni_Resume_2026.pdf",
-    "resume_download_name": "SujayPatni_Resume_2026.pdf"
+    "resume_path": "/Sujay_Patni_Resume.pdf",
+    "resume_download_name": "Sujay_Patni_Resume.pdf"
   },
   "personal": {
     "name": "Sujay Patni",
-    "title": "Software Engineer",
+    "title": "Software Engineer II",
     "company": "OfBusiness",
     "tagline": "Hi, I'm Sujay.\n\nI'm a Software Engineer at OfBusiness and a Computer Science graduate from BITS Pilani. I enjoy building scalable backend systems, AI-powered applications, and software that solves real-world problems.\n\nOver the past few years, I've worked on products used by hundreds of thousands of users, built AI-driven automation platforms, designed microservices that support large-scale business operations, and contributed to research published in leading academic venues.\n\nMy experience spans Java, Spring Boot, distributed systems, AI agent workflows, search platforms, databases, and system design. What I enjoy most is understanding a problem from first principles and turning it into a solution that is reliable, scalable, and easy to use.\n\nWhether it's building an AI assistant, improving search experiences, designing backend services, or developing custom software solutions, I like working on products that create measurable impact and make people's lives easier.\n\nThis portfolio is a collection of the projects, products, research, and engineering challenges I've worked on throughout my journey as a developer.",
     "email": "sujaypatni@gmail.com",
@@ -25,17 +25,17 @@
     {
       "value": "2+ years",
       "label": "software engineering",
-      "note": "backend systems, AI applications, and production platforms"
+      "note": "backend systems, AI architectures, and production platforms"
     },
     {
-      "value": "20+ skills",
+      "value": "25+ skills",
       "label": "technical toolkit",
-      "note": "Java, Spring Boot, databases, search, AI workflows"
+      "note": "Java 21, Spring Boot, distributed systems, AI workflows"
     },
     {
       "value": "8 projects",
       "label": "built across domains",
-      "note": "productivity, reading, finance, security tools, automation, and research"
+      "note": "offline mobile apps, personal systems, developer tooling, and research"
     },
     {
       "value": "2 papers",
@@ -49,8 +49,8 @@
       "label": "Experience",
       "path": "~/experience",
       "eyebrow": "2+ years",
-      "title": "Software Engineer at OfBusiness",
-      "summary": "Backend infrastructure, AI support automation, supplier onboarding, and systems used in day-to-day business operations.",
+      "title": "Software Engineer II at OfBusiness",
+      "summary": "Buyer Platform architecture, in-JVM APM profiling, multi-agent AI tooling, and enterprise order systems.",
       "meta": "open experience"
     },
     {
@@ -59,7 +59,7 @@
       "path": "~/projects",
       "eyebrow": "8 projects",
       "title": "Products, tools, and research systems",
-      "summary": "Selected work across personal productivity, an offline reader, local-first finance, offline security, developer tooling, network analysis, and biometric authentication.",
+      "summary": "Selected work across local-first mobile apps (Rise, Orbit, Quill), offline security, developer tooling, and research.",
       "meta": "open projects"
     },
     {
@@ -77,31 +77,52 @@
       "path": "~/contact",
       "eyebrow": "email / links",
       "title": "Available for the right problems",
-      "summary": "Reach out for backend engineering, AI-powered product work, search experiences, or custom software projects.",
+      "summary": "Reach out for backend engineering, AI-powered systems, high-performance services, or custom software projects.",
       "meta": "open contact"
     }
   ],
   "experience": [
     {
-      "role": "Software Engineer",
+      "role": "Software Engineer II",
       "company": "OfBusiness (OFB Tech Pvt Ltd)",
-      "team": "Order Admin System",
+      "team": "Buyer Platform, Backend Architecture & AI Systems",
       "location": "Gurugram, Haryana",
-      "period": "July 2024 – Present",
-      "summary": "Building and scaling backend systems for OfBusiness's order operations — from AI-driven support to supplier onboarding — on a platform that moves crores in trade each month.",
+      "period": "July 2026 – Present",
+      "summary": "Leading backend architecture for the Buyer Platform revamp, engineering custom in-JVM APM instrumentation, and building multi-agent AI engineering workflows.",
       "bullets": [
-        "Increased customer inquiries handled by 120% by building Ved AI 2.0, an AI support assistant with intent detection that retrieves internal service data and auto-creates Zoho tickets.",
-        "Drove a 40% gain in team delivery efficiency by leading adoption of AI-agentic development (Claude Code, Antigravity) — building the supporting infrastructure and training engineers on best practices.",
-        "Onboarded 10,000+ suppliers by architecting a Supplier Portal microservice for self-onboarding, verification, and dashboard tracking.",
-        "Handled ₹50 Cr+ in monthly stock movement with a Stock Transfer & Invoicing System I helped design, with real-time status tracking and invoice generation."
+        "Led backend architecture for a complete Buyer Website Revamp, designing Spring Boot REST APIs, MySQL schemas, and enquiry-to-order workflows spanning draft organizations, sales-call tracking, and order conversion.",
+        "Engineered a custom in-JVM APM framework for clustered Java services, instrumenting p50/p95/p99 latency, SQL/N+1 queries, and upstream calls with Redis/MySQL aggregation at ~100 ns/request overhead.",
+        "Built a multi-agent engineering platform using Claude Code, Codex, and custom MCP tools for cross-repo analysis, coding, tests, and code reviews, improving team delivery efficiency by 40%."
       ],
-      "lead": "At OfBusiness, I work on backend systems that sit close to day-to-day order operations: AI-led support, supplier onboarding, stock movement, invoicing, and the internal workflows teams depend on when trade volume is high.",
+      "lead": "At OfBusiness, I lead backend architecture for the Buyer Platform and high-leverage developer systems, focusing on website revamp APIs, in-JVM performance profiling, and multi-agent AI tooling.",
       "expanded": [
-        "My current role is about turning operational friction into dependable backend systems. The work spans AI support automation, supplier self-onboarding, stock transfer flows, and invoice generation, all inside a commerce environment where reliability and speed matter because teams use these tools every day.",
-        "The biggest theme has been leverage. Ved AI 2.0 helped support teams handle a much larger inquiry load by detecting intent, retrieving internal service data, and creating Zoho tickets automatically. In parallel, I helped push AI-agentic development into the engineering workflow itself by setting up the supporting infrastructure and training engineers on practical usage.",
-        "On the platform side, I helped architect supplier onboarding and stock transfer systems that made heavy operational flows trackable, auditable, and easier to scale. The result is backend work that is not just technically solid, but visible in how quickly business teams can move."
+        "My work as Software Engineer II centers on architectural ownership and high-performance backend systems. I led the backend revamp of the Buyer Website, structuring Spring Boot services, database schemas, and workflows that take buyers from initial product discovery and sales inquiries through to completed orders.",
+        "To gain deep visibility into microservice performance without vendor bloat or heavy latency penalties, I engineered a custom in-JVM APM framework. It profiles p50/p95/p99 execution times, tracks N+1 SQL queries, and monitors upstream RPC dependencies with Redis and MySQL aggregation at roughly 100 nanoseconds per request overhead.",
+        "In parallel, I designed and rolled out our team's multi-agent engineering platform. By connecting Claude Code, OpenAI Codex, and bespoke Model Context Protocol (MCP) servers into internal codebases and review workflows, we reduced repetitive delivery overhead and improved team development velocity by 40%."
       ],
-      "focus": "Operational backend systems, AI automation, supplier workflows",
+      "focus": "Buyer platform architecture, in-JVM APM profiling, multi-agent AI systems",
+      "illustration": "systems"
+    },
+    {
+      "role": "Software Engineer I",
+      "company": "OfBusiness (OFB Tech Pvt Ltd)",
+      "team": "Order Admin System, Enterprise Microservices & AI",
+      "location": "Gurugram, Haryana",
+      "period": "July 2024 – June 2026",
+      "summary": "Built the VedAI 2.0 multilingual B2B commerce agent, cross-organization reconciliation engine, branch accounting microservices, and supplier onboarding.",
+      "bullets": [
+        "Built VedAI 2.0, a multilingual B2B commerce agent using Java 21, Spring AI, LLM tool calling, and hybrid RAG (Redis vectors + BM25) for real-time pricing, shipments, and support, increasing customer inquiries by 120%.",
+        "Designed a cross-organization ledger reconciliation engine from scratch, matching invoices through shared IDs and generating auditable mismatch reports with explanations for finance teams.",
+        "Architected multi-organization branch accounting for intercompany trade, stock transfers, and invoicing with real-time transaction tracking, handling ₹50 Cr+ in monthly stock movement.",
+        "Built a Supplier Portal microservice integrating self-onboarding, verification, and operational dashboards for 10,000+ suppliers."
+      ],
+      "lead": "As Software Engineer I, I owned core modules across the Order Admin System, bridging heavy transactional accounting with practical AI-driven support automation.",
+      "expanded": [
+        "My engineering focus was automating high-friction business operations. I built VedAI 2.0, an intelligent multilingual B2B commerce assistant powered by Java 21, Spring AI, LLM tool calling, and hybrid RAG (combining Redis semantic vector search with BM25 keyword matching) to serve live pricing, order tracking, and support, driving a 120% surge in handled customer inquiries.",
+        "On the financial engineering side, I designed an automated cross-organization ledger reconciliation engine that matches invoices across enterprise entities via shared transaction keys, generating auditable mismatch analysis and variance reports for finance teams.",
+        "I also architected multi-organization branch accounting for intercompany transfers and stock movements, supporting ₹50 Cr+ in monthly volume, and built the self-service Supplier Portal microservice used by over 10,000 suppliers."
+      ],
+      "focus": "B2B AI commerce agents, hybrid RAG, financial ledger reconciliation, branch accounting",
       "illustration": "systems"
     },
     {
@@ -186,7 +207,7 @@
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/quill",
       "category": "product",
-      "rank": 2,
+      "rank": 3,
       "lead": "Built an offline Android reader with its own EPUB engine, for people who keep their own book collection on their phone.",
       "expanded": [
         "Most Android readers either lock books into a cloud account or bury them in feeds. Quill is for readers with their own files who want a fast, calm and completely offline reader that keeps their place.",
@@ -203,27 +224,28 @@
       "name": "Orbit — Local-First Finance System",
       "period": "October 2026 – Present",
       "summary": "Engineered an offline-first financial system with zero telemetry, accounts, budgets, trade journals with FIFO accounting, shared bill splits, and encrypted backups.",
-      "description": "Orbit is a private, offline-first personal financial operating system built in Flutter and Dart on a local SQLite database with an extensive automated test suite. It covers cash-flow and net-worth tracking across bank accounts, per-month budgets with rollups, investment trade journaling with FIFO profit/loss tracking, sinking funds with shortfall alerts, multi-party bill splitting with repayment tracking, biometric app lock, and encrypted passphrase backups (.orbk), keeping all financial data on the device with no cloud servers.",
+      "description": "Orbit is a private, offline-first personal financial operating system built in Flutter and Dart, backed by a local SQLite database (13 schema migrations) and validated by 1,374 automated tests. It delivers complete cash-flow and net-worth tracking across bank accounts, per-month budgets with rollups, investment trade journaling with FIFO profit/loss tracking, sinking funds with automated shortfall alerts, multi-party bill splitting with repayment tracking, biometric app locking, and encrypted passphrase backups (.orbk) — keeping 100% of financial data on-device with zero cloud servers.",
       "tech": [
         "Flutter",
         "Dart",
         "SQLite",
         "Local-First",
         "Cryptography",
+        "Financial Modeling",
         "Android"
       ],
       "publication": "Private Project",
       "category": "product",
-      "rank": 3,
+      "rank": 2,
       "lead": "Engineered a local-first personal financial operating system with zero telemetry, complete cash-flow tracking, investment journaling, and encrypted backups.",
       "expanded": [
-        "Orbit was designed from a zero-cloud principle: sensitive financial records and account balances should never depend on third-party servers. I built it as a local-first mobile system with rigorous data safety and complete financial tracking.",
-        "The app handles day-to-day transactions, per-month category budgets, sinking funds with automated shortfall detection, and shared expense splitting with multi-party settlements and employer claim tracking.",
-        "It includes an investment tracker for stock and mutual fund trades with FIFO cost accounting and profit/loss, all stored in a versioned local SQLite database and protected by biometric lock, a recycle bin with undo, and encrypted passphrase backups."
+        "Orbit was designed from a zero-cloud principle: sensitive financial records and account balances should never depend on third-party servers or risk unauthorized exposure. I built Orbit as a local-first mobile system with rigorous data safety and complete financial tracking.",
+        "The app handles day-to-day transactions, custom per-month category budgets, sinking funds with automated shortfall detection, and shared expense splitting with multi-party settlements and employer claim tracking.",
+        "It features a full investment tracker supporting stock and mutual fund trade journaling with FIFO cost accounting and profit/loss calculations. All data is stored in a structured local SQLite database with 13 schema versions, protected by biometric lock, recycle bin with undo, and encrypted passphrase backups (.orbk)."
       ],
-      "problem": "Tracking personal finances, investments, and split expenses without exposing sensitive data to cloud servers",
-      "approach": "Flutter and Dart with a local SQLite database, FIFO trade accounting, automated tests, and encrypted offline backups",
-      "outcome": "A zero-cloud financial system with accounts, budgets, trade journals and shared splits, at release 0.4.2",
+      "problem": "Tracking comprehensive personal finances, investments, and split expenses without exposing sensitive data to cloud servers",
+      "approach": "Flutter and Dart with a local SQLite database, 1,374 automated tests, FIFO trade accounting, and encrypted offline backups",
+      "outcome": "A zero-cloud financial operating system with accounts, budgets, trade journals, shared splits, and 0.4.2 production releases",
       "illustration": "secure",
       "content": []
     },
@@ -257,7 +279,7 @@
       "content": []
     },
     {
-      "name": "Routine Manager",
+      "name": "Rise (Routine Manager)",
       "period": "April 2026 – Present",
       "summary": "Built a private daily system for habits, events, tasks, and progress, shipped as a Postgres-backed PWA and Rise, an offline native Android app with Health Connect sync.",
       "description": "Routine Manager is a personal daily operating system that consolidates habits, timed events, all-day tasks, deadlines, progress metrics, actual-time tracking, skips, and day logs into one unified view. It runs as a mobile PWA backed by Postgres and Drizzle ORM, and as Rise, a native offline Android app built with Expo and React Native that stores all data locally in SQLite and syncs steps, sleep, distance, and calories directly via Android Health Connect without any external server or account.",
@@ -305,7 +327,7 @@
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/notion-sync",
       "category": "tool",
-      "rank": 3,
+      "rank": 5,
       "lead": "Built a CLI tool that syncs recursive Notion page trees into GitHub repos as Markdown with local assets and rewritten internal links.",
       "expanded": [
         "notion-sync solves the gap between writing notes in Notion and preserving them as GitHub-friendly Markdown. The tool walks recursive page trees, mirrors the hierarchy as folders, and converts each page into a durable repository structure.",
@@ -334,7 +356,7 @@
       "publication": "GitHub Repository",
       "publicationUrl": "https://github.com/sujay-patni/claude-multi-account",
       "category": "tool",
-      "rank": 4,
+      "rank": 6,
       "lead": "Built a macOS shell utility that runs multiple Claude Code accounts side by side with separate OAuth state per account.",
       "expanded": [
         "Claude Code's macOS credential storage creates a practical workflow problem: different accounts still collide through the same Keychain-backed credential entry. Separate config directories alone do not fully isolate sessions.",
@@ -361,7 +383,7 @@
       ],
       "publication": null,
       "category": "research",
-      "rank": 6,
+      "rank": 8,
       "lead": "This project explored how to query high-speed network flow data more efficiently, using a 3-tier processing framework with nProbe exports and ClickHouse-backed analysis.",
       "expanded": [
         "Network flow data becomes difficult to inspect when packet-derived records arrive quickly and analysts need specific answers rather than raw dumps. I worked on a query-processing framework that made the path from flow export to analysis more structured and repeatable.",
@@ -389,7 +411,7 @@
       "publication": "Published in Elsevier: Internet of Things (Dec 2024)",
       "publicationUrl": "https://www.sciencedirect.com/science/article/abs/pii/S2542660524003159",
       "category": "research",
-      "rank": 5,
+      "rank": 7,
       "lead": "This research project used wearable PPG biosignals for continuous authentication, building an LSTM model that learned biometric patterns from sensor data collected across volunteers.",
       "expanded": [
         "The project explored authentication as a continuous signal instead of a one-time unlock. PPG data from wearable sensors carries physiological patterns over time, and the goal was to test whether those patterns could support identity verification.",
@@ -405,44 +427,51 @@
   ],
   "skills": [
     {
-      "category": "Databases",
+      "category": "Databases & Performance",
       "items": [
-        "SQL",
-        "MongoDB",
+        "JVM Profiling",
+        "SQLite",
+        "Caffeine",
+        "MySQL",
+        "RediSearch",
         "Elasticsearch",
         "Redis"
       ]
     },
     {
+      "category": "AI & Developer Tools",
+      "items": [
+        "Hybrid RAG",
+        "Model Context Protocol (MCP)",
+        "LLM Tool Calling",
+        "Codex",
+        "Linux",
+        "Spring AI",
+        "Git",
+        "Claude Code"
+      ]
+    },
+    {
       "category": "Languages",
       "items": [
-        "Java",
+        "Dart",
+        "TypeScript",
+        "Java 21",
         "C",
         "Python",
         "C++"
       ]
     },
     {
-      "category": "Backend & Frameworks",
+      "category": "Backend & Architecture",
       "items": [
         "Microservices",
         "System Design",
         "REST APIs",
-        "Hibernate",
-        "Agile",
-        "Spring Boot"
-      ]
-    },
-    {
-      "category": "Tools & Platforms",
-      "items": [
-        "AI Agentic Workflows",
-        "Antigravity",
-        "Postman",
-        "Linux",
-        "AI Automation",
-        "Git",
-        "Claude Code"
+        "JUnit",
+        "Hibernate / JPA",
+        "Distributed Systems",
+        "Spring Boot 3"
       ]
     }
   ],
